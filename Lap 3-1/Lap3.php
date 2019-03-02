@@ -53,8 +53,7 @@
 						}
 						?>
 					</select>
-				</td>
-				<td>
+					
 					<select name="thang">
 						<?php 
 						for ($i = 1; $i <=12; $i ++){
@@ -63,8 +62,7 @@
 						}
 						?>
 					</select>
-				</td>
-				<td>
+					
 					<select name="nam">
 						<?php 
 						for ($i = 0; $i <=1000; $i ++){
@@ -88,8 +86,7 @@
 						}
 						?>
 					</select>
-				</td>
-				<td>
+					
 					<select name="phut">
 						<?php 
 						for ($i = 0; $i <=60; $i ++){
@@ -98,8 +95,7 @@
 						}
 						?>
 					</select>
-				</td>
-				<td>
+					
 					<select name="giay">
 						<?php 
 						for ($i = 0; $i <=60; $i ++){
