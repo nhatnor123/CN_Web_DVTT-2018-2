@@ -4,7 +4,7 @@
 	<title>Ex 2.7.1</title>
 </head>
 <body>
-	<form action="action1.php" method="POST">
+	<form action="functionConvert.php" method="POST">
 		<br>
 		<input type="radio" name="pick" value="1" checked> radians to degrees
 		<br>

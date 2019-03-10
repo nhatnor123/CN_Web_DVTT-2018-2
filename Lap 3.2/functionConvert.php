@@ -4,7 +4,11 @@
 	$value = $_POST["value"];
 
 	$x = convert($value, $mode);
-	print($x);
+	if ($mode == 2){
+		print($value." degree = ".$x." radians");
+	} elseif ($mode == 1){
+		print($value." radians = ".$x." degree ");
+	}
 
 	function convert($value, $mode){
 		if ($mode == 1){
