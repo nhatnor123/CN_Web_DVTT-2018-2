@@ -75,33 +75,36 @@
 
 				if (date('d-m-Y',strtotime($birthday1))==$birthday1  &&date('d-m-Y',strtotime($birthday2))==$birthday2 )
 				{
-					print("<br>");
-					print("Ngày sinh nhập đúng");
-					print("<br>");
-					print("<br>");
+					if ($birthday2 == $birthday1){
+						print("2 ngày sinh trùng nhau !!! Vui lòng nhập lại");
+					} else {
+						print("<br>");
+						print("Ngày sinh nhập đúng");
+						print("<br>");
+						print("<br>");
 
-					print($name1." : ".date('l, F d, Y',strtotime($birthday1)));
-					print("<br>");
-					print($name2." : ".date('l, F d, Y',strtotime($birthday2)));
-					print("<br>");
-					print("<br>");
+						print($name1." : ".date('l, F d, Y',strtotime($birthday1)));
+						print("<br>");
+						print($name2." : ".date('l, F d, Y',strtotime($birthday2)));
+						print("<br>");
+						print("<br>");
 
-					$khoangcach = abs(round((strtotime($birthday2) - strtotime($birthday1))/86400));
-					print("Khoảng cách giữa ngày sinh của 2 người : ");
-					print($khoangcach);
-					print(" ngày <br><br>	");
-					
-					$now = time();
-					$tuoi1 = abs( round( (strtotime(date("d-m-Y",$now))- strtotime($birthday1)  ) /31536000 ) );
-					$tuoi2 = abs( round( (strtotime(date("d-m-Y",$now))- strtotime($birthday2)  ) /31536000 ) );
-					print("Tuổi của ".$name1." là : ".$tuoi1." tuổi"."<br>");
-					print("Tuổi của ".$name2." là : ".$tuoi2." tuổi"."<br>");
-					print("Khoảng cách tuổi giữa 2 người : ".(abs($tuoi1-$tuoi2)). " tuổi");
+						$khoangcach = abs(round((strtotime($birthday2) - strtotime($birthday1))/86400));
+						print("Khoảng cách giữa ngày sinh của 2 người : ");
+						print($khoangcach);
+						print(" ngày <br><br>	");
 
+						$now = time();
+						$tuoi1 = abs( round( (strtotime(date("d-m-Y",$now))- strtotime($birthday1)  ) /31536000 ) );
+						$tuoi2 = abs( round( (strtotime(date("d-m-Y",$now))- strtotime($birthday2)  ) /31536000 ) );
+						print("Tuổi của ".$name1." là : ".$tuoi1." tuổi"."<br>");
+						print("Tuổi của ".$name2." là : ".$tuoi2." tuổi"."<br>");
+						print("Khoảng cách tuổi giữa 2 người : ".(abs($tuoi1-$tuoi2)). " tuổi");
+					}
 				} else {
 					print("Ngày sinh nhập sai !!! Vui lòng nhập lại");
 				}
-
+				
 			}
 
 			?>
