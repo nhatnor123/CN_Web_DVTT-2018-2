@@ -5,7 +5,7 @@
 		$numberFile = $_POST['chooseNumberFile'];
 		$file_upload = array();
 		if ( ($numberFile> 0)&&(isset($_FILES['fileUpload']))) {
-			if(count($_FILES['fileUpload']['name']) < $numberFile){
+			if(count($_FILES['fileUpload']['name']) <= $numberFile){
 				foreach ($_FILES['fileUpload']['name'] as $key => $value) {
 					$file_name = $_FILES['fileUpload']['name'][$key];
 					$tmp_name = $_FILES['fileUpload']['tmp_name'][$key];
