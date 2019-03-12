@@ -3,21 +3,26 @@
 
 	if (isset($_POST['uploadClick'])) {
 		$numberFile = $_POST['chooseNumberFile'];
-		$file_upload = array();
+		
 		if ( ($numberFile> 0)&&(isset($_FILES['fileUpload']))) {
+			$file_upload = array();
 			if(count($_FILES['fileUpload']['name']) <= $numberFile){
 				foreach ($_FILES['fileUpload']['name'] as $key => $value) {
 					$file_name = $_FILES['fileUpload']['name'][$key];
 					$tmp_name = $_FILES['fileUpload']['tmp_name'][$key];
+					$file_size = $_FILES['fileUpload']['size'][$key];
+					$file_upload_date = date('d/m/Y');
+
+					$info_upload_file = $file_name ."-". $file_size ."-". $file_upload_date;
 
 					$target_dir = "upload/";
 					$target_dir = $target_dir.$file_name;
 
 					move_uploaded_file($tmp_name, $target_dir);
-					array_push($file_upload, $file_name);
+					$file_upload[] = $info_upload_file;
 				}
 			}else{
-				echo "số file upload lớn hơn số file đã chọn";
+				echo "bạn đã chọn số file upload lớn hơn số file đã chọn, mời chọn lại";
 			}
 			
 		}else {
@@ -47,9 +52,15 @@
 		</select></p><br>
 
 		<p><input type="file" name="fileUpload[]" multiple="true"></p><br>
-		<p><input type="submit" name="uploadClick" value="upload"></p>
+		<p><input type="submit" name="uploadClick" value="upload">
+			<a href="View_list_fileUpload.php">Xem danh sách file đã upload</a>
+		</p>
+		
 	</form><hr>
 	<div>
+		<?php
+		if(isset($_POST['uploadClick'])){ 
+		?>
 		<p>các file đã được upload là:</p>
 		<div>
 			<?php
@@ -60,6 +71,7 @@
 				}
 			?>
 		</div>
+		<?php } ?>
 	</div>
 </body>
 </html>
