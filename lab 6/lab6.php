@@ -1,32 +1,4 @@
-<?php
-		$servername = "localhost";
-		$database = "business_service";
-		$username = "root";
-		$password = "";
 
-		$conn = mysqli_connect($servername, $username, $password, $database);
-
-		if (!$conn) {
-	    	die("Kết nối thất bại: " . mysqli_connect_error());
-		}else{
-			if(isset($_POST['add_category'])){
-				$category_name = $_POST['category_name'];
-				$category_title = $_POST['category_title'];
-				$category_description = $_POST['category_description'];
-
-				$sql = "INSERT INTO categories
-		        VALUES ('$category_name', '$category_title','$category_description')";
-
-		        if (mysqli_query($conn, $sql)) {
-				    echo "Thêm thành công";
-				} else {
-				    echo "Lỗi: " . $sql . "<br>" . mysqli_error($conn);
-				}
-				mysqli_close($conn);
-			}
-		}
-	
-?>
 
 <!DOCTYPE html>
 <html>
@@ -52,6 +24,40 @@
 			    <form action="" method="POST">
 			    	<tbody>
 			    		<?php 
+
+			    		$servername = "localhost";
+						$database = "business_service";
+						$username = "root";
+						$password = "";
+
+						$conn = mysqli_connect($servername, $username, $password, $database);
+
+						if (!$conn) {
+					    	die("Kết nối thất bại: " . mysqli_connect_error());
+						}else{
+							if(isset($_POST['add_category'])){
+								$category_name = $_POST['category_name'];
+								$category_title = $_POST['category_title'];
+								$category_description = $_POST['category_description'];
+								if($category_name == null || $category_title == null || $category_description == null) {
+									echo "Bạn chưa điền đủ thông tin";
+								}
+								else {
+									$sql = "INSERT INTO categories
+							        VALUES ('$category_name', '$category_title','$category_description')";
+
+							        if (mysqli_query($conn, $sql)) {
+									    echo "Thêm thành công";
+									} else {
+									    echo "Lỗi: " . $sql . "<br>" . mysqli_error($conn);
+									}
+								}
+								
+								//mysqli_close($conn);
+							}
+						}
+
+
 			    		$sql = "SELECT * FROM categories";
 
 			    		$result = mysqli_query($conn, $sql);
@@ -62,7 +68,9 @@
 	        				<td><?php echo $row['Title'] ?></td>
 	        				<td><?php echo $row['Description'] ?></td>
 	      				</tr>
-	      				<?php } ?>
+	      				<?php } 
+	      					mysqli_close($conn);
+	      				?>
 	      				<tr>
 							<td><input type="text" name="category_name"></td>
 							<td><input type="text" name="category_title"></td>
