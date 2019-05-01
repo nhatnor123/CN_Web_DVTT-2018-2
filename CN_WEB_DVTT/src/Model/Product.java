@@ -1,80 +1,96 @@
 package Model;
+
+import java.util.ArrayList;
 import java.util.List;
+
 public class Product {
 	private int id;
 	private String name;
 	private int price;
+	private String avatar;
 	private String description;
-	private List<ProductImage> listImage;
-	private List<ProductSize> listSize;
-	private List<ProductColor> listColor;
-	private Category category;
-	
+	private int category_id;
+	private String size;
+	private String color;
+
 	public Product() {
-		
 	}
-	public Product(int id, String name, int price, String description, List<ProductImage> listImage,
-			List<ProductSize> listSize, List<ProductColor> listColor, Category category) {
+
+	public Product(int id, String name, int price, String avatar, String description, int category_id, String size,
+			String color) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.avatar = avatar;
 		this.description = description;
-		this.listImage = listImage;
-		this.listSize = listSize;
-		this.listColor = listColor;
-		this.category = category;
+		this.category_id = category_id;
+		this.size = size;
+		this.color = color;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public int getPrice() {
 		return price;
 	}
+
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public List<ProductImage> getListImage() {
-		return listImage;
+
+	public int getCategory_id() {
+		return category_id;
 	}
-	public void setListImage(List<ProductImage> listImage) {
-		this.listImage = listImage;
+
+	public void setCategory_id(int category_id) {
+		this.category_id = category_id;
 	}
-	public List<ProductSize> getListSize() {
-		return listSize;
+
+	public String getSize() {
+		return size;
 	}
-	public void setListSize(List<ProductSize> listSize) {
-		this.listSize = listSize;
+
+	public void setSize(String size) {
+		this.size = size;
 	}
-	public List<ProductColor> getListColor() {
-		return listColor;
+
+	public String getColor() {
+		return color;
 	}
-	public void setListColor(List<ProductColor> listColor) {
-		this.listColor = listColor;
+
+	public void setColor(String color) {
+		this.color = color;
 	}
-	public Category getCategory() {
-		return category;
-	}
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-	
-	
-	
-	
+
 }
