@@ -56,21 +56,21 @@
 										class="form-inline d-block d-lg-flex justify-content-between flex-column flex-md-row">
 										<div class="products-number">
 											<strong>Show</strong><a id="5"
-												href="/CN_WEB_DVTT/User/CategoryController?category_id=<%=request.getParameter("category_id")%>&sex=<%=request.getParameter("sex")%>&page=1&maxInEachPage=5&sortMode=<%=sortMode %>" 
+												href="/CN_WEB_DVTT/User/SearchCategoryController?str=<%=request.getParameter("str")%>&page=1&maxInEachPage=5&sortMode=<%=sortMode %>" 
 												class="btn btn-sm <% if (maxInEachPage == 5) out.print("btn-primary"); else out.print("btn-outline-secondary"); %>">5</a><a
-												href="/CN_WEB_DVTT/User/CategoryController?category_id=<%=request.getParameter("category_id")%>&sex=<%=request.getParameter("sex")%>&page=1&maxInEachPage=20&sortMode=<%=sortMode %>"
+												href="/CN_WEB_DVTT/User/SearchCategoryController?str=<%=request.getParameter("str")%>&page=1&maxInEachPage=20&sortMode=<%=sortMode %>"
 												class="btn btn-sm <% if (maxInEachPage == 20) out.print("btn-primary"); else out.print("btn-outline-secondary"); %> ">20</a><a
-												href="/CN_WEB_DVTT/User/CategoryController?category_id=<%=request.getParameter("category_id")%>&sex=<%=request.getParameter("sex")%>&page=1&maxInEachPage=1000&sortMode=<%=sortMode %>"
+												href="/CN_WEB_DVTT/User/SearchCategoryController?str=<%=request.getParameter("str")%>&page=1&maxInEachPage=1000&sortMode=<%=sortMode %>"
 												class="btn btn-sm <% if (maxInEachPage == 1000) out.print("btn-primary"); else out.print("btn-outline-secondary"); %> ">All</a><span>products</span>
 										</div>
 										<div class="products-sort-by mt-2 mt-lg-0">
 											<strong>Sort by</strong> <select name="sort-by"
 												class="form-control" id="sortMode">
-												<option value="CategoryController?category_id=<%=request.getParameter("category_id")%>&sex=<%=request.getParameter("sex")%>&page=1&maxInEachPage=<%=request.getParameter("maxInEachPage") %>&sortMode=1"   <%if (sortMode == 1) out.print("selected"); %>>Giá từ thấp đến cao</option>
-												<option value ="CategoryController?category_id=<%=request.getParameter("category_id")%>&sex=<%=request.getParameter("sex")%>&page=1&maxInEachPage=<%=request.getParameter("maxInEachPage") %>&sortMode=2"  <%if (sortMode == 2) out.print("selected"); %>>Giá từ cao đến thấp</option>
-												<option value = "CategoryController?category_id=<%=request.getParameter("category_id")%>&sex=<%=request.getParameter("sex")%>&page=1&maxInEachPage=<%=request.getParameter("maxInEachPage") %>&sortMode=3"  <%if (sortMode == 3) out.print("selected"); %>>Tên A-Z</option>
-												<option value = "CategoryController?category_id=<%=request.getParameter("category_id")%>&sex=<%=request.getParameter("sex")%>&page=1&maxInEachPage=<%=request.getParameter("maxInEachPage") %>&sortMode=4" <%if (sortMode == 4) out.print("selected"); %>>Tên Z-A</option>
-												<option value = "CategoryController?category_id=<%=request.getParameter("category_id")%>&sex=<%=request.getParameter("sex")%>&page=1&maxInEachPage=<%=request.getParameter("maxInEachPage") %>&sortMode=5"  <%if (sortMode == 5) out.print("selected"); %>>Sản phẩm bán chạy nhất</option>
+												<option value = "SearchCategoryController?str=<%=request.getParameter("str")%>&page=1&maxInEachPage=<%=request.getParameter("maxInEachPage") %>&sortMode=1"   <%if (sortMode == 1) out.print("selected"); %>>Giá từ thấp đến cao</option>
+												<option value = "SearchCategoryController?str=<%=request.getParameter("str")%>&page=1&maxInEachPage=<%=request.getParameter("maxInEachPage") %>&sortMode=2"  <%if (sortMode == 2) out.print("selected"); %>>Giá từ cao đến thấp</option>
+												<option value = "SearchCategoryController?str=<%=request.getParameter("str")%>&page=1&maxInEachPage=<%=request.getParameter("maxInEachPage") %>&sortMode=3"  <%if (sortMode == 3) out.print("selected"); %>>Tên A-Z</option>
+												<option value = "SearchCategoryController?str=<%=request.getParameter("str")%>&page=1&maxInEachPage=<%=request.getParameter("maxInEachPage") %>&sortMode=4" <%if (sortMode == 4) out.print("selected"); %>>Tên Z-A</option>
+												<option value = "SearchCategoryController?str=<%=request.getParameter("str")%>&page=1&maxInEachPage=<%=request.getParameter("maxInEachPage") %>&sortMode=5"  <%if (sortMode == 5) out.print("selected"); %>>Sản phẩm bán chạy nhất</option>
 												
 											</select>
 											<script>
@@ -150,21 +150,21 @@
 										int totalPage = ((Integer) request.getAttribute("numberOfPage")).intValue();
 										int currentPage = Integer.parseInt(request.getParameter("page"));
 										if (currentPage ==1){
-											out.print("<li class='page-item'><a href='/CN_WEB_DVTT/User/CategoryController?category_id="+ request.getParameter("category_id")+"&sex="+request.getParameter("sex")+"&page=1&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' aria-label='Previous' class='page-link'><span aria-hidden='true'>«</span><span class='sr-only'>Previous</span></a></li>");
+											out.print("<li class='page-item'><a href='/CN_WEB_DVTT/User/SearchCategoryController?str="+ request.getParameter("str")+"&page=1&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' aria-label='Previous' class='page-link'><span aria-hidden='true'>«</span><span class='sr-only'>Previous</span></a></li>");
 										} else {
-											out.print("<li class='page-item'><a href='/CN_WEB_DVTT/User/CategoryController?category_id="+ request.getParameter("category_id")+"&sex="+request.getParameter("sex")+"&page="+(currentPage-1)+"&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' aria-label='Previous' class='page-link'><span aria-hidden='true'>«</span><span class='sr-only'>Previous</span></a></li>");
+											out.print("<li class='page-item'><a href='/CN_WEB_DVTT/User/SearchCategoryController?str="+ request.getParameter("str")+"&page="+(currentPage-1)+"&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' aria-label='Previous' class='page-link'><span aria-hidden='true'>«</span><span class='sr-only'>Previous</span></a></li>");
 										}
 										for (int i = 1; i <= totalPage; i++) {
 											if (i!= currentPage){
-												out.print("<li class='page-item'><a href='/CN_WEB_DVTT/User/CategoryController?category_id="+ request.getParameter("category_id")+"&sex="+request.getParameter("sex")+"&page="+i+"&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' class='page-link'>" + i + "</a></li>");
+												out.print("<li class='page-item'><a href='/CN_WEB_DVTT/User/SearchCategoryController?str="+ request.getParameter("str")+"&page="+i+"&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' class='page-link'>" + i + "</a></li>");
 											} else {
-												out.print("<li class='page-item active'><a href='/CN_WEB_DVTT/User/CategoryController?category_id="+ request.getParameter("category_id")+"&sex="+request.getParameter("sex")+"&page="+i+"&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' class='page-link'  >" + i + "</a></li>");
+												out.print("<li class='page-item active'><a href='/CN_WEB_DVTT/User/SearchCategoryController?str="+ request.getParameter("str")+"&page="+i+"&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' class='page-link'  >" + i + "</a></li>");
 											}
 										}
 										if (currentPage ==totalPage){
-											out.print("<li class='page-item'><a href='/CN_WEB_DVTT/User/CategoryController?category_id="+ request.getParameter("category_id")+"&sex="+request.getParameter("sex")+"&page="+(currentPage)+"&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' aria-label='Previous' class='page-link'><span aria-hidden='true'>»</span><span class='sr-only'>Next</span></a></li>");
+											out.print("<li class='page-item'><a href='/CN_WEB_DVTT/User/SearchCategoryController?str="+ request.getParameter("str")+"&page="+(currentPage)+"&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' aria-label='Previous' class='page-link'><span aria-hidden='true'>»</span><span class='sr-only'>Next</span></a></li>");
 										} else {
-											out.print("<li class='page-item'><a href='/CN_WEB_DVTT/User/CategoryController?category_id="+ request.getParameter("category_id")+"&sex="+request.getParameter("sex")+"&page="+(currentPage+1)+"&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' aria-label='Previous' class='page-link'><span aria-hidden='true'>»</span><span class='sr-only'>Next</span></a></li>");
+											out.print("<li class='page-item'><a href='/CN_WEB_DVTT/User/SearchCategoryController?str="+ request.getParameter("str")+"&page="+(currentPage+1)+"&maxInEachPage="+request.getParameter("maxInEachPage")+"&sortMode="+sortMode+"' aria-label='Previous' class='page-link'><span aria-hidden='true'>»</span><span class='sr-only'>Next</span></a></li>");
 										}
 										
 									%>

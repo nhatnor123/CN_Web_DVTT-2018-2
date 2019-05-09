@@ -88,11 +88,13 @@ public class CategoryController extends HttpServlet {
 			int page = Integer.parseInt(request.getParameter("page"));
 			int maxInEachPage = Integer.parseInt(request.getParameter("maxInEachPage"));
 			int idCategory = Integer.parseInt(category_id);
+			int modeSort = Integer.parseInt(request.getParameter("sortMode"));
 //			System.out.println(page + " " + maxInEachPage);
-			listProductByCategory = productDAO.getListProductByCategoryAndPage(idCategory, page, maxInEachPage);
+			listProductByCategory = productDAO.getListProductByCategoryAndPage(idCategory, page, maxInEachPage,
+					modeSort);
 
-			Integer numberOfPage =  productDAO.getNumberOfPageListProductByCategory(idCategory, maxInEachPage);
-			
+			Integer numberOfPage = productDAO.getNumberOfPageListProductByCategory(idCategory, maxInEachPage);
+
 			request.setAttribute("numberOfPage", numberOfPage);
 			request.setAttribute("listProductByCategory", listProductByCategory);
 			request.setAttribute("sexCategory", sex);

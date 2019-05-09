@@ -168,7 +168,7 @@
 
 
 												<li class="nav-item"><a
-													href="/CN_WEB_DVTT/User/CategoryController?category_id=<%=c.getId()%>&sex=<%=c.getSex()%>&page=1&maxInEachPage=5"
+													href="/CN_WEB_DVTT/User/CategoryController?category_id=<%=c.getId()%>&sex=<%=c.getSex()%>&page=1&maxInEachPage=5&sortMode=1"
 													class="nav-link"><%=c.getName()%></a></li>
 
 												<%
@@ -192,7 +192,7 @@
 
 
 												<li class="nav-item"><a
-													href="/CN_WEB_DVTT/User/CategoryController?category_id=<%=c.getId()%>&sex=<%=c.getSex()%>&page=1&maxInEachPage=5"
+													href="/CN_WEB_DVTT/User/CategoryController?category_id=<%=c.getId()%>&sex=<%=c.getSex()%>&page=1&maxInEachPage=5&sortMode=1"
 													class="nav-link"><%=c.getName()%></a></li>
 
 												<%
@@ -252,16 +252,39 @@
 			<div class="container">
 				<form role="search" class="ml-auto">
 					<div class="input-group">
-						<input type="text" placeholder="Search" class="form-control">
+						<input type="text" placeholder="Search" class="form-control"
+							id="search123" onkeyup="showResult()">
 						<div class="input-group-append">
-							<button type="button" class="btn btn-primary">
+							<button type="button" class="btn btn-primary" id="searchButton">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
 					</div>
+					<div class="list-group" id="divShowResult"></div>
+
 				</form>
 			</div>
 		</div>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+			function showResult() {
+				var str = $("#search123").val();
+				if (str.length > 0) {
+					$.get("ajax/search?str=" + str, function(data) {
+						$("#divShowResult").html(data);
+					});
+				} else {
+					$("#divShowResult").html("");
+				}
+			}
+			$("searchButton").click(){
+				var str = $("#search123").val();
+				if (str){
+					window.location = "SearchCategoryController?str="+str+"&page=1&maxInEachPage=5&sortMode=1";
+				}
+			}
+		</script>
 	</header>
 </body>
 </html>
