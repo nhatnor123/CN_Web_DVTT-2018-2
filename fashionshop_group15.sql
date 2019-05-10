@@ -529,7 +529,7 @@ ALTER TABLE `comments`
   ADD CONSTRAINT `comments_id_foreign` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `comments_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE;
 
---
+--products
 -- Các ràng buộc cho bảng `orders`
 --
 ALTER TABLE `orders`
