@@ -1,3 +1,5 @@
+<%@page import="Model.Product"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -49,7 +51,7 @@
 						<div class="box info-bar">
 							<div class="row">
 								<div class="col-md-12 col-lg-4 products-showing">
-									Showing <strong>12</strong> of <strong>25</strong> products
+									Showing <strong><% out.print(request.getAttribute("showing")); %></strong> of <strong><% out.print(request.getAttribute("total")); %></strong> products
 								</div>
 								<div class="col-md-12 col-lg-7 products-number-sort">
 									<form

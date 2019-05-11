@@ -28,40 +28,40 @@ public class SearchCategoryController extends HttpServlet {
 		}
 	}
 
-	private void getListProductByPage1(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, ServletException, IOException {
-		ProductDAO productDAO = new ProductDAO();
-		CategoryDAO categoryDAO = new CategoryDAO();
-		ArrayList<Category> listCategory = categoryDAO.getListCategory();
-
-		System.out.println("search list prd ");
-		request.getServletContext().setAttribute("listCategory", listCategory);
-		ArrayList<Product> listProductByCategory = new ArrayList<Product>();
-		String category_id = "";
-		String sex = "";
-		System.out.println("search list prd by page");
-		System.out.println(request.getParameter("strSearch"));
-		if (request.getParameter("strSearch") != null ) {
-			String str = request.getParameter("strSearch");
-			
-			
-			
-//			System.out.println(page + " " + maxInEachPage);
-			listProductByCategory = productDAO.searchListProductByCategoryAndPage(str, 1, 5, 1);
-
-			Integer numberOfPage = productDAO.getNumberOfPageListProductBySearchCategory(str, 5);
-
-			request.setAttribute("numberOfPage", numberOfPage);
-			request.setAttribute("listProductByCategory", listProductByCategory);
-			request.setAttribute("sexCategory", sex);
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("search.jsp");
-			dispatcher.forward(request, response);
-		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
-		}
-	}
+//	private void getListProductByPage1(HttpServletRequest request, HttpServletResponse response)
+//			throws SQLException, ServletException, IOException {
+//		ProductDAO productDAO = new ProductDAO();
+//		CategoryDAO categoryDAO = new CategoryDAO();
+//		ArrayList<Category> listCategory = categoryDAO.getListCategory();
+//
+//		System.out.println("search list prd ");
+//		request.getServletContext().setAttribute("listCategory", listCategory);
+//		ArrayList<Product> listProductByCategory = new ArrayList<Product>();
+//		String category_id = "";
+//		String sex = "";
+//		System.out.println("search list prd by page");
+//		System.out.println(request.getParameter("strSearch"));
+//		if (request.getParameter("strSearch") != null ) {
+//			String str = request.getParameter("strSearch");
+//			
+//			
+//			
+////			System.out.println(page + " " + maxInEachPage);
+//			listProductByCategory = productDAO.searchListProductByCategoryAndPage(str, 1, 5, 1);
+//
+//			Integer numberOfPage = productDAO.getNumberOfPageListProductBySearchCategory(str, 5);
+//
+//			request.setAttribute("numberOfPage", numberOfPage);
+//			request.setAttribute("listProductByCategory", listProductByCategory);
+//			request.setAttribute("sexCategory", sex);
+//
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("search.jsp");
+//			dispatcher.forward(request, response);
+//		} else {
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+//			dispatcher.forward(request, response);
+//		}
+//	}
 	
 	private void getListProductByPage2(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
@@ -90,8 +90,11 @@ public class SearchCategoryController extends HttpServlet {
 //			System.out.println(page + " " + maxInEachPage);
 			listProductByCategory = productDAO.searchListProductByCategoryAndPage(str, page, maxInEachPage, modeSort);
 
-			Integer numberOfPage = productDAO.getNumberOfPageListProductBySearchCategory(str, maxInEachPage);
-
+			Integer numberOfPage = productDAO.getSizeListProductBySearchCategory(str, maxInEachPage)/maxInEachPage+1;
+			
+			request.setAttribute("showing", listProductByCategory.size());
+			request.setAttribute("total", productDAO.getSizeListProductBySearchCategory(str, maxInEachPage));
+			
 			request.setAttribute("numberOfPage", numberOfPage);
 			request.setAttribute("listProductByCategory", listProductByCategory);
 			request.setAttribute("sexCategory", sex);

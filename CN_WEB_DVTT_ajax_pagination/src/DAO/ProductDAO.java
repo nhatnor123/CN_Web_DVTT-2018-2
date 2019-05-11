@@ -234,7 +234,7 @@ public class ProductDAO {
 		return listByPage;
 	}
 
-	public int getNumberOfPageListProductBySearchCategory(String str, int maxInEachPage) throws SQLException {
+	public int getSizeListProductBySearchCategory(String str, int maxInEachPage) throws SQLException {
 		Connection connection = DBConnection.getConnection();
 //		String sql2 = "SELECT * FROM `database`.products WHERE category_id = '" + category_id + "' LIMIT '"
 //				+ page * maxInEachPage + "' , '" + maxInEachPage + "'";
@@ -253,7 +253,7 @@ public class ProductDAO {
 			product.setCategory_id(rs.getInt("category_id"));
 			list.add(product);
 		}
-		return (list.size()) / maxInEachPage + 1;
+		return (list.size()) ;
 	}
 
 }

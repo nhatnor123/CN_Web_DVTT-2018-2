@@ -92,7 +92,10 @@ public class CategoryController extends HttpServlet {
 //			System.out.println(page + " " + maxInEachPage);
 			listProductByCategory = productDAO.getListProductByCategoryAndPage(idCategory, page, maxInEachPage,
 					modeSort);
-
+			int total = productDAO.getListProductByCategory(idCategory).size();
+			request.setAttribute("showing", listProductByCategory.size());
+			request.setAttribute("total", total);
+			
 			Integer numberOfPage = productDAO.getNumberOfPageListProductByCategory(idCategory, maxInEachPage);
 
 			request.setAttribute("numberOfPage", numberOfPage);
