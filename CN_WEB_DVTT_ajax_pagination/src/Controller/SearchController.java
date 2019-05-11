@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.*;
 
 import DAO.ProductDAO;
 import Model.Product;
@@ -21,6 +20,7 @@ public class SearchController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		req.setCharacterEncoding("UTF-8");
 		PrintWriter out = resp.getWriter();
 		resp.setCharacterEncoding("UTF-8");
 		String str = req.getParameter("str");
@@ -52,17 +52,5 @@ public class SearchController extends HttpServlet {
 //		String result = gson.toJson(listPrd);
 //		out.print(result);
 
-	}
-
-	public static void main(String[] args) {
-		Gson gsonBuilder = new GsonBuilder().create();
-		// Convert Java Array into JSON
-		ArrayList<String> languagesArrayList = new ArrayList();
-		languagesArrayList.add("Russian");
-		languagesArrayList.add("English");
-		languagesArrayList.add("French");
-		String jsonFromJavaArrayList = gsonBuilder.toJson(languagesArrayList);
-		System.out.println(jsonFromJavaArrayList);
-		System.out.println(languagesArrayList);
 	}
 }

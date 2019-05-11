@@ -1,3 +1,4 @@
+
 <%@page import="Model.Category"%>
 <%@page import="DAO.CategoryDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -250,12 +251,12 @@
 		</nav>
 		<div id="search" class="collapse">
 			<div class="container">
-				<form role="search" class="ml-auto">
+				<form  role="search" class="ml-auto" >
 					<div class="input-group">
 						<input type="text" placeholder="Search" class="form-control"
-							id="search123" onkeyup="showResult()">
+							id="search123" onkeyup="showResult()" >
 						<div class="input-group-append">
-							<button type="button" class="btn btn-primary" id="searchButton">
+							<button type="button" class="btn btn-primary"  onclick="searchButton()" >
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
@@ -278,13 +279,17 @@
 					$("#divShowResult").html("");
 				}
 			}
-			$("searchButton").click(){
+		</script>
+		<script >
+			function searchButton(){
 				var str = $("#search123").val();
-				if (str){
-					window.location = "SearchCategoryController?str="+str+"&page=1&maxInEachPage=5&sortMode=1";
+				if (str.length > 0 ){
+					//alert("SearchCategoryController?str="+str+"&page=1&maxInEachPage=20&sortMode=1");
+					window.location = "SearchCategoryController?str="+str+"&page=1&maxInEachPage=20&sortMode=1";
 				}
 			}
 		</script>
+		
 	</header>
 </body>
 </html>
