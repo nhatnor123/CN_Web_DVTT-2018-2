@@ -91,4 +91,20 @@ public class OrderDetailDao {
 		
 	}
 	
+	public boolean deleteByOrderId(int orderId) {
+		Connection cons = DBConnection.getConnection();
+		String sql = "DELETE FROM order_details WHERE product_id = ?";
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			ps.setInt(1, orderId);
+			ps.execute();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 }

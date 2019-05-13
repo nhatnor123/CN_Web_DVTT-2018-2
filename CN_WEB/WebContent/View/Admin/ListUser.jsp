@@ -43,8 +43,8 @@
 </head>
 <body class="skin-blue">
 	<div class="wrapper">
-		<%@ include file="common/Header.jsp"%>
-		<%@ include file="common/Sidebar.jsp"%>
+		<%@ include file="Header.jsp"%>
+		<%@ include file="Sidebar.jsp"%>
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
@@ -145,7 +145,7 @@
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
-		<%@ include file="common/Footer.jsp"%>
+		<%@ include file="Footer.jsp"%>
 
 	</div>
 	<!-- jQuery 2.1.3 -->

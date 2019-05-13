@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,9 @@ public class Product {
 	private int category_id;
 	private String size;
 	private String color;
+	private int quantity;
+	private Timestamp created_at;
+	private Timestamp updated_at;
 
 	public Product() {
 	}
@@ -91,6 +95,29 @@ public class Product {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public Timestamp getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Timestamp create_at) {
+		this.created_at = create_at;
+	}
+
+	public Timestamp getUpdated_at() {
+		return updated_at;
+	}
+
+	public void setUpdate_at(Timestamp updated_at) {
+		this.updated_at = updated_at;
 	}
 
 }

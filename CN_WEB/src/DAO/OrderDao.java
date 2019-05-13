@@ -135,4 +135,9 @@ public class OrderDao {
 		return false;
 	}
 	
+	public static void main(String[] args) {
+		ArrayList<Order> listOrder = (ArrayList<Order>) new OrderDao().getListOrder();
+		System.out.println(listOrder.get(0).getAddress());
+	}
+	
 }
