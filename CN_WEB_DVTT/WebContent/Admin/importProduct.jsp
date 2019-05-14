@@ -10,17 +10,7 @@
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
-<!-- Bootstrap 3.3.2 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
 </head>
 <body class="skin-blue">
 	<div class="wrapper">
@@ -32,33 +22,64 @@
 				<h1>
 					Kho sản phẩm <small style="color: red">${mes }</small>
 				</h1>
-
-				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li class="active">Quản lý sản phẩm</li>
-					<li class="active">Kho sản phẩm</li>
-				</ol>
+				<p>
+					<ol class="breadcrumb">
+						<li><a href="Home.jsp"><i class="fa fa-dashboard"></i> Home</a></li>
+						<li class="active">Quản lý sản phẩm</li>
+						<li class="active">Kho sản phẩm</li>
+					</ol>
+				</p>
 			</section>
 
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
-					<div class="col-xs-10">
+					<div class="col-xs-12">
 
 
 						<div class="box">
-							<div class="box-header">
-								<a href="AdminProductController?action=insert">
-									<button type="button" class="btn btn-default btn-sm">
-										<span class="glyphicon glyphicon-plus"></span> Thêm sản phẩm
+							<div class="box-header dropdown">
+
+									<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+										<span class="glyphicon glyphicon-plus"></span> Thêm loại sản phẩm
 									</button>
-								</a>
+									<div class="dropdown-menu">
+										<form action="AdminImportProductTypeController" method="post">
+											<div  class="form-group">
+												<label for="1">${product_id }:</label>
+												<select id="1" class="form-control" name="color">
+													<option value="Red" >Đỏ</option>
+													<option value="White">trắng</option>
+													<option value="Yellow">vàng</option>
+													<option value="blue">xanh</option>
+												</select>
+											</div>
+											
+											<div  class="form-group">
+												<label>Size</label>
+												 <select id="2"  class="form-control" name="size">
+													<option value="S" >S</option>
+													<option value="M">M</option>
+													<option value="L">L</option>
+													<option value="XL">XL</option>
+												</select>
+											</div>
+											
+											<div  class="form-group">
+												<label for="3">số lượng:</label>
+												<input id="3" type="text" name="quantity" class="form-control">
+											</div>
+				                    			<button type="submit" class="btn btn-success" name="prId" value="${product_id }">nhập kho</button>
+											</form>
+									</div>
 							</div>
-							<!-- /.box-header -->
+								
+							
 							<div class="box-body">
 								<table id="example1" class="table table-bordered table-striped">
 									<thead>
 										<tr>
+											<th></th>
 											<th>Màu sắc</th>
 											<th>Kích cỡ</th>
 											<th>Tồn kho</th>
@@ -69,12 +90,13 @@
 
 										<c:forEach items="${listColor_Size}" var="pr">
 											<tr>
+												<td><img alt="image" src="./img/${pr.image }" style="width: 50px; height: 50px;"> </td>
 												<td><c:out value="${pr.color }" /></td>
 												<td><c:out value="${pr.size }" /></td>
 												<td><c:out value="${pr.quantity }" /></td>
 												<td><center>
 												 <div class="dropdown">
-												 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">nhập kho</button>
+												 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">nhập kho <span class="caret"></span></button>
 													<form action="AdminImportProductController" method="post"
 														class="form-inline dropdown-menu">
 														<div class="form-group">
@@ -83,7 +105,7 @@
 														<input type="hidden" value="${pr.size_id}" name="size_id">
 		                    							<button type="submit" class="btn btn-success" name="prId" value="${pr.product_id }">nhập kho</button>
 													</form>
-													</div>
+												</div>
 												</center>
 												</td>
 											</tr>
@@ -106,28 +128,28 @@
 
 	</div>
 	<!-- jQuery 2.1.3 -->
-	<script src="././template/admin/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+	<script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
 	<!-- Bootstrap 3.3.2 JS -->
-	<script src="././template/admin/bootstrap/js/bootstrap.min.js"
+	<script src="bootstrap/js/bootstrap.min.js"
 		type="text/javascript"></script>
 	<!-- DATA TABES SCRIPT -->
 	<script
-		src="././template/admin/plugins/datatables/jquery.dataTables.js"
+		src="plugins/datatables/jquery.dataTables.js"
 		type="text/javascript"></script>
 	<script
-		src="././template/admin/plugins/datatables/dataTables.bootstrap.js"
+		src="plugins/datatables/dataTables.bootstrap.js"
 		type="text/javascript"></script>
 	<!-- SlimScroll -->
 	<script
-		src="././template/admin/plugins/slimScroll/jquery.slimscroll.min.js"
+		src="plugins/slimScroll/jquery.slimscroll.min.js"
 		type="text/javascript"></script>
 	<!-- FastClick -->
-	<script src='././template/admin/plugins/fastclick/fastclick.min.js'></script>
+	<script src='plugins/fastclick/fastclick.min.js'></script>
 	<!-- AdminLTE App -->
-	<script src="././template/admin/dist/js/app.min.js"
+	<script src="admin/dist/js/app.min.js"
 		type="text/javascript"></script>
 	<!-- AdminLTE for demo purposes -->
-	<script src="././template/admin/dist/js/demo.js" type="text/javascript"></script>
+	<script src="dist/js/demo.js" type="text/javascript"></script>
 	<!-- page script -->
 	<script type="text/javascript">
 		$(function() {

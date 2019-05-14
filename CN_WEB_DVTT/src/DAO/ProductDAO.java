@@ -6,6 +6,10 @@ import Model.Product;
 import Model.ProductColor;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.mysql.jdbc.PreparedStatement;
 
 import DBConnection.DBConnection;
 
@@ -20,7 +24,7 @@ public class ProductDAO {
 		Connection conn  = DBConnection.getConnection();
 		Date now = new Date();
 		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 			ps.setString(1, pr.getName());
 			ps.setInt(2, pr.getPrice());
 			ps.setString(3, pr.getAvatar());
@@ -42,7 +46,7 @@ public class ProductDAO {
 		String sql = "DELETE FROM products WHERE product_id = ?";
 		Connection conn  = DBConnection.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 			ps.setInt(1, prID);
 			ps.execute();
 			return true;
@@ -58,7 +62,7 @@ public class ProductDAO {
 		String sql = "UPDATE products SET pr_name = ?,price = ?,description = ? WHERE product_id = ?;";
 		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 			ps.setString(1,pr.getName() );
 			ps.setInt(2, pr.getPrice());
 			ps.setString(3, pr.getDescription());
@@ -81,7 +85,7 @@ public class ProductDAO {
 	public ArrayList<Product> getListProductByCategory(long category_id) throws SQLException {
 			Connection connection = DBConnection.getConnection();
 	        String sql = "SELECT * FROM `database`.products WHERE category_id = '" + category_id + "'";
-	        PreparedStatement ps = connection.prepareCall(sql);
+	        PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql);
 	        ResultSet rs = ps.executeQuery();
 	        ArrayList<Product> list = new ArrayList<>();
 	        while (rs.next()) {
@@ -100,7 +104,7 @@ public class ProductDAO {
 	public ArrayList<Product> getListProductNotComment() throws SQLException {
 		Connection connection = DBConnection.getConnection();
         String sql = "SELECT * FROM `database`.order_details natural join `database`.products WHERE commented = '0'";
-        PreparedStatement ps = connection.prepareCall(sql);
+        PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql);
         ResultSet rs = ps.executeQuery();
         ArrayList<Product> list = new ArrayList<>();
         while (rs.next()) {
@@ -119,7 +123,7 @@ public class ProductDAO {
 	public Product getProductById(long product_id) throws SQLException {
 		Connection connection = DBConnection.getConnection();
         String sql = "SELECT * FROM `database`.products WHERE product_id = '" + product_id + "'";
-        PreparedStatement ps = connection.prepareCall(sql);
+        PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql);
         ResultSet rs = ps.executeQuery();
         Product product = new Product();
         while (rs.next()) {
@@ -139,7 +143,7 @@ public class ProductDAO {
 		String sql = "SELECT * FROM `database`.products;";
 		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Product pr = new Product();
@@ -165,13 +169,14 @@ public class ProductDAO {
 		String sql = "SELECT * FROM `database`.product_color natural join `database`.productsize where product_id = '"+productId+"';";
 		ArrayList<ProductColor> listProductColor_Size = new ArrayList<ProductColor>();
 		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				ProductColor pr = new ProductColor();
 				pr.setProductColor_id(rs.getInt("idproduct_color"));
 				pr.setProduct_id(rs.getInt("product_id"));
 				pr.setColor(rs.getString("color"));
+				pr.setImage(rs.getString("image"));
 				pr.setSize_id(rs.getInt("size_id"));
 				pr.setSize(rs.getString("size"));
 				pr.setQuantity(rs.getInt("quantity"));
@@ -188,7 +193,7 @@ public class ProductDAO {
 		int quantity = 0;
 		Connection conn = DBConnection.getConnection();
 		String sql = "SELECT quantity FROM `database`.productsize where size_id = '"+size_id+"';";
-		PreparedStatement ps = conn.prepareStatement(sql);
+		PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		 while (rs.next()) {
 			quantity =  rs.getInt("quantity");
@@ -201,7 +206,7 @@ public class ProductDAO {
 		Connection conn = DBConnection.getConnection();
 		String sql = "UPDATE `database`.`productsize` SET `quantity` = '"+quantity+"' WHERE (`size_id` = '"+size_id+"');";
 		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 			ps.executeUpdate();
 			conn.close();
 			return true;
@@ -212,8 +217,50 @@ public class ProductDAO {
 		return false;
 	}
 	
+	public int addColorProduct(ProductColor prColor) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "INSERT INTO `database`.`product_color` (`product_id`, `color`) VALUES (?, ?);";
+		try {
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, prColor.getProduct_id());
+			ps.setString(2, prColor.getColor());
+			ps.executeUpdate();
+			
+			ResultSet lastId = ps.getGeneratedKeys();
+			if (lastId.next()) {
+	            return lastId.getInt(1);
+	        }
+		} catch (SQLException ex) {
+			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return 0;
+	}
+	
+	public boolean importQuantityProductSize(ProductColor prColor , int productColor_id) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "INSERT INTO `database`.`productsize` (`quantity`, `size`, `idproduct_color`) VALUES (?, ?, ?);";
+		try {
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			ps.setInt(1, prColor.getQuantity());
+			ps.setString(2, prColor.getSize());
+			ps.setInt(3, productColor_id);
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException ex) {
+			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return false;
+	}
+	
 	public static void main(String[] args) throws SQLException {
-		System.out.println(new ProductDAO().importQuantityBySize(2, 5));
+		ProductColor prc = new ProductColor();
+		prc.setProduct_id(50);
+		prc.setColor("Blue");
+		prc.setQuantity(5);
+		prc.setSize("M");
+		int product_color_id = new ProductDAO().addColorProduct(prc);
+		System.out.println(product_color_id);
+		System.out.println(new ProductDAO().importQuantityProductSize(prc, product_color_id));
 	}
 	
 	

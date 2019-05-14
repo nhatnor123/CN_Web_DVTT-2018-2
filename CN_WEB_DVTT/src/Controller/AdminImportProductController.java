@@ -36,6 +36,7 @@ public class AdminImportProductController extends HttpServlet {
 		int product_id = Integer.parseInt(request.getParameter("prId"));
 		ProductDAO productDAO = new ProductDAO();
 		ArrayList<ProductColor> listProductColor_Size = productDAO.getListProductInWarehouse(product_id);
+		request.setAttribute("product_id", product_id);
 		request.setAttribute("listColor_Size", listProductColor_Size);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("importProduct.jsp");
 		dispatcher.forward(request, response);

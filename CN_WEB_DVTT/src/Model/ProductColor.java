@@ -7,6 +7,7 @@ public class ProductColor {
 	private int productColor_id;
 	private int product_id;
 	private String color;
+	private String image;
 	private int size_id;
 	private String size;
 	private int quantity;
@@ -16,11 +17,12 @@ public class ProductColor {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ProductColor(int productColor_id, int product_id, String color, String size, int quantity, int size_id) {
+	public ProductColor(int productColor_id, int product_id, String color,String image, String size, int quantity, int size_id) {
 		super();
 		this.productColor_id = productColor_id;
 		this.product_id = product_id;
 		this.color = color;
+		this.image = image ;
 		this.size_id = size_id;
 		this.size = size;
 		this.quantity = quantity;
@@ -67,6 +69,14 @@ public class ProductColor {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

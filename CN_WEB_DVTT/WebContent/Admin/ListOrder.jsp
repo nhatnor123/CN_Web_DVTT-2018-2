@@ -42,9 +42,10 @@
 									<thead>
 										<tr>
 											<th>Mã đơn hàng</th>
-											<th>Doanh thu</th>
+											<th>Tổng giá trị</th>
 											<th>Trạng thái</th>
-											<th>Thời gian</th>
+											<th>Địa chỉ giao hàng</th>
+											<th>Ngày đặt hàng</th>
 											<th>Hành động</th>
 										</tr>
 									</thead>
@@ -55,6 +56,7 @@
 												<td><c:out value="${order.id }" /></td>
 												<td><c:out value="${order.pay }" /></td>
 												<td><c:out value="${order.status }" /></td>
+												<td><c:out value="${order.address }" /></td></td>
 												<td><c:out value="${order.create_at }" /></td>
 												<td><a
 													href="AdminOrderController?action=view&orderId=<c:out value="${order.id}"/>">
@@ -65,15 +67,6 @@
 											</tr>
 										</c:forEach>
 									</tbody>
-									<tfoot>
-										<tr>
-											<th>Mã đơn hàng</th>
-											<th>Doanh thu</th>
-											<th>Trạng thái</th>
-											<th>Thời gian</th>
-											<th>Hành động</th>
-										</tr>
-									</tfoot>
 								</table>
 							</div>
 							<!-- /.box-body -->
@@ -91,41 +84,41 @@
 
 	</div>
 	<!-- jQuery 2.1.3 -->
-	<script src="././template/admin/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+	<script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
 	<!-- Bootstrap 3.3.2 JS -->
-	<script src="././template/admin/bootstrap/js/bootstrap.min.js"
+	<script src="bootstrap/js/bootstrap.min.js"
 		type="text/javascript"></script>
 	<!-- DATA TABES SCRIPT -->
 	<script
-		src="././template/admin/plugins/datatables/jquery.dataTables.js"
+		src="plugins/datatables/jquery.dataTables.js"
 		type="text/javascript"></script>
 	<script
-		src="././template/admin/plugins/datatables/dataTables.bootstrap.js"
+		src="plugins/datatables/dataTables.bootstrap.js"
 		type="text/javascript"></script>
 	<!-- SlimScroll -->
 	<script
-		src="././template/admin/plugins/slimScroll/jquery.slimscroll.min.js"
+		src="plugins/slimScroll/jquery.slimscroll.min.js"
 		type="text/javascript"></script>
 	<!-- FastClick -->
-	<script src='././template/admin/plugins/fastclick/fastclick.min.js'></script>
+	<script src='plugins/fastclick/fastclick.min.js'></script>
 	<!-- AdminLTE App -->
-	<script src="././template/admin/dist/js/app.min.js"
+	<script src="admin/dist/js/app.min.js"
 		type="text/javascript"></script>
 	<!-- AdminLTE for demo purposes -->
-	<script src="././template/admin/dist/js/demo.js" type="text/javascript"></script>
+	<script src="dist/js/demo.js" type="text/javascript"></script>
 	<!-- page script -->
 	<script type="text/javascript">
-      $(function () {
-        $("#example1").dataTable();
-        $('#example2').dataTable({
-          "bPaginate": true,
-          "bLengthChange": false,
-          "bFilter": false,
-          "bSort": true,
-          "bInfo": true,
-          "bAutoWidth": false
-        });
-      });
-    </script>
+		$(function() {
+			$("#example1").dataTable();
+			$('#example2').dataTable({
+				"bPaginate" : true,
+				"bLengthChange" : false,
+				"bFilter" : false,
+				"bSort" : true,
+				"bInfo" : true,
+				"bAutoWidth" : false
+			});
+		});
+	</script>
 </body>
 </html>

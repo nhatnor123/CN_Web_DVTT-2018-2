@@ -40,28 +40,27 @@ public class AdminOrderController extends HttpServlet {
 		String action = "";	
 		if (request.getParameter("action") != null) {
 			action = request.getParameter("action");
-		}
-		if (action.equalsIgnoreCase("remove")) {
-			int orderId = Integer.parseInt(request.getParameter("orderId"));
-			new OrderDao().deleteOrderById(orderId);
-			path = "ListOrder.jsp";
-		}
-		else if(action.equalsIgnoreCase("view")) {
-			int orderId = Integer.parseInt(request.getParameter("orderId"));
-			try {	
-				request.setAttribute("bill",new OrderDao().getOrderByOrderIdID(orderId));
-				path = "Bill.jsp";
-			} catch (SQLException e) {
-				e.printStackTrace();
+			if (action.equalsIgnoreCase("remove")) {
+				int orderId = Integer.parseInt(request.getParameter("orderId"));
+				new OrderDao().deleteOrderById(orderId);
+				path = "ListOrder.jsp";
 			}
-			
+			else if(action.equalsIgnoreCase("view")) {
+				int orderId = Integer.parseInt(request.getParameter("orderId"));
+				try {	
+					request.setAttribute("bill",new OrderDao().getOrderByOrderIdID(orderId));
+					path = "Bill.jsp";
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
 		}
 		else {
 			request.setAttribute("list",new OrderDao().getListOrder());
 			path = "ListOrder.jsp";
 		}
 	
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 	}
