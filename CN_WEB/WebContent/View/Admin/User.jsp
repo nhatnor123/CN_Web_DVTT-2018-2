@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Admin - Sản phẩm</title>
+<title>Admin | Quản lý thành viên</title>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
@@ -60,12 +60,12 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Quản lý sản phẩm <small>Sản phẩm</small>
+					Quản lý thành viên <small>Chỉnh sửa</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li><a href="#">Product</a></li>
-					<li class="active">Add</li>
+					<li><a href="#">User</a></li>
+					<li class="active">Edit</li>
 				</ol>
 			</section>
 
@@ -78,49 +78,28 @@
 						<!-- general form elements -->
 						<div class="box box-primary">
 							<div class="box-header">
-								<h3 class="box-title">Sản phẩm</h3>
+								<h3 class="box-title">Thành viên</h3>
 							</div>
 							<!-- /.box-header -->
 							<!-- form start -->
-							<form role="form" action="productmanage" method="POST" enctype="multipart/form-data">
+							<form role="form" action="usermanage" method="POST">
 								<div class="box-body">
 									<div class="form-group">
-										<label for="exampleInputEmail1">ID</label> <input type="email"
+										<label for="exampleInputEmail1">ID</label> <input type="text"
 											class="form-control" id="" readonly="readonly" name="id"
-											value="${product.id}">
+											value="${user.id}">
 									</div>
+
 									<div class="form-group">
-										<label for="exampleInputEmail1">Tên sản phẩm</label> <input
-											type="text" class="form-control" id="" name="name"
-											value="${product.name }">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Giá</label> <input type="text"
-											class="form-control" id="" name="price"
-											value="${product.price }">
-									</div>
-									<div class="form-group">
-										<label>Thể loại</label> <select class="form-control" name="category">
-										<c:forEach items = "${listCategory}" var="category">
-											<option>${category.name }</option>
-										</c:forEach>
+										<label>Chức vụ</label> <select class="form-control"
+											name="level">
+											<option>Thành viên</option>
+											<option>Nhân viên</option>
+											<option>Admin</option>
 										</select>
 									</div>
-									
-									<div class="form-group">
-										<label>Thông tin chi tiết </label>
-										<textarea class="form-control" rows="3"
-											 name="description"
-											value="abc new">${product.description }</textarea>
-									</div>
-									
-									<div class="form-group">
-										<label for="exampleInputFile">Ảnh</label> 
-										<c:if test = "${product.avatar != null}">
-											<img src = "img/${product.avatar }" style = "height:200px;width: 160px"/>
-										</c:if>
-										<input type="file" name="file" multiple ="multiple" />
-								
+
+
 								</div>
 								<!-- /.box-body -->
 

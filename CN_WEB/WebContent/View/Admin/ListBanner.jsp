@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Admin | Quản lý sản phẩm</title>
+<title>Admin | Quản lý banner</title>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
@@ -49,12 +49,12 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Quản lý sản phẩm <small style="color: red">${mes }</small>
+					Quản lý banner <small style="color: red">${mes }</small>
 				</h1>
 
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li class="active">Quản lý sản phẩm</li>
+					<li class="active">Quản lý banner</li>
 				</ol>
 			</section>
 
@@ -66,9 +66,9 @@
 
 						<div class="box">
 							<div class="box-header">
-								<a href="productmanage?action=insert">
+								<a href="bannermanage?action=insert">
 									<button type="button" class="btn btn-default btn-sm">
-										<span class="glyphicon glyphicon-plus"></span> Thêm sản phẩm
+										<span class="glyphicon glyphicon-plus"></span> Thêm Banner
 									</button>
 								</a>
 							</div>
@@ -77,43 +77,19 @@
 								<table id="example1" class="table table-bordered table-striped">
 									<thead>
 										<tr>
-											<th>ID</th>
-											<th>Tên sản phẩm</th>
-											<th>Số lượng</th>
-											<th>Giá</th>
-											<th>Ảnh</th>
-											<th>Ngày tạo</th>
+											
+											<th>Banner</th>
+											
 											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
 
-										<c:forEach items="${list}" var="pr">
+										<c:forEach items="${list}" var="ban">
 											<tr>
-												<td><c:out value="${pr.id }" /></td>
-												<td><c:out value="${pr.name }" /></td>
-												<td>
-													<div class="btn-group">
-														<button type="button" class="btn btn-default">Chi tiết</button>
-														<button type="button"
-															class="btn btn-default dropdown-toggle"
-															data-toggle="dropdown">
-															<span class="caret"></span> <span class="sr-only">Toggle
-																Dropdown</span>
-														</button>
-														<ul class="dropdown-menu" role="menu">
-															<c:forEach items="${pr.sizes }" var="x">
-																<li><a
-																	href="productmanage?action=editsize&sizeId=<c:out value="${x.id}"/>">${x.size}
-																		- ${x.quantity } </a></li>
-															</c:forEach>
-														</ul>
-													</div></td>
-												<td><c:out value="${pr.price }" /></td>
-												<td><img alt="" src="img/${pr.avatar }"
-													style="height: 100px; width: 80px"></td>
-												<td><c:out value="${pr.created_at}" /></td>
-												<td>
+												<td><img src="img/${ban.image}" style="height:200px;width:500px;"/></td>		
+												<td>	
+												
 													<div class="btn-group">
 														<button type="button" class="btn btn-default">Action</button>
 														<button type="button"
@@ -124,10 +100,7 @@
 														</button>
 														<ul class="dropdown-menu" role="menu">
 															<li><a
-																href="productmanage?action=addsize&prId=<c:out value="${pr.id}"/>">Thêm
-																	size</a></li>
-															<li><a
-																href="productmanage?action=edit&prId=<c:out value="${pr.id}"/>">Edit</a></li>
+																href="bannermanage?action=remove&banId=<c:out value="${ban.id}"/>">Xóa banner</a></li>
 														</ul>
 													</div>
 												</td>
@@ -136,12 +109,8 @@
 									</tbody>
 									<tfoot>
 										<tr>
-											<th>ID</th>
-											<th>Tên sản phẩm</th>
-											<th>Size</th>
-											<th>Giá</th>
-											<th>Ảnh</th>
-											<th>Ngày tạo</th>
+											
+											<th>Banner</th>
 											<th>Action</th>
 										</tr>
 									</tfoot>

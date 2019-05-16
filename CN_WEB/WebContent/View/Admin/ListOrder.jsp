@@ -48,7 +48,7 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Quản lý đơn hàng</h1>
+				<h1>Quản lý đơn hàng <small style = "color:red">${mes }</small></h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">Quản lý đơn hàng</li>
@@ -59,12 +59,10 @@
 			<section class="content">
 				<div class="row">
 					<div class="col-xs-12">
-					
+
 
 						<div class="box">
-							<div class="box-header">
-							
-							</div>
+							<div class="box-header"></div>
 							<!-- /.box-header -->
 							<div class="box-body">
 								<table id="example1" class="table table-bordered table-striped">
@@ -85,19 +83,23 @@
 												<td><c:out value="${order.pay }" /></td>
 												<td><c:out value="${order.status }" /></td>
 												<td><c:out value="${order.create_at }" /></td>
-												<td><a
-													href="AdminOrderController?action=view&orderId=<c:out value="${order.id}"/>">
-														<button type="button" class="btn btn-default btn-sm">
-															<span class="glyphicon glyphicon-edit"></span> Chi tiết
+												<td>
+													<div class="btn-group">
+														<button type="button" class="btn btn-default">Action</button>
+														<button type="button"
+															class="btn btn-default dropdown-toggle"
+															data-toggle="dropdown">
+															<span class="caret"></span> <span class="sr-only">Toggle
+																Dropdown</span>
 														</button>
-												</a>
-												
-												 <a
-													href="AdminOrderController?action=remove&orderId=<c:out value="${order.id}"/>">
-														<button type="button" class="btn btn-default btn-sm">
-															<span class="glyphicon glyphicon-remove"></span> Remove
-														</button>
-												</a></td>
+														<ul class="dropdown-menu" role="menu">
+														<li><a
+																href="ordermanage?action=view&orderId=${order.id }">Chi tiết đơn hàng</a></li>
+															<li><a
+																href="ordermanage?action=edit&orderId=${order.id }">Cập nhật trạng thái</a></li>
+														</ul>
+													</div>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -151,17 +153,17 @@
 	<script src="././template/admin/dist/js/demo.js" type="text/javascript"></script>
 	<!-- page script -->
 	<script type="text/javascript">
-      $(function () {
-        $("#example1").dataTable();
-        $('#example2').dataTable({
-          "bPaginate": true,
-          "bLengthChange": false,
-          "bFilter": false,
-          "bSort": true,
-          "bInfo": true,
-          "bAutoWidth": false
-        });
-      });
-    </script>
+		$(function() {
+			$("#example1").dataTable();
+			$('#example2').dataTable({
+				"bPaginate" : true,
+				"bLengthChange" : false,
+				"bFilter" : false,
+				"bSort" : true,
+				"bInfo" : true,
+				"bAutoWidth" : false
+			});
+		});
+	</script>
 </body>
 </html>

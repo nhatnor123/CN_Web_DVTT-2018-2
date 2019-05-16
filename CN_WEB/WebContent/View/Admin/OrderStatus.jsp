@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Admin - Sản phẩm</title>
+<title>Admin - Order</title>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
@@ -60,12 +60,12 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Quản lý sản phẩm <small>Sản phẩm</small>
+					Quản lý sản phẩm <small>Cập nhật trạng thái</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li><a href="#">Product</a></li>
-					<li class="active">Add</li>
+					<li class="active">Update</li>
 				</ol>
 			</section>
 
@@ -78,51 +78,27 @@
 						<!-- general form elements -->
 						<div class="box box-primary">
 							<div class="box-header">
-								<h3 class="box-title">Sản phẩm</h3>
+								<h3 class="box-title">Cập nhật trạng thái</h3>
 							</div>
 							<!-- /.box-header -->
 							<!-- form start -->
-							<form role="form" action="productmanage" method="POST" enctype="multipart/form-data">
-								<div class="box-body">
-									<div class="form-group">
-										<label for="exampleInputEmail1">ID</label> <input type="email"
-											class="form-control" id="" readonly="readonly" name="id"
-											value="${product.id}">
+							<form role="form" action="ordermanage" method="POST">
+								<div class="form-group">
+										<label for="exampleInputEmail1">ID</label> 
+										<input type="text"
+											class="form-control"  readonly="readonly" name="orderId"
+											value="${id}">
 									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Tên sản phẩm</label> <input
-											type="text" class="form-control" id="" name="name"
-											value="${product.name }">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputEmail1">Giá</label> <input type="text"
-											class="form-control" id="" name="price"
-											value="${product.price }">
-									</div>
-									<div class="form-group">
-										<label>Thể loại</label> <select class="form-control" name="category">
-										<c:forEach items = "${listCategory}" var="category">
-											<option>${category.name }</option>
-										</c:forEach>
-										</select>
-									</div>
-									
-									<div class="form-group">
-										<label>Thông tin chi tiết </label>
-										<textarea class="form-control" rows="3"
-											 name="description"
-											value="abc new">${product.description }</textarea>
-									</div>
-									
-									<div class="form-group">
-										<label for="exampleInputFile">Ảnh</label> 
-										<c:if test = "${product.avatar != null}">
-											<img src = "img/${product.avatar }" style = "height:200px;width: 160px"/>
-										</c:if>
-										<input type="file" name="file" multiple ="multiple" />
-								
+								<div class="form-group">
+									<label>Trạng thái</label> <select class="form-control"
+										name="status">
+										<option>Chờ xử lý</option>
+										<option>Đang giao hàng</option>
+										<option>Giao hàng thành công</option>
+										<option>Hủy đơn hàng</option>
+
+									</select>
 								</div>
-								<!-- /.box-body -->
 
 								<div class="box-footer">
 									<button type="submit" class="btn btn-primary">Save</button>
@@ -143,23 +119,7 @@
 
 	</div>
 
-	<script>
-		function show() {
-			var list = document.getElementsByName('colors[]');
-			var list1 = document.getElementsByName('sizes[]');
-			var demo = document.getElementById('demo');
-			var str = " ";
-			for (var i = 0; i < list.length; i++) {
-				for (var j = 0; j < list1.length; j++) {
 
-					str += ("<tr><td>" + list[i].value + "</td><td>"
-							+ list1[j].value + "</td><td><input name="+"quantity[]></td></tr>");
-				}
-			}
-
-			demo.innerHTML = str;
-		};
-	</script>
 	<script src="././template/admin/plugins/jQuery/jQuery-2.1.3.min.js"></script>
 	<!-- Bootstrap 3.3.2 JS -->
 	<script src="././template/admin/bootstrap/js/bootstrap.min.js"

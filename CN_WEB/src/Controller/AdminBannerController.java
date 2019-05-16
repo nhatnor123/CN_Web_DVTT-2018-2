@@ -2,9 +2,6 @@ package Controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,32 +13,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import DAO.CategoryDAO;
-import DAO.ProductDAO;
-import DAO.SizeDAO;
-import Model.Category;
+import DAO.BannnerDAO;
+import Model.Banner;
 import Model.Product;
-import Model.Size;
 import Model.User;
 
-/**
- * Servlet implementation class AdminProductController
- */
-@WebServlet("/productmanage")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 		maxFileSize = 1024 * 1024 * 10, // 10MB
 		maxRequestSize = 1024 * 1024 * 50) // 50MB
-public class AdminProductController extends HttpServlet {
+/**
+ * Servlet implementation class AdminBannerController
+ */
+@WebServlet("/bannermanage")
+public class AdminBannerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String UPDATE_INSERT = "View/Admin/Product.jsp";
-	private static final String LIST = "View/Admin/ListProduct.jsp";
-	private static final String SIZE = "View/Admin/Size.jsp";
 	public static final String SAVE_DIRECTORY = "img";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AdminProductController() {
+	public AdminBannerController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -55,53 +46,29 @@ public class AdminProductController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		if (user != null && (user.getLevel() == 3)) {
+			String path = "View/Admin/ListBanner.jsp";
 			request.setCharacterEncoding("utf-8");
-			String path = "";
 			String action = "";
+			String mes = "";
 			if (request.getParameter("action") != null) {
 				action = request.getParameter("action");
 			}
-			if (action.equalsIgnoreCase("edit")) {
-				path = UPDATE_INSERT;
-				int id = Integer.parseInt(request.getParameter("prId"));
-
-				try {
-					request.setAttribute("listCategory", new CategoryDAO().getListCategory());
-					request.setAttribute("product", new ProductDAO().getProductById(id));
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-
+			if (action.equalsIgnoreCase("remove")) {
+				int id = Integer.parseInt(request.getParameter("banId"));
+				if (new BannnerDAO().delete(id)) {
+					mes = "Xóa thành công banner";
+				} else
+					mes = "Xóa banner thất bại";
+				request.setAttribute("mes", mes);
 			} else if (action.equalsIgnoreCase("insert")) {
-				try {
-					request.setAttribute("listCategory", new CategoryDAO().getListCategory());
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				path = UPDATE_INSERT;
-			} else if (action.equalsIgnoreCase("addsize")) {
-				path = SIZE;
-				int prID = Integer.parseInt(request.getParameter("prId"));
-				Size size = new Size();
-				size.setProductId(prID);
-				request.setAttribute("size", size);
-			} else if (action.equalsIgnoreCase("editsize")) {
-				path = SIZE;
-				int sizeId = Integer.parseInt(request.getParameter("sizeId"));
-				request.setAttribute("size", new SizeDAO().getSizeById(sizeId));
-			} else {
-				path = LIST;
-				List<Product> list = new ArrayList<Product>();
-				list = new ProductDAO().getListProduct();
-				request.setAttribute("list", list);
+				path = "View/Admin/Banner.jsp";
 			}
-			RequestDispatcher rd = request.getRequestDispatcher(path);
-			rd.forward(request, response);
-		}
-
-		else {
-			RequestDispatcher rd = request.getRequestDispatcher("View/Admin/Login.jsp");
-			rd.forward(request, response);
+			request.setAttribute("list", new BannnerDAO().getListBanner());
+			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+			dispatcher.forward(request, response);
+		} else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/Admin/Login.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
@@ -112,7 +79,7 @@ public class AdminProductController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		Product pr = new Product();
+		Banner ban = new Banner();
 		try {
 
 			// Đường dẫn tuyệt đối tới thư mục gốc của web app.
@@ -140,42 +107,23 @@ public class AdminProductController extends HttpServlet {
 				if (fileName != null && fileName.length() > 0) {
 					String filePath = fullSavePath + File.separator + fileName;
 					System.out.println("Write attachment to file: " + filePath);
-
-					pr.setAvatar(fileName);
+					ban.setImage(fileName);
 					part.write(filePath);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		ban.setTitle(request.getParameter("title"));
+		ban.setDescripton(request.getParameter("description"));
 		String mes = "";
-		pr.setName(request.getParameter("name"));
-		pr.setDescription(request.getParameter("description"));
-		pr.setPrice(Integer.parseInt(request.getParameter("price")));
-		String category = request.getParameter("category");
-		try {
-			ArrayList<Category> listCategory = new CategoryDAO().getListCategory();
-			for (Category ca : listCategory) {
-				if (category.equalsIgnoreCase(ca.getName()))
-					pr.setCategory_id(ca.getId());
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		String id = request.getParameter("id");
-		if (id == null || id.isEmpty()) {
-			new ProductDAO().addProduct(pr);
-			mes = "Thêm sản phẩm thành công";
-			request.setAttribute("mes", mes);
-		} else {
-			mes = "Cập nhật sản phẩm thành công";
-			pr.setId(Integer.parseInt(id));
-			new ProductDAO().update(pr);
-			request.setAttribute("mes", mes);
-		}
-		request.setAttribute("list", new ProductDAO().getListProduct());
-		RequestDispatcher rd = request.getRequestDispatcher("View/Admin/ListProduct.jsp");
+		if (new BannnerDAO().add(ban)) {
+			mes = "Thêm banner thành công";
+		} else
+			mes = "Thêm banner thất bại";
+		request.setAttribute("list", new BannnerDAO().getListBanner());
+		request.setAttribute("mes", mes);
+		RequestDispatcher rd = request.getRequestDispatcher("View/Admin/ListBanner.jsp");
 		rd.forward(request, response);
 	}
 

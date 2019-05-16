@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Admin-Quản lý sản phẩm-Thêm sản phẩm</title>
+<title>Admin- Đơn hàng</title>
 <meta
 	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
 	name='viewport'>
@@ -86,9 +86,9 @@
 					<div class="col-sm-4 invoice-col">
 						From
 						<address>
-							<strong>ABC Shop</strong><br> Số 1 Đại Cồ Việt<br>
-							quận Đống Đa, Hà Nội<br> Phone: (804) 123-5432<br />
-							Email: info@almasaeedstudio.com
+							<strong>ABC Shop</strong><br> Số 1 Đại Cồ Việt<br> quận
+							Đống Đa, Hà Nội<br> Phone: (804) 123-5432<br /> Email:
+							info@almasaeedstudio.com
 						</address>
 					</div>
 					<!-- /.col -->
@@ -96,8 +96,7 @@
 						To
 						<address>
 							<strong>${bill.user.name }</strong><br> ${bill.address }<br>
-							Phone: ${bill.phone }<br />
-							Email: ${bill.user.email }
+							Phone: ${bill.phone }<br /> Email: ${bill.user.email }
 						</address>
 					</div>
 					<!-- /.col -->
@@ -115,31 +114,28 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>Qty</th>
-									<th>Product</th>
-									<th>Serial #</th>
-
+									<th>Số lượng</th>
+									<th>Sản phẩm</th>
+									<th>ID</th>
 									<th>Subtotal</th>
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach items = "${bill.items }" var = "item">
-								<tr>
-									<td>${item.quantity }</td>
-									<td>${item.product.name }</td>
-									<td>${item.product.id }</td>
-									<td>${item.price }</td>
-								</tr>
-							</c:forEach>
 
+								<c:forEach items="${bill.items }" var="item">
+									<tr>
+										<td>${item.quantity }</td>
+										<td>${item.product.name }</td>
+										<td>${item.product.id }</td>
+										<td>${item.price }</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>
 					<!-- /.col -->
 				</div>
 				<!-- /.row -->
-
-				
 		</div>
 		<!-- /.content-wrapper -->
 	</div>

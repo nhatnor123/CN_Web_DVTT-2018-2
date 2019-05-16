@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import Model.Product;
+import Model.Size;
+
 import java.util.List;
 
 import javax.naming.spi.DirStateFactory.Result;
@@ -156,6 +158,9 @@ public class ProductDAO {
             product.setDescription(rs.getString("description"));
             product.setCategory_id(rs.getInt("category_id"));
             product.setCreated_at(rs.getTimestamp("created_at"));
+            List<Size> listSize = new SizeDAO().getSizeByPrId(rs.getInt("product_id"));
+            product.setSizes(listSize);
+            
         }
         return product;
     }
@@ -175,6 +180,8 @@ public class ProductDAO {
 				pr.setDescription(rs.getString(5));
 				pr.setCategory_id(rs.getInt(6));
 				pr.setCreated_at(rs.getTimestamp("created_at"));
+				List<Size> listSize = new SizeDAO().getSizeByPrId(rs.getInt("product_id"));
+	            pr.setSizes(listSize);
 				list.add(pr);				
 			}
 		} catch (SQLException e) {
@@ -185,6 +192,24 @@ public class ProductDAO {
 		return list;
 	}
 	
+	public boolean insert(Product pr) {
+		String sql  = "INSERT INTO products(pr_name,price,descripton,category_id,avatar) VALUES(?,?,?,?,?)";
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, pr.getName());
+			ps.setInt(2, pr.getPrice());
+			ps.setString(3, pr.getDescription());
+			ps.setInt(4, pr.getCategory_id());
+			ps.setString(5, pr.getAvatar());
+			ps.execute();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	
 }
