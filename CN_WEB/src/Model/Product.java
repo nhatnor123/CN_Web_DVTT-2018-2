@@ -14,6 +14,7 @@ public class Product {
 	private String size;
 	private String color;
 	private int quantity;
+	private List<Size> sizes;
 	private Timestamp created_at;
 	private Timestamp updated_at;
 
@@ -120,6 +121,14 @@ public class Product {
 
 	public void setUpdate_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	public List<Size> getSizes() {
+		return sizes;
+	}
+
+	public void setSizes(List<Size> sizes) {
+		this.sizes = sizes;
 	}
 
 }

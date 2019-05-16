@@ -41,7 +41,7 @@ public class OrderDetailDao {
 	
 	public ArrayList<Item> getOrderDetail(int order_id) throws SQLException {
 		Connection cons = DBConnection.getConnection();
-		String sql = "SELECT * FROM `database`.order_details natural join `database`.products WHERE order_id = '"+order_id+"';";
+		String sql = "SELECT * FROM order_details join products WHERE order_details.product_id = products.product_id and order_id = '"+order_id+"';";
 		PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		ArrayList<Item> items = new ArrayList<Item>();
@@ -106,5 +106,7 @@ public class OrderDetailDao {
 		}
 		return false;
 	}
+
+	}
 	
-}
+

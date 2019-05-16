@@ -134,10 +134,20 @@ public class OrderDao {
 		
 		return false;
 	}
-	
-	public static void main(String[] args) {
-		ArrayList<Order> listOrder = (ArrayList<Order>) new OrderDao().getListOrder();
-		System.out.println(listOrder.get(0).getAddress());
+	public boolean changeStatus(Order order) {
+		String sql = "UPDATE orders SET status = ? WHERE order_id = ?";
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, order.getStatus());
+			ps.setInt(2, order.getId());
+			ps.executeUpdate();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return false;
 	}
-	
 }

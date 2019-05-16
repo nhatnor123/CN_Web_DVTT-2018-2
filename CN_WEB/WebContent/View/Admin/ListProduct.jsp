@@ -43,13 +43,15 @@
 </head>
 <body class="skin-blue">
 	<div class="wrapper">
-		<%@ include file="Header.jsp"%>
-		<%@ include file="Sidebar.jsp"%>
+		<%@ include file="common/Header.jsp"%>
+		<%@ include file="common/Sidebar.jsp"%>
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Quản lý sản phẩm <small style = "color:red">${mes }</small></h1>
-				
+				<h1>
+					Quản lý sản phẩm <small style="color: red">${mes }</small>
+				</h1>
+
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li class="active">Quản lý sản phẩm</li>
@@ -60,11 +62,11 @@
 			<section class="content">
 				<div class="row">
 					<div class="col-xs-12">
-					
+
 
 						<div class="box">
 							<div class="box-header">
-								<a href="AdminProductController?action=insert">
+								<a href="productmanage?action=insert">
 									<button type="button" class="btn btn-default btn-sm">
 										<span class="glyphicon glyphicon-plus"></span> Thêm sản phẩm
 									</button>
@@ -77,8 +79,9 @@
 										<tr>
 											<th>ID</th>
 											<th>Tên sản phẩm</th>
+											<th>Số lượng</th>
 											<th>Giá</th>
-											<th>Tồn kho</th>
+											<th>Ảnh</th>
 											<th>Ngày tạo</th>
 											<th>Action</th>
 										</tr>
@@ -89,21 +92,45 @@
 											<tr>
 												<td><c:out value="${pr.id }" /></td>
 												<td><c:out value="${pr.name }" /></td>
+												<td>
+													<div class="btn-group">
+														<button type="button" class="btn btn-default">Chi tiết</button>
+														<button type="button"
+															class="btn btn-default dropdown-toggle"
+															data-toggle="dropdown">
+															<span class="caret"></span> <span class="sr-only">Toggle
+																Dropdown</span>
+														</button>
+														<ul class="dropdown-menu" role="menu">
+															<c:forEach items="${pr.sizes }" var="x">
+																<li><a
+																	href="productmanage?action=editsize&sizeId=<c:out value="${x.id}"/>">${x.size}
+																		- ${x.quantity } </a></li>
+															</c:forEach>
+														</ul>
+													</div></td>
 												<td><c:out value="${pr.price }" /></td>
-												<td><c:out value="${pr.quantity }" /></td>
+												<td><img alt="" src="img/${pr.avatar }"
+													style="height: 100px; width: 80px"></td>
 												<td><c:out value="${pr.created_at}" /></td>
-												<td><a
-													href="AdminProductController?action=edit&prId=<c:out value="${pr.id}"/>">
-														<button type="button" class="btn btn-default btn-sm">
-															<span class="glyphicon glyphicon-edit"></span> Edit
+												<td>
+													<div class="btn-group">
+														<button type="button" class="btn btn-default">Action</button>
+														<button type="button"
+															class="btn btn-default dropdown-toggle"
+															data-toggle="dropdown">
+															<span class="caret"></span> <span class="sr-only">Toggle
+																Dropdown</span>
 														</button>
-												</a>
-												 <a
-													href="AdminProductController?action=remove&prId=<c:out value="${pr.id}"/>">
-														<button type="button" class="btn btn-default btn-sm">
-															<span class="glyphicon glyphicon-remove"></span> Remove
-														</button>
-												</a></td>
+														<ul class="dropdown-menu" role="menu">
+															<li><a
+																href="productmanage?action=addsize&prId=<c:out value="${pr.id}"/>">Thêm
+																	size</a></li>
+															<li><a
+																href="productmanage?action=edit&prId=<c:out value="${pr.id}"/>">Edit</a></li>
+														</ul>
+													</div>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -111,9 +138,10 @@
 										<tr>
 											<th>ID</th>
 											<th>Tên sản phẩm</th>
-											<th>Giá</th>
-											<th>Màu</th>
 											<th>Size</th>
+											<th>Giá</th>
+											<th>Ảnh</th>
+											<th>Ngày tạo</th>
 											<th>Action</th>
 										</tr>
 									</tfoot>
@@ -130,7 +158,7 @@
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
-		<%@ include file="Footer.jsp"%>
+		<%@ include file="common/Footer.jsp"%>
 
 	</div>
 	<!-- jQuery 2.1.3 -->
@@ -158,17 +186,17 @@
 	<script src="././template/admin/dist/js/demo.js" type="text/javascript"></script>
 	<!-- page script -->
 	<script type="text/javascript">
-      $(function () {
-        $("#example1").dataTable();
-        $('#example2').dataTable({
-          "bPaginate": true,
-          "bLengthChange": false,
-          "bFilter": false,
-          "bSort": true,
-          "bInfo": true,
-          "bAutoWidth": false
-        });
-      });
-    </script>
+		$(function() {
+			$("#example1").dataTable();
+			$('#example2').dataTable({
+				"bPaginate" : true,
+				"bLengthChange" : false,
+				"bFilter" : false,
+				"bSort" : true,
+				"bInfo" : true,
+				"bAutoWidth" : false
+			});
+		});
+	</script>
 </body>
 </html>

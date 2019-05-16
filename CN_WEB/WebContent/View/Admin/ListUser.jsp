@@ -43,15 +43,15 @@
 </head>
 <body class="skin-blue">
 	<div class="wrapper">
-		<%@ include file="Header.jsp"%>
-		<%@ include file="Sidebar.jsp"%>
+		<%@ include file="common/Header.jsp"%>
+		<%@ include file="common/Sidebar.jsp"%>
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Quản lý sản phẩm</h1>
+				<h1>Quản lý thành viên <small style = "color:red">${mes}</small></h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li class="active">Quản lý sản phẩm</li>
+					<li class="active">Quản lý thành viên</li>
 				</ol>
 			</section>
 
@@ -61,9 +61,7 @@
 					<div class="col-xs-12">
 
 						<div class="box">
-							<div class="box-header">
-								
-							</div>
+							<div class="box-header"></div>
 							<!-- /.box-header -->
 							<div class="box-body">
 								<table id="example1" class="table table-bordered table-striped">
@@ -80,46 +78,41 @@
 									</thead>
 									<tbody>
 
-										
-											<tr>
-												<td>1</td>
-												<td>Nguyễn Đình Ngọc</td>
-												<td>dinhngocndtk@gmail.com</td>
-												<td>Nghĩa Đồng, Tân Kỳ, Nghệ An</td>
-												<td>0961989725</td>
-												<td>Thành viên</td>
-												<td><a
-													href="productmanage?action=edit&prId=<c:out value="${pr.id}"/>">
-														<button type="button" class="btn btn-default btn-sm">
-															<span class="glyphicon glyphicon-edit"></span> Edit
-														</button>
-												</a> <a
-													href="productmanage?action=remove&prId=<c:out value="${pr.id}"/>">
-														<button type="button" class="btn btn-default btn-sm">
-															<span class="glyphicon glyphicon-remove"></span> Remove
-														</button>
-												</a></td>
-											</tr>
-											<tr>
-												<td>1</td>
-												<td>Nguyễn Đình Nga</td>
-												<td>dinhngocndtk@gmail.com</td>
-												<td>Nghĩa Đồng, Tân Kỳ, Nghệ An</td>
-												<td>0961989725</td>
-												<td>Thành viên</td>
-												<td><a
-													href="productmanage?action=edit&prId=<c:out value="${pr.id}"/>">
-														<button type="button" class="btn btn-default btn-sm">
-															<span class="glyphicon glyphicon-edit"></span> Edit
-														</button>
-												</a> <a
-													href="productmanage?action=remove&prId=<c:out value="${pr.id}"/>">
-														<button type="button" class="btn btn-default btn-sm">
-															<span class="glyphicon glyphicon-remove"></span> Remove
-														</button>
-												</a></td>
-											</tr>
-									
+									<c:forEach items = "${list }" var = "user">
+										<tr>
+											<td>${user.id }</td>
+											<td>${user.name }</td>
+											<td>${user.email}</td>
+											<td>${user.address}</td>
+											<td>${user.phone}</td>
+											<td>
+												 <c:if test = "${user.level == 1}">
+        										 <c:out value = "Thành viên "/><p>
+     											 </c:if>
+     											 <c:if test = "${user.level == 2}">
+        										 <c:out value = "Nhân viên "/><p>
+     											 </c:if>
+     											 <c:if test = "${user.level == 3}">
+        										 <c:out value = "Admin "/><p>
+     											 </c:if>
+											</td>
+											<td>
+												<div class="btn-group">
+													<button type="button" class="btn btn-default">Action</button>
+													<button type="button"
+														class="btn btn-default dropdown-toggle"
+														data-toggle="dropdown">
+														<span class="caret"></span> <span class="sr-only">Toggle
+															Dropdown</span>
+													</button>
+													<ul class="dropdown-menu" role="menu">
+														<li><a href="usermanage?action=edit&id=${user.id }">Thay đổi quyền</a></li>
+													</ul>
+												</div>
+											</td>
+										</tr>
+									</c:forEach>
+
 									</tbody>
 									<tfoot>
 										<tr>
@@ -145,7 +138,7 @@
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
-		<%@ include file="Footer.jsp"%>
+		<%@ include file="common/Footer.jsp"%>
 
 	</div>
 	<!-- jQuery 2.1.3 -->
