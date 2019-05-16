@@ -3,6 +3,7 @@ encoding//WebContent/User/category.jsp=UTF-8
 encoding//WebContent/User/commentProductBought.jsp=UTF-8
 encoding//WebContent/User/customer-menu.jsp=UTF-8
 encoding//WebContent/User/register.jsp=UTF-8
+encoding//src/Controller/AjaxCheckout.java=UTF-8
 encoding//src/Controller/CheckoutController.java=UTF-8
 encoding//src/Controller/CommentWithoutBuyController.java=UTF-8
 encoding//src/Controller/Customer_account.java=UTF-8

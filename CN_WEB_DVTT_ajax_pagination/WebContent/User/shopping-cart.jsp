@@ -24,6 +24,7 @@
 								${order.countProductInItem() } sản phẩm trong giỏ hàng</p>
 							<p style="color: red">${checkout_err }</p>
 							<div class="table-responsive">
+							
 								<table class="table">
 									<thead>
 										<tr>
@@ -34,28 +35,43 @@
 											<th></th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id = "bodyTable">
+	
 										<c:forEach items="${order.items}" var="item">
 											<tr>
 												<td><a href="/CN_WEB_DVTT/User/ProductController?product_id=${item.product.id}"><img src="img/${item.product.avatar}"
-														alt="White Blouse Armani"></a></td>
+														alt=""></a></td>
 												<td><a href="/CN_WEB_DVTT/User/ProductController?product_id=${item.product.id}"">${item.product.name }</a></td>
 												<td><input type="number" value="${item.quantity }"
-													class="form-control"></td>
-												<td>${item.price } đ</td>
-												<td>${item.quantity*item.price } đ</td>
+													class="form-control quantityProduct" name="quantityProduct" id="quantity${item.product.id }" min  = "0"  onchange="change(this.id)" style="width:70px;"></td>
+												<td ><span id="price${item.product.id }">${item.price }</span> VND</td>
+												<td id="total${item.product.id }">${item.quantity*item.price } VND</td>
 												<td><a href="#"><i class="fa fa-trash-o"></i></a></td>
 											</tr>
+											
+
 										</c:forEach>
+										<script>
+												function change(a){
+													var ind=a.substr(8);
+													var a=$("#quantity"+ind).val()*$("#price"+ind).text();
+													$("#total"+ind).html(a+" VND");
+													$.get("Ajax/Checkout?id="+ind+"&quantity="+$("#quantity"+ind).val(), function(data){
+														$("#totalPrice").html(data);
+													});
+												}							
+											</script>
 									</tbody>
 									<tfoot>
 										<tr>
 											<th colspan="4">Tổng các mặt hàng</th>
-											<th colspan="3">${order.total()} đ</th>
+											<th colspan="3" id = "totalPrice">${order.total()} VND</th>
 										</tr>
 									</tfoot>
 								</table>
+						
 							</div>
+							
 							<hr>
 							<form action="/CN_WEB_DVTT/User/Checkout" method="post">
 							
@@ -83,7 +99,6 @@
 											class="fa fa-chevron-left"></i> Tiếp tục mua sắm</a>
 									</div>
 									<div class="right">
-
 										<button type="submit" class="btn btn-primary">
 											Đặt hàng <i class="fa fa-chevron-right"></i>
 										</button>
