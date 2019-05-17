@@ -12,7 +12,6 @@ public class Product {
 	private String description;
 	private int category_id;
 	private String size;
-	private String color;
 	private int quantity;
 	private Timestamp created_at;
 	private Timestamp updated_at;
@@ -30,7 +29,6 @@ public class Product {
 		this.description = description;
 		this.category_id = category_id;
 		this.size = size;
-		this.color = color;
 	}
 
 	public int getId() {
@@ -89,13 +87,6 @@ public class Product {
 		this.size = size;
 	}
 
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
 	public int getQuantity() {
 		return quantity;
 	}

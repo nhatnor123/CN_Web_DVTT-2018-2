@@ -20,7 +20,7 @@ import Model.User;
 /**
  * Servlet implementation class OrderHistoryController
  */
-@WebServlet("/User/OrderHistory")
+@WebServlet("/OrderHistory")
 public class OrderHistoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,7 +41,7 @@ public class OrderHistoryController extends HttpServlet {
 		try {
 			ArrayList<Order> listOrder = orderDAO.getListBillByUserID(user.getId());
 			request.setAttribute("listOrder", listOrder);
-			RequestDispatcher dispacher = request.getRequestDispatcher("customer-orders-history.jsp");
+			RequestDispatcher dispacher = request.getRequestDispatcher("View/User/customer-orders-history.jsp");
 			dispacher.forward(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();

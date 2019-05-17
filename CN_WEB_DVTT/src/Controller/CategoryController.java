@@ -17,7 +17,7 @@ import Model.Category;
 import Model.Product;
 
 
-@WebServlet("/User/CategoryController")
+@WebServlet("/CategoryController")
 public class CategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -57,10 +57,10 @@ public class CategoryController extends HttpServlet {
 			request.setAttribute("listProductByCategory", listProductByCategory);
 			request.setAttribute("sexCategory", sex);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("category.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/category.jsp");
 			dispatcher.forward(request, response);
 		}else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

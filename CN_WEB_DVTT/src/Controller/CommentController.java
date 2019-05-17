@@ -1,6 +1,9 @@
 package Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,13 +15,16 @@ import javax.servlet.http.HttpSession;
 
 import DAO.CommentDAO;
 import DAO.OrderDetailDao;
+import DAO.ProductDAO;
 import Model.Comment;
+import Model.OrderDetail;
+import Model.Product;
 import Model.User;
 
 /**
  * Servlet implementation class CommentController
  */
-@WebServlet("/User/CommentProduct")
+@WebServlet("/CommentController")
 public class CommentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,10 +36,6 @@ public class CommentController extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -46,8 +48,6 @@ public class CommentController extends HttpServlet {
 
 		int user_id = u.getId();
 		int product_id = (int) session.getAttribute("product_id");
-//		int productId = Integer.parseInt(request.getParameter("productId"));
-//		System.out.println(productId);
 		int star = Integer.parseInt(request.getParameter("star"));
 		String title = (String) request.getParameter("title");
 		String content = (String) request.getParameter("content");
@@ -56,20 +56,30 @@ public class CommentController extends HttpServlet {
 
 		if (commentDAO.insertComment(comment)) {
 			orderDetailDao.updateCommentOrderDetail(orderDetail_id);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			HashMap<Integer, Product> hashMapOrderDetail = new HashMap<Integer, Product>();
+			ProductDAO productDAO = new ProductDAO();
+			ArrayList<OrderDetail> listOrderDetailNotComment;
+			try {
+				listOrderDetailNotComment = orderDetailDao.getOrderDetailNotComment(user_id);
+				for(OrderDetail od : listOrderDetailNotComment) {
+					Product product = productDAO.getProductById(od.getProduct_id());
+					hashMapOrderDetail.put(od.getOrderDetail_id(), product);
+				}
+				request.setAttribute("hashMapOrderDetail", hashMapOrderDetail);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/commentProductBought.jsp");
 			dispatcher.forward(request, response);
 		}else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("404.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/404.jsp");
 			dispatcher.forward(request, response);
 		}
 
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

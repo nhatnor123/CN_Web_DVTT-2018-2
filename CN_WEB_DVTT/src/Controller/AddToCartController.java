@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ import Model.Order;
 import Model.Product;
 import Model.User;
 
-@WebServlet("/User/AddToCart")
+@WebServlet("/AddToCart")
 public class AddToCartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      
@@ -32,7 +33,9 @@ public class AddToCartController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int quantity = 1;
+		String size;
 		int id;
+		
 		if(request.getParameter("product_id") != null) {
 			id = Integer.parseInt(request.getParameter("product_id"));
 			try {
@@ -41,6 +44,8 @@ public class AddToCartController extends HttpServlet {
 					if (request.getParameter("quantity") != null) {
 						quantity = Integer.parseInt(request.getParameter("quantity"));
 					}
+					size = request.getParameter("size");
+					product.setSize(size);
 					HttpSession session = request.getSession();
 					if(session.getAttribute("order") == null) {
 						Order order = new Order();
@@ -48,7 +53,6 @@ public class AddToCartController extends HttpServlet {
 						Item item = new Item();
 						item.setQuantity(quantity);
 						item.setProduct(product);
-						item.setPrice(product.getPrice());
 						listItems.add(item);
 						order.setItems(listItems);
 						session.setAttribute("order", order);
@@ -57,7 +61,7 @@ public class AddToCartController extends HttpServlet {
 						ArrayList<Item> listItems = order.getItems();
 						boolean check = false;
 						for(Item item : listItems) {
-							if(item.getProduct().getId() == product.getId()) {
+							if((item.getProduct().getId() == product.getId()) && (item.getProduct().getSize().equals(size))) {
 								item.setQuantity(item.getQuantity() + quantity);
 								check = true;
 							}
@@ -67,7 +71,6 @@ public class AddToCartController extends HttpServlet {
 							Item item = new Item();
 							item.setQuantity(quantity);
 							item.setProduct(product);
-							item.setPrice(product.getPrice());
 							listItems.add(item);
 						}
 						
@@ -75,13 +78,16 @@ public class AddToCartController extends HttpServlet {
 					}
 					
 				}
-				response.sendRedirect(request.getContextPath()+"/User/index.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/index.jsp");
+				dispatcher.forward(request, response);
 			} catch (SQLException e) {
-				response.sendRedirect("/CN_WEB_DVTT/User/404.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/404.jsp");
+				dispatcher.forward(request, response);
 				e.printStackTrace();
 			}
 		}else {
-			response.sendRedirect(request.getContextPath()+"/User/404.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/404.jsp");
+			dispatcher.forward(request, response);
 		}
 		
 		

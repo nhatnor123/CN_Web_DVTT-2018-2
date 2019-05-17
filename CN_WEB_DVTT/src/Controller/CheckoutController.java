@@ -17,7 +17,7 @@ import Model.Order;
 import Model.OrderDetail;
 import Model.User;
 
-@WebServlet("/User/Checkout")
+@WebServlet("/Checkout")
 public class CheckoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -60,7 +60,6 @@ public class CheckoutController extends HttpServlet {
 			order.setUser(user);
 			order.setAddress(address);
 			order.setPhone(phone);
-			
 			int order_id = orderDAO.insertOrder(order);
 			for(Item item : order.getItems()) {
 				OrderDetail orderDetail = new OrderDetail();
@@ -73,7 +72,7 @@ public class CheckoutController extends HttpServlet {
 			}
 			session.removeAttribute("order");
 			session.setAttribute("messageCheckout", "Đơn hàng đang được xử lý!");
-			url = "index.jsp";
+			url = "View/User/index.jsp";
 
 		}
 

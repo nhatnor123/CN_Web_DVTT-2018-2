@@ -52,7 +52,6 @@ public class OrderDetailDao {
 			product.setAvatar(rs.getString("avatar"));
 			item.setProduct(product);
 			item.setQuantity(rs.getInt("quantity"));
-			item.setPrice(rs.getInt("price"));
 			items.add(item);
 		}
 		return items;

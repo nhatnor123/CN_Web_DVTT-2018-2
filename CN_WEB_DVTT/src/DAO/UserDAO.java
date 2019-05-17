@@ -75,6 +75,23 @@ public class UserDAO {
 		return listUser;
 		
 	}
+	
+	public boolean isAdmin(String email, String password) {
+		Connection cons = DBConnection.getConnection();
+		String sql = "SELECT * FROM `database`.users WHERE email = '" + email + "' AND password = '" + password + "' AND level = 3";
+		try {
+			PreparedStatement ps = (PreparedStatement) cons.prepareCall(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				return true;
+			}
+			cons.close();
+		} catch (SQLException e) {
+			Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, e);
+		}
+
+		return false;
+}
 
 	public boolean insertUser(User u) throws SQLException {
 		Connection cons = DBConnection.getConnection();
@@ -196,6 +213,23 @@ public class UserDAO {
 		}
 		return false;
 
+	}
+	
+	public boolean updateLevel(User user) {
+		Connection conn = DBConnection.getConnection();
+		String sql = "UPDATE users SET level = ? WHERE id = ?";
+		try {
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			ps.setInt(1, user.getLevel());
+			ps.setInt(2, user.getId());
+			ps.executeUpdate();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public static void main(String[] args) throws SQLException {

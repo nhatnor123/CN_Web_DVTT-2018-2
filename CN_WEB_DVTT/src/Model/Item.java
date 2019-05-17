@@ -4,17 +4,16 @@ public class Item {
 	private int id;
 	private Product product;
 	private int quantity;
-	private long price;
+//	private long price;
 	public Item() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Item(int id, Product product, int quantity, long price) {
+	public Item(int id, Product product, int quantity) {
 		super();
 		this.id = id;
 		this.product = product;
 		this.quantity = quantity;
-		this.price = price;
 	}
 	public int getId() {
 		return id;
@@ -33,12 +32,6 @@ public class Item {
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-	public long getPrice() {
-		return price;
-	}
-	public void setPrice(long price) {
-		this.price = price;
 	}
 	
 	

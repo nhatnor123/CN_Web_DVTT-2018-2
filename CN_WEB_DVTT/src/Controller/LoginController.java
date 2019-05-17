@@ -15,7 +15,7 @@ import DAO.UserDAO;
 import Model.User;
 import Tools.MD5;
 
-@WebServlet("/User/Login")
+@WebServlet("/Login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,14 +27,13 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String logout = request.getParameter("logout");
-		if(logout.equals("yes")){
+		if (logout.equals("yes")) {
 			HttpSession session = request.getSession();
 			session.invalidate();
-			response.sendRedirect("/CN_WEB_DVTT/User/index.jsp");
-			
+			response.sendRedirect("View/User/index.jsp");
+
 		}
 	}
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -59,7 +58,6 @@ public class LoginController extends HttpServlet {
 			request.setAttribute("password_login_err", password_login_err);
 		}
 
-
 		String url = "";
 
 		if ((email_login_err.length() > 0) || (password_login_err.length() > 0)) {
@@ -71,16 +69,16 @@ public class LoginController extends HttpServlet {
 					User user = userDAO.getUserbyEmail(email);
 					HttpSession session = request.getSession();
 					session.setAttribute("user", user);
-					url = "index.jsp";
+					url = "View/User/index.jsp";
 
 				} else {
 					login_err = "Email hoặc mật khẩu không đúng!";
 					request.setAttribute("login_err", login_err);
-					url = "register.jsp";
+					url = "View/User/register.jsp";
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				response.sendRedirect("/CN_WEB_DVTT/User/404.jsp");
+				response.sendRedirect("/CN_WEB_DVTT/View/User/404.jsp");
 			}
 		}
 

@@ -1,3 +1,5 @@
-/DBConnection/
-/DAO/
 /Controller/
+/DAO/
+/DBConnection/
+/Model/
+/Tools/

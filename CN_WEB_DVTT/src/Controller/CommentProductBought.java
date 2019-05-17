@@ -20,7 +20,7 @@ import Model.Product;
 import Model.User;
 
 
-@WebServlet("/User/Comment")
+@WebServlet("/CommentProductBought")
 public class CommentProductBought extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -49,14 +49,12 @@ public class CommentProductBought extends HttpServlet {
 			for(OrderDetail od : listOrderDetailNotComment) {
 				Product product = productDAO.getProductById(od.getProduct_id());
 				hashMapOrderDetail.put(od.getOrderDetail_id(), product);
-//				listProductNotComment.add(product);
 			}
-//			request.setAttribute("listProductNotComment", listProductNotComment);
 			request.setAttribute("hashMapOrderDetail", hashMapOrderDetail);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("commentProductBought.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/commentProductBought.jsp");
 		dispatcher.forward(request, response);
 		
 		

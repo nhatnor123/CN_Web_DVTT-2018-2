@@ -2,6 +2,7 @@ package DAO;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Model.Category;
 import Model.Product;
 import Model.ProductColor;
 
@@ -164,6 +165,63 @@ public class ProductDAO {
 		return list;
 	}
 	
+	public List<Product> getListProductHot(int category_id){
+		List<Product> list = new ArrayList<Product>();
+		String sql = "SELECT * FROM `database`.order_details natural join `database`.products \r\n" + 
+				"where category_id = '"+category_id+"'\r\n" + 
+				"group by `product_id`\r\n" + 
+				"order by quantity desc\r\n" + 
+				"limit 10;";
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Product pr = new Product();
+				pr.setId(rs.getInt("product_id"));
+				pr.setName(rs.getString("pr_name"));
+				pr.setPrice(rs.getInt("price"));
+				pr.setAvatar(rs.getString("avatar"));
+				pr.setDescription(rs.getString("description"));
+				pr.setCategory_id(rs.getInt("category_id"));
+				pr.setUpdate_at(rs.getTimestamp("updated_at"));
+				list.add(pr);				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<Product> getListProductNew(){
+		List<Product> list = new ArrayList<Product>();
+		String sql = "SELECT * FROM `database`.products order by product_id desc limit 10;";
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Product pr = new Product();
+				pr.setId(rs.getInt("product_id"));
+				pr.setName(rs.getString("pr_name"));
+				pr.setPrice(rs.getInt("price"));
+				pr.setAvatar(rs.getString("avatar"));
+				pr.setDescription(rs.getString("description"));
+				pr.setCategory_id(rs.getInt("category_id"));
+				pr.setUpdate_at(rs.getTimestamp("updated_at"));
+				list.add(pr);				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	
+	
 	public ArrayList<ProductColor> getListProductInWarehouse(int productId){
 		Connection conn = DBConnection.getConnection();
 		String sql = "SELECT * FROM `database`.product_color natural join `database`.productsize where product_id = '"+productId+"';";
@@ -254,13 +312,29 @@ public class ProductDAO {
 	
 	public static void main(String[] args) throws SQLException {
 		ProductColor prc = new ProductColor();
-		prc.setProduct_id(50);
-		prc.setColor("Blue");
-		prc.setQuantity(5);
-		prc.setSize("M");
-		int product_color_id = new ProductDAO().addColorProduct(prc);
-		System.out.println(product_color_id);
-		System.out.println(new ProductDAO().importQuantityProductSize(prc, product_color_id));
+		ProductDAO productDAO = new ProductDAO();
+		ArrayList<Product> listProductMale = new ArrayList<Product>();
+		ArrayList<Product> listProductFeMale = new ArrayList<Product>();
+		ArrayList<Category> listCategory = new CategoryDAO().getListCategory();
+		for(Category c : listCategory) {
+			if(c.getSex().equals("1")) {
+				ArrayList<Product> listProduct = (ArrayList<Product>) productDAO.getListProductHot(c.getId());
+				listProductMale.addAll(listProduct);
+			}else {
+				ArrayList<Product> listProduct = (ArrayList<Product>) productDAO.getListProductHot(c.getId());
+				listProductFeMale.addAll(listProduct);
+			}
+		}
+//		prc.setProduct_id(50);
+//		prc.setColor("Blue")
+//		prc.setQuantity(5);
+//		prc.setSize("M");
+//		int product_color_id = new ProductDAO().addColorProduct(prc);
+//		System.out.println(product_color_id);
+//		System.out.println(new ProductDAO().importQuantityProductSize(prc, product_color_id));
+		for(Product p : listProductMale) {
+			System.out.println(p.getName()+"-"+p.getId()+"-"+p.getAvatar());
+		}
 	}
 	
 	

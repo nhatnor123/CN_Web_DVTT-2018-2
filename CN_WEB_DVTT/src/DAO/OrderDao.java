@@ -111,6 +111,23 @@ public class OrderDao {
 		return list;
 	}
 	
+	public boolean changeStatus(Order order) {
+		String sql = "UPDATE orders SET status = ? WHERE order_id = ?";
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			ps.setString(1, order.getStatus());
+			ps.setInt(2, order.getId());
+			ps.executeUpdate();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return false;
+	}
+	
 	public boolean deleteOrderById(int orderId) {
 		new OrderDetailDao().deleteByOrderId(orderId);
 		String sql = "DELETE FROM orders WHERE order_id = ?";

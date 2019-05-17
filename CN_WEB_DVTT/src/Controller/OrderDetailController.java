@@ -21,7 +21,7 @@ import Model.OrderDetail;
 /**
  * Servlet implementation class OrderDetailController
  */
-@WebServlet("/User/OrderDetail")
+@WebServlet("/OrderDetail")
 public class OrderDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -49,7 +49,7 @@ public class OrderDetailController extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("customer-order-detail.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/customer-order-detail.jsp");
 		dispatcher.forward(request, response);
 		
 	}

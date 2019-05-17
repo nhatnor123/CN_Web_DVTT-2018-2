@@ -16,7 +16,7 @@ import Model.Comment;
 import Model.OrderDetail;
 import Model.User;
 
-@WebServlet("/User/CommentProductDetail")
+@WebServlet("/CommentProductDetail")
 public class CommentProductDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,7 +32,7 @@ public class CommentProductDetail extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("product_id", product_id);
 		session.setAttribute("orderDetail_id", orderDetail_id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("commentProduct.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/commentProduct.jsp");
 		dispatcher.forward(request, response);
 		
 	}
