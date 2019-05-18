@@ -50,6 +50,7 @@ public class OrderDetailDao {
 			product.setId(rs.getInt("product_id"));
 			product.setName(rs.getString("pr_name"));;
 			product.setAvatar(rs.getString("avatar"));
+			product.setPrice(rs.getInt("price"));
 			item.setProduct(product);
 			item.setQuantity(rs.getInt("quantity"));
 			items.add(item);
@@ -105,5 +106,6 @@ public class OrderDetailDao {
 		}
 		return false;
 	}
+	
 	
 }

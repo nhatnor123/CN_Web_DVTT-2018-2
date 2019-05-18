@@ -17,6 +17,7 @@ import DAO.OrderDetailDao;
 import Model.Item;
 import Model.Order;
 import Model.OrderDetail;
+import Model.User;
 
 /**
  * Servlet implementation class OrderDetailController
@@ -36,28 +37,69 @@ public class OrderDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		int order_id = Integer.parseInt(request.getParameter("order_id"));
-		OrderDao orderDAO = new OrderDao();	
-		OrderDetailDao orderDetailDAO = new OrderDetailDao();
-		try {	
-			ArrayList<Item> items = orderDetailDAO.getOrderDetail(order_id);
-			Order  order = orderDAO.getOrderByOrderIdID(order_id);
-			order.setItems(items);
-			request.setAttribute("orderHistory", order);
-			request.setAttribute("items", items);
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		String action = request.getParameter("action");
+		if(user != null) {
+			int order_id = Integer.parseInt(request.getParameter("order_id"));
+			System.out.println(order_id);
+			OrderDao orderDAO = new OrderDao();
+			OrderDetailDao orderDetailDAO = new OrderDetailDao();
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				Order  order = orderDAO.getOrderByOrderIdID(order_id);
+				if(action.equals("cancel")) {
+					order.setStatus("Đã hủy");
+					if(orderDAO.changeStatus(order)) {
+						ArrayList<Item> items = orderDetailDAO.getOrderDetail(order_id);
+						Order  orderUpdate = orderDAO.getOrderByOrderIdID(order_id);
+						orderUpdate.setItems(items);
+						request.setAttribute("orderHistory", orderUpdate);
+						request.setAttribute("items", items);
+					}
+						
+				}
+				else if(action.equals("view")) {
+					ArrayList<Item> items = orderDetailDAO.getOrderDetail(order_id);
+					order.setItems(items);
+					request.setAttribute("orderHistory", order);
+					request.setAttribute("items", items);
+				}
+				RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/customer-order-detail.jsp");
+				dispatcher.forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/customer-order-detail.jsp");
-		dispatcher.forward(request, response);
 		
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String action = request.getParameter("cancelOrder");
+		int order_id = Integer.parseInt(request.getParameter("order_id"));
+		OrderDao orderDAO = new OrderDao();
+		OrderDetailDao orderDetailDAO = new OrderDetailDao();
+		Order order = new Order();
+		if(action.equals("cancel")) {
+			try {
+				order = orderDAO.getOrderByOrderIdID(order_id);
+				order.setStatus("Đã hủy");
+				if(orderDAO.changeStatus(order)) {
+					ArrayList<Item> items = orderDetailDAO.getOrderDetail(order_id);
+					Order  orderUpdate = orderDAO.getOrderByOrderIdID(order_id);
+					orderUpdate.setItems(items);
+					request.setAttribute("orderHistory", orderUpdate);
+					request.setAttribute("items", items);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/customer-order-detail.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 }

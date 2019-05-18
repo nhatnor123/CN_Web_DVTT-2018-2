@@ -92,9 +92,9 @@ public class CommentWithoutBuyController extends HttpServlet {
 						User user = userDAO.getUserbyId(c.getUser_id());
 						hashMapComment.put(user, c);
 					}
-					if(hashMapComment.size() > 0) {
+					if(listCommentOfProduct.size() > 0) {
 						numf.setRoundingMode(RoundingMode.UP);
-						avg = Double.parseDouble(numf.format(totalStar/hashMapComment.size()));
+						avg = Double.parseDouble(numf.format(totalStar/listCommentOfProduct.size()));
 					}
 					countStar = oneStar + twoStar + threeStar + fourStar + fiveStar;
 					request.setAttribute("oneStar", numEN.format(oneStar/countStar));
@@ -103,7 +103,7 @@ public class CommentWithoutBuyController extends HttpServlet {
 					request.setAttribute("fourStar", numEN.format(fourStar/countStar));
 					request.setAttribute("fiveStar", numEN.format(fiveStar/countStar));
 					request.setAttribute("avgStar", avg);
-					request.setAttribute("hashMapComment", hashMapComment);
+					request.setAttribute("listCommentOfProduct", listCommentOfProduct);
 				} catch (SQLException e) {
 					response.sendRedirect(request.getContextPath()+"/View/User/404.jsp");
 					e.printStackTrace();

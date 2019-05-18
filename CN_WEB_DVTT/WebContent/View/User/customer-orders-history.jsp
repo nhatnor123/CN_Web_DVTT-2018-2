@@ -37,26 +37,27 @@
 											<tr>
 												<th># ${order.id }</th>
 												<td>${order.create_at}</td>
-												<td>${order.pay }</td>
+												<td>${order.pay }vnđ</td>
 												<c:choose>
 													<c:when test="${order.status eq 'Chờ xử lý'}">
 														<td><span class="badge badge-info">${order.status }</span></td>
 													</c:when>
 
-													<c:when test="${param.color eq 'Đã nhận'}">
+													<c:when test="${order.status eq 'Giao hàng thành công'}">
 														<td><span class="badge badge-success">${order.status }</span></td>
 													</c:when>
-													
-													<c:when test="${param.color eq 'Đã hủy'}">
+
+													<c:when test="${order.status eq 'Đã hủy'}">
 														<td><span class="badge badge-danger">${order.status }</span></td>
 													</c:when>
-													
+
 													<c:otherwise>
-														<td><span class="badge badge-warning">${order.status }</span></td>
+														<td><span class="badge badge-info">${order.status }</span></td>
 													</c:otherwise>
 												</c:choose>
-												<td><a href="/CN_WEB_DVTT/User/OrderDetail?order_id=${order.id }"
-													class="btn btn-primary btn-sm">View</a></td>
+												<td><a href="OrderDetail?action=view&order_id=${order.id }"
+													class="btn btn-primary btn-sm">Chi tiết</a>
+												</td>
 											</tr>
 										</c:forEach>
 

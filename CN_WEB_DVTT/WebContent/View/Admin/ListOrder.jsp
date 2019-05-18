@@ -69,7 +69,7 @@
 									<thead>
 										<tr>
 											<th>Mã đơn hàng</th>
-											<th>Doanh thu</th>
+											<th>Tổng đơn hàng (VNĐ)</th>
 											<th>Trạng thái</th>
 											<th>Thời gian</th>
 											<th>Hành động</th>
@@ -103,15 +103,6 @@
 											</tr>
 										</c:forEach>
 									</tbody>
-									<tfoot>
-										<tr>
-											<th>Mã đơn hàng</th>
-											<th>Doanh thu</th>
-											<th>Trạng thái</th>
-											<th>Thời gian</th>
-											<th>Hành động</th>
-										</tr>
-									</tfoot>
 								</table>
 							</div>
 							<!-- /.box-body -->

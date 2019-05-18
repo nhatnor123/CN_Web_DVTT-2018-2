@@ -46,12 +46,12 @@ public class CheckoutController extends HttpServlet {
 
 		if (order == null || user == null) {
 			if (user == null) {
-				url = "register.jsp";
+				url = "View/User/register.jsp";
 				session.setAttribute("login_err", "Bạn phải đăng nhập trước khi thanh toán");
 			} else if(order == null){
 				String checkout_err = "Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán";
 				session.setAttribute("checkout_err", checkout_err);
-				url = "shopping-cart.jsp";
+				url = "View/User/shopping-cart.jsp";
 			}
 
 		} else {

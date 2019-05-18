@@ -85,6 +85,12 @@ public class Order {
 		}
 		return count;
 	}
+	
+	public long totalPay() {
+		int totalPay = 0;
+		totalPay = (int) (total()) + 30000;
+		return totalPay;
+	}
 
 	public String getPhone() {
 		return phone;

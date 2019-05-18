@@ -13,11 +13,9 @@ div.stars {
 	width: 115px;
 	display: inline-block;
 }
-
 input.star {
 	display: none;
 }
-
 label.star {
 	float: right;
 	padding: 2px;
@@ -25,35 +23,28 @@ label.star {
 	color: #444;
 	transition: all .2s;
 }
-
 input.star:checked ~ label.star:before {
 	content: '\f005';
 	color: #FD4;
 	transition: all .25s;
 }
-
 input.star-5:checked ~ label.star:before {
 	color: #FE7;
 	text-shadow: 0 0 20px #952;
 }
-
 input.star-1:checked ~ label.star:before {
 	color: #F62;
 }
-
 label.star:hover {
 	transform: rotate(-15deg) scale(1.3);
 }
-
 label.star:before {
 	content: '\f006';
 	font-family: FontAwesome;
 }
-
 .radio-toolbar input[type="radio"] {
 	display: none;
 }
-
 .radio-toolbar label {
 	display: inline-block;
 	background-color: #ddd;
@@ -63,12 +54,10 @@ label.star:before {
 	border: 2px solid #444;
 	border-radius: 4px;
 }
-
 .radio-toolbar input[type="radio"]:checked+label {
 	background-color: #bfb;
 	border-color: #4c4;
 }
-
 .radio-toolbar label:hover {
 	background-color: #dfd;
 }
@@ -91,13 +80,13 @@ label.star:before {
 								<div data-slider-id="1"
 									class="owl-carousel shop-detail-carousel">
 									<div class="item">
-										<img src="img/${product.avatar }" alt="" class="img-fluid">
+										<img src="././template/user/img/${product.avatar }" alt="" class="img-fluid">
 									</div>
 									<div class="item">
-										<img src="img/${product.avatar }" alt="" class="img-fluid">
+										<img src="././template/user/img/${product.avatar }" alt="" class="img-fluid">
 									</div>
 									<div class="item">
-										<img src="img/${product.avatar }" alt="" class="img-fluid">
+										<img src="././template/user/img/${product.avatar }" alt="" class="img-fluid">
 									</div>
 								</div>
 
@@ -140,13 +129,13 @@ label.star:before {
 								</div>
 								<div data-slider-id="1" class="owl-thumbs">
 									<button class="owl-thumb-item">
-										<img src="img/detailsquare.jpg" alt="" class="img-fluid">
+										<img src="././template/user/img/detailsquare.jpg" alt="" class="img-fluid">
 									</button>
 									<button class="owl-thumb-item">
-										<img src="img/detailsquare2.jpg" alt="" class="img-fluid">
+										<img src="././template/user/img/detailsquare2.jpg" alt="" class="img-fluid">
 									</button>
 									<button class="owl-thumb-item">
-										<img src="img/detailsquare3.jpg" alt="" class="img-fluid">
+										<img src="././template/user/img/detailsquare3.jpg" alt="" class="img-fluid">
 									</button>
 								</div>
 							</div>
@@ -162,7 +151,7 @@ label.star:before {
 								<div class="col-md-3 text-center">
 									<p>Đánh giá trung bình</p>
 									<h1>${avgStar }</h1>
-									<p>(${hashMapComment.size() } nhận xét)</p>
+									<p>(${listCommentOfProduct.size() } nhận xét)</p>
 								</div>
 								<div class="col-md-6 ">
 									<div class="row">
@@ -301,27 +290,29 @@ label.star:before {
 							</div>
 							<hr>
 
-							<c:forEach items="${hashMapComment }" var="commentByUser">
+							<div id="DivListComment">
+							<c:forEach items="${listCommentOfProduct }" var="commentByUser">
 								<div class="row">
 									<div class="col-md-3 text-center">
 										<p>
-											<img src="img/${commentByUser.getKey().avatar }"
+											<img src="././template/user/img/${commentByUser.getUserComment().avatar }"
 												alt="ảnh đại diện" style="width: 80px; height: 80px;"
 												class="rounded-circle img-fluid">
 										</p>
 										<p>
-											<strong>${commentByUser.getKey().name }</strong>
+											<strong>${commentByUser.getUserComment().name }</strong>
 										</p>
-										<p>${commentByUser.getValue().update_at }</p>
+										<p>${commentByUser.update_at }</p>
 									</div>
 									<div class="col-md-9">
-										<p>số sao : ${commentByUser.getValue().star }</p>
-										<p>Tiêu đề : ${commentByUser.getValue().title }</p>
-										<p>Nội dung nhận xét: ${commentByUser.getValue().content }</p>
+										<p>số sao : ${commentByUser.star }</p>
+										<p>Tiêu đề : ${commentByUser.title }</p>
+										<p>Nội dung nhận xét: ${commentByUser.content }</p>
 									</div>
 								</div>
 								<hr>
 							</c:forEach>
+							</div>
 						</div>
 
 						<div class="row same-height-row">
@@ -333,17 +324,17 @@ label.star:before {
 									<div class="flip-container">
 										<div class="flipper">
 											<div class="front">
-												<a href="detail.html"><img src="img/product2.jpg" alt=""
+												<a href="detail.html"><img src="././template/user/img/product2.jpg" alt=""
 													class="img-fluid"></a>
 											</div>
 											<div class="back">
-												<a href="detail.html"><img src="img/product2_2.jpg"
+												<a href="detail.html"><img src="././template/user/img/product2_2.jpg"
 													alt="" class="img-fluid"></a>
 											</div>
 										</div>
 									</div>
 									<a href="detail.html" class="invisible"><img
-										src="img/product2.jpg" alt="" class="img-fluid"></a>
+										src="././template/user/img/product2.jpg" alt="" class="img-fluid"></a>
 									<div class="text">
 										<h3>Fur coat</h3>
 										<p class="price">$143</p>
@@ -356,17 +347,17 @@ label.star:before {
 									<div class="flip-container">
 										<div class="flipper">
 											<div class="front">
-												<a href="detail.html"><img src="img/product2.jpg" alt=""
+												<a href="detail.html"><img src="././template/user/img/product2.jpg" alt=""
 													class="img-fluid"></a>
 											</div>
 											<div class="back">
-												<a href="detail.html"><img src="img/product2_2.jpg"
+												<a href="detail.html"><img src="././template/user/img/product2_2.jpg"
 													alt="" class="img-fluid"></a>
 											</div>
 										</div>
 									</div>
 									<a href="detail.html" class="invisible"><img
-										src="img/product2.jpg" alt="" class="img-fluid"></a>
+										src="././template/user/img/product2.jpg" alt="" class="img-fluid"></a>
 									<div class="text">
 										<h3>Fur coat</h3>
 										<p class="price">$143</p>
@@ -379,17 +370,17 @@ label.star:before {
 									<div class="flip-container">
 										<div class="flipper">
 											<div class="front">
-												<a href="detail.html"><img src="img/product1.jpg" alt=""
+												<a href="detail.html"><img src="././template/user/img/product1.jpg" alt=""
 													class="img-fluid"></a>
 											</div>
 											<div class="back">
-												<a href="detail.html"><img src="img/product1_2.jpg"
+												<a href="detail.html"><img src="././template/user/img/product1_2.jpg"
 													alt="" class="img-fluid"></a>
 											</div>
 										</div>
 									</div>
 									<a href="detail.html" class="invisible"><img
-										src="img/product1.jpg" alt="" class="img-fluid"></a>
+										src="././template/user/img/product1.jpg" alt="" class="img-fluid"></a>
 									<div class="text">
 										<h3>Fur coat</h3>
 										<p class="price">$143</p>
@@ -402,17 +393,17 @@ label.star:before {
 									<div class="flip-container">
 										<div class="flipper">
 											<div class="front">
-												<a href="detail.html"><img src="img/product3.jpg" alt=""
+												<a href="detail.html"><img src="././template/user/img/product3.jpg" alt=""
 													class="img-fluid"></a>
 											</div>
 											<div class="back">
-												<a href="detail.html"><img src="img/product3_2.jpg"
+												<a href="detail.html"><img src="././template/user/img/product3_2.jpg"
 													alt="" class="img-fluid"></a>
 											</div>
 										</div>
 									</div>
 									<a href="detail.html" class="invisible"><img
-										src="img/product3.jpg" alt="" class="img-fluid"></a>
+										src="././template/user/img/product3.jpg" alt="" class="img-fluid"></a>
 									<div class="text">
 										<h3>Fur coat</h3>
 										<p class="price">$143</p>

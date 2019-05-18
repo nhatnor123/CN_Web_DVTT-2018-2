@@ -95,8 +95,6 @@
 										<option>Chờ xử lý</option>
 										<option>Đang giao hàng</option>
 										<option>Giao hàng thành công</option>
-										<option>Hủy đơn hàng</option>
-
 									</select>
 								</div>
 

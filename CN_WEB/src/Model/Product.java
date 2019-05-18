@@ -12,7 +12,6 @@ public class Product {
 	private String description;
 	private int category_id;
 	private String size;
-	private String color;
 	private int quantity;
 	private List<Size> sizes;
 	private Timestamp created_at;
@@ -21,8 +20,7 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(int id, String name, int price, String avatar, String description, int category_id, String size,
-			String color,int quantity) {
+	public Product(int id, String name, int price, String avatar, String description, int category_id, String size,int quantity) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -31,7 +29,6 @@ public class Product {
 		this.description = description;
 		this.category_id = category_id;
 		this.size = size;
-		this.color = color;
 		this.quantity = quantity;
 	}
 
@@ -91,13 +88,6 @@ public class Product {
 		this.size = size;
 	}
 
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
 
 	public int getQuantity() {
 		return quantity;

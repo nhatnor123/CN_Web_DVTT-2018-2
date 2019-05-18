@@ -16,7 +16,7 @@
 			<div class="container">
 				<div class="row">
 
-					<div id="basket" class="col-lg-9">
+					<div id="basket" class="col-lg-12">
 						<div class="box">
 
 							<h1>Giỏ hàng của bạn</h1>
@@ -24,6 +24,7 @@
 								${order.countProductInItem() } sản phẩm trong giỏ hàng</p>
 							<p style="color: red">${checkout_err }</p>
 							<div class="table-responsive">
+							
 								<table class="table">
 									<thead>
 										<tr>
@@ -35,29 +36,45 @@
 											<th></th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id = "bodyTable">
+	
 										<c:forEach items="${order.items}" var="item">
 											<tr>
-												<td><a href="productController?product_id=${item.product.id}"><img src="img/${item.product.avatar}"
-														alt="White Blouse Armani"></a></td>
+												<td><a href="productController?product_id=${item.product.id}"><img src="././template/user/img/${item.product.avatar}"
+														alt=""></a></td>
 												<td><a href="productController?product_id=${item.product.id}"">${item.product.name }</a></td>
 												<td>${item.product.size }</td>
 												<td><input type="number" value="${item.quantity }"
-													class="form-control"></td>
-												<td>${item.product.price } đ</td>
-												<td>${item.quantity*item.product.price } đ</td>
-												<td><a href="RemoveItemCart?product_id=${item.product.id}"><i class="fa fa-trash-o"></i></a></td>
+													class="form-control quantityProduct" name="quantityProduct" id="quantity${item.product.id }" min  = "0"  onchange="change(this.id)" style="width:70px;"></td>
+												<td ><span id="price${item.product.id }">${item.product.price }</span> VND</td>
+												<td id="total${item.product.id }">${item.quantity*item.product.price } VND</td>
+												<td><a href="RemoveItemCart?product_id=${item.product.id }"><i class="fa fa-trash-o"></i></a></td>
 											</tr>
+											
+
 										</c:forEach>
+										<script>
+												function change(a){
+													var ind=a.substr(8);
+													var a=$("#quantity"+ind).val()*$("#price"+ind).text();
+													$("#total"+ind).html(a+" VND");
+													$.get("Ajax/Checkout?id="+ind+"&quantity="+$("#quantity"+ind).val(), function(data){
+														$("#totalPrice").html(data);
+														$("#totalCart").html(data);
+													});
+												}							
+										</script>
 									</tbody>
 									<tfoot>
 										<tr>
-											<th colspan="4">Tổng các mặt hàng</th>
-											<th colspan="3">${order.total()} đ</th>
+											<th colspan="5">Tổng các mặt hàng</th>
+											<th colspan="3" id = "totalPrice">${order.total()} VND</th>
 										</tr>
 									</tfoot>
 								</table>
+						
 							</div>
+							
 							<hr>
 							<form action="Checkout" method="post">
 							
@@ -85,7 +102,6 @@
 											class="fa fa-chevron-left"></i> Tiếp tục mua sắm</a>
 									</div>
 									<div class="right">
-
 										<button type="submit" class="btn btn-primary">
 											Đặt hàng <i class="fa fa-chevron-right"></i>
 										</button>
@@ -95,36 +111,7 @@
 						</div>
 						<!-- /.col-lg-9-->
 					</div>
-					<div class="col-lg-3">
-						<div id="order-summary" class="card">
-							<div class="card-header">
-								<h3 class="mt-4 mb-4">Tổng giá trị đơn hàng</h3>
-							</div>
-							<div class="card-body">
-								<p class="text-muted">Giá trị đơn hàng của bạn sẽ bao gồm tổng giá trị các mặt hàng trong đơn 
-								hàng cộng với phí vận chuyển và xử lý</p>
-								<div class="table-responsive">
-									<table class="table">
-										<tbody>
-											<tr>
-												<td>Tổng các mục</td>
-												<th>${order.total()} đ</th>
-											</tr>
-											<tr>
-												<td>Vận chuyển</td>
-												<th>30000 đ</th>
-											</tr>
-											<tr class="total">
-												<td>Tổng</td>
-												<th>${order.pay} đ</th>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /.col-lg-3-->
+					
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
@@ -139,17 +126,17 @@
 									<div class="flip-container">
 										<div class="flipper">
 											<div class="front">
-												<a href="detail.html"><img src="img/product2.jpg" alt=""
+												<a href="detail.html"><img src="././template/user/img/product2.jpg" alt=""
 													class="img-fluid"></a>
 											</div>
 											<div class="back">
-												<a href="detail.html"><img src="img/product2_2.jpg"
+												<a href="detail.html"><img src="././template/user/img/product2_2.jpg"
 													alt="" class="img-fluid"></a>
 											</div>
 										</div>
 									</div>
 									<a href="detail.html" class="invisible"><img
-										src="img/product2.jpg" alt="" class="img-fluid"></a>
+										src="././template/user/img/product2.jpg" alt="" class="img-fluid"></a>
 									<div class="text">
 										<h3>Fur coat</h3>
 										<p class="price">$143</p>

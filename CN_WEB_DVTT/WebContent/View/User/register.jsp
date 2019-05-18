@@ -21,7 +21,7 @@
 							<h1>Đăng ký tài khoản</h1>
 							<p class="lead">Hãy điền đầy đủ các thông tin</p>
 							<hr>
-							<form action="/CN_WEB_DVTT/User/Register" " method="post">
+							<form action="Register" " method="post">
 								<p style="color: red" id="name_err">${name_err }</p>
 								<div class="form-group">
 									<label for="name">Tên</label> <input id="name" name="name"
@@ -66,7 +66,7 @@
 							<p style="color: red">${login_err }</p>
 
 							<hr>
-							<form action="/CN_WEB_DVTT/User/Login" method="post">
+							<form action="Login" method="post">
 								<p style="color: red">${email_login_err }</p>
 								<div class="form-group">
 									<label for="email">Email</label> <input id="email" name="email"

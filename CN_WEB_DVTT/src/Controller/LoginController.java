@@ -30,7 +30,8 @@ public class LoginController extends HttpServlet {
 		if (logout.equals("yes")) {
 			HttpSession session = request.getSession();
 			session.invalidate();
-			response.sendRedirect("View/User/index.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/index.jsp");
+			dispatcher.forward(request, response);
 
 		}
 	}
@@ -61,7 +62,7 @@ public class LoginController extends HttpServlet {
 		String url = "";
 
 		if ((email_login_err.length() > 0) || (password_login_err.length() > 0)) {
-			url = "register.jsp";
+			url = "View/User/register.jsp";
 		} else {
 			UserDAO userDAO = new UserDAO();
 			try {

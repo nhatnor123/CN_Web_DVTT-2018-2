@@ -4,7 +4,6 @@ import java.util.Date;
 
 import Model.Category;
 import Model.Product;
-import Model.ProductColor;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -222,30 +221,7 @@ public class ProductDAO {
 	
 	
 	
-	public ArrayList<ProductColor> getListProductInWarehouse(int productId){
-		Connection conn = DBConnection.getConnection();
-		String sql = "SELECT * FROM `database`.product_color natural join `database`.productsize where product_id = '"+productId+"';";
-		ArrayList<ProductColor> listProductColor_Size = new ArrayList<ProductColor>();
-		try {
-			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				ProductColor pr = new ProductColor();
-				pr.setProductColor_id(rs.getInt("idproduct_color"));
-				pr.setProduct_id(rs.getInt("product_id"));
-				pr.setColor(rs.getString("color"));
-				pr.setImage(rs.getString("image"));
-				pr.setSize_id(rs.getInt("size_id"));
-				pr.setSize(rs.getString("size"));
-				pr.setQuantity(rs.getInt("quantity"));
-				listProductColor_Size.add(pr);				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return listProductColor_Size;
-	}
+	
 	
 	public int getQuantityBySize(int size_id) throws SQLException {
 		int quantity = 0;
@@ -275,67 +251,177 @@ public class ProductDAO {
 		return false;
 	}
 	
-	public int addColorProduct(ProductColor prColor) {
-		Connection conn = DBConnection.getConnection();
-		String sql = "INSERT INTO `database`.`product_color` (`product_id`, `color`) VALUES (?, ?);";
-		try {
-			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, prColor.getProduct_id());
-			ps.setString(2, prColor.getColor());
-			ps.executeUpdate();
-			
-			ResultSet lastId = ps.getGeneratedKeys();
-			if (lastId.next()) {
-	            return lastId.getInt(1);
-	        }
-		} catch (SQLException ex) {
-			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+	public ArrayList<Product> getListProductByCategoryAndPage(int category_id, int page, int maxInEachPage,
+			int modeSort) throws SQLException {
+		Connection connection = DBConnection.getConnection();
+//		String sql2 = "SELECT * FROM `database`.products WHERE category_id = '" + category_id + "' LIMIT '"
+//				+ page * maxInEachPage + "' , '" + maxInEachPage + "'";
+		String sql1 = "SELECT * FROM `database`.products WHERE category_id = '" + category_id + "' ORDER BY price ASC";
+		String sql2 = "SELECT * FROM `database`.products WHERE category_id = '" + category_id + "' ORDER BY price DESC";
+		String sql3 = "SELECT * FROM `database`.products WHERE category_id = '" + category_id
+				+ "' ORDER BY pr_name ASC";
+		String sql4 = "SELECT * FROM `database`.products WHERE category_id = '" + category_id
+				+ "' ORDER BY pr_name DESC";
+		String sql5 = "SELECT * FROM `database`.products WHERE category_id = '" + category_id + "' ORDER BY price ASC";
+
+		PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql1);
+		if (modeSort == 2) {
+			ps = (PreparedStatement) connection.prepareCall(sql2);
+		} else if (modeSort == 3) {
+			ps = (PreparedStatement) connection.prepareCall(sql3);
+		} else if (modeSort == 4) {
+			ps = (PreparedStatement) connection.prepareCall(sql4);
+		} else if (modeSort == 5) {
+			ps = (PreparedStatement) connection.prepareCall(sql5);
 		}
-		return 0;
-	}
-	
-	public boolean importQuantityProductSize(ProductColor prColor , int productColor_id) {
-		Connection conn = DBConnection.getConnection();
-		String sql = "INSERT INTO `database`.`productsize` (`quantity`, `size`, `idproduct_color`) VALUES (?, ?, ?);";
-		try {
-			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
-			ps.setInt(1, prColor.getQuantity());
-			ps.setString(2, prColor.getSize());
-			ps.setInt(3, productColor_id);
-			ps.executeUpdate();
-			return true;
-		} catch (SQLException ex) {
-			Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+		ResultSet rs = ps.executeQuery();
+		ArrayList<Product> list = new ArrayList<>();
+		ArrayList<Product> listByPage = new ArrayList<>();
+		while (rs.next()) {
+			Product product = new Product();
+			product.setId(rs.getInt("product_id"));
+			product.setName(rs.getString("pr_name"));
+			product.setPrice(rs.getInt("price"));
+			product.setAvatar(rs.getString("avatar"));
+			product.setDescription(rs.getString("description"));
+			product.setCategory_id(rs.getInt("category_id"));
+			list.add(product);
 		}
-		return false;
-	}
-	
-	public static void main(String[] args) throws SQLException {
-		ProductColor prc = new ProductColor();
-		ProductDAO productDAO = new ProductDAO();
-		ArrayList<Product> listProductMale = new ArrayList<Product>();
-		ArrayList<Product> listProductFeMale = new ArrayList<Product>();
-		ArrayList<Category> listCategory = new CategoryDAO().getListCategory();
-		for(Category c : listCategory) {
-			if(c.getSex().equals("1")) {
-				ArrayList<Product> listProduct = (ArrayList<Product>) productDAO.getListProductHot(c.getId());
-				listProductMale.addAll(listProduct);
-			}else {
-				ArrayList<Product> listProduct = (ArrayList<Product>) productDAO.getListProductHot(c.getId());
-				listProductFeMale.addAll(listProduct);
+		int count = 0;
+		for (Product prd : list) {
+			count++;
+			if (count > (page - 1) * maxInEachPage && count <= (page) * maxInEachPage) {
+//				System.out.println(prd.getName());
+				listByPage.add(prd);
 			}
 		}
-//		prc.setProduct_id(50);
-//		prc.setColor("Blue")
-//		prc.setQuantity(5);
-//		prc.setSize("M");
-//		int product_color_id = new ProductDAO().addColorProduct(prc);
-//		System.out.println(product_color_id);
-//		System.out.println(new ProductDAO().importQuantityProductSize(prc, product_color_id));
-		for(Product p : listProductMale) {
-			System.out.println(p.getName()+"-"+p.getId()+"-"+p.getAvatar());
-		}
+
+		return listByPage;
 	}
+
+	public int getNumberOfPageListProductByCategory(long category_id, int maxInEachPage) throws SQLException {
+		Connection connection = DBConnection.getConnection();
+//		String sql2 = "SELECT * FROM `database`.products WHERE category_id = '" + category_id + "' LIMIT '"
+//				+ page * maxInEachPage + "' , '" + maxInEachPage + "'";
+		String sql = "SELECT * FROM `database`.products WHERE category_id = '" + category_id + "'";
+		PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql);
+		ResultSet rs = ps.executeQuery();
+		ArrayList<Product> list = new ArrayList<>();
+		ArrayList<Product> listByPage = new ArrayList<>();
+		while (rs.next()) {
+			Product product = new Product();
+			product.setId(rs.getInt("product_id"));
+			product.setName(rs.getString("pr_name"));
+			product.setPrice(rs.getInt("price"));
+			product.setAvatar(rs.getString("avatar"));
+			product.setDescription(rs.getString("description"));
+			product.setCategory_id(rs.getInt("category_id"));
+			list.add(product);
+		}
+		return (list.size()) / maxInEachPage + 1;
+	}
+	
+	public ArrayList<Product> searchListProductByCategoryAndPage(String str, int page, int maxInEachPage, int modeSort)
+			throws SQLException {
+		Connection connection = DBConnection.getConnection();
+//		String sql2 = "SELECT * FROM `database`.products WHERE category_id = '" + category_id + "' LIMIT '"
+//				+ page * maxInEachPage + "' , '" + maxInEachPage + "'";
+		String sql1 = "SELECT * FROM `database`.products WHERE pr_name 	LIKE '%" + str + "%' ORDER BY price ASC";
+		String sql2 = "SELECT * FROM `database`.products WHERE pr_name 	LIKE '%" + str + "%' ORDER BY price DESC";
+		String sql3 = "SELECT * FROM `database`.products WHERE pr_name 	LIKE '%" + str + "%' ORDER BY pr_name ASC";
+		String sql4 = "SELECT * FROM `database`.products WHERE pr_name 	LIKE '%" + str + "%' ORDER BY pr_name DESC";
+		String sql5 = "SELECT * FROM `database`.products WHERE pr_name 	LIKE '%" + str + "%' ORDER BY price ASC";
+
+		PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql1);
+		if (modeSort == 2) {
+			ps = (PreparedStatement) connection.prepareCall(sql2);
+		} else if (modeSort == 3) {
+			ps = (PreparedStatement) connection.prepareCall(sql3);
+		} else if (modeSort == 4) {
+			ps = (PreparedStatement) connection.prepareCall(sql4);
+		} else if (modeSort == 5) {
+			ps = (PreparedStatement) connection.prepareCall(sql5);
+		}
+		ResultSet rs = ps.executeQuery();
+		ArrayList<Product> list = new ArrayList<>();
+		ArrayList<Product> listByPage = new ArrayList<>();
+		while (rs.next()) {
+			Product product = new Product();
+			product.setId(rs.getInt("product_id"));
+			product.setName(rs.getString("pr_name"));
+			product.setPrice(rs.getInt("price"));
+			product.setAvatar(rs.getString("avatar"));
+			product.setDescription(rs.getString("description"));
+			product.setCategory_id(rs.getInt("category_id"));
+			list.add(product);
+		}
+		int count = 0;
+		for (Product prd : list) {
+			count++;
+			if (count > (page - 1) * maxInEachPage && count <= (page) * maxInEachPage) {
+//				System.out.println(prd.getName());
+				listByPage.add(prd);
+			}
+		}
+
+		return listByPage;
+	}
+
+	public int getSizeListProductBySearchCategory(String str, int maxInEachPage) throws SQLException {
+		Connection connection = DBConnection.getConnection();
+//		String sql2 = "SELECT * FROM `database`.products WHERE category_id = '" + category_id + "' LIMIT '"
+//				+ page * maxInEachPage + "' , '" + maxInEachPage + "'";
+		String sql = "SELECT * FROM `database`.products WHERE pr_name LIKE '%" + str + "%'";
+		PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql);
+		ResultSet rs = ps.executeQuery();
+		ArrayList<Product> list = new ArrayList<>();
+		ArrayList<Product> listByPage = new ArrayList<>();
+		while (rs.next()) {
+			Product product = new Product();
+			product.setId(rs.getInt("product_id"));
+			product.setName(rs.getString("pr_name"));
+			product.setPrice(rs.getInt("price"));
+			product.setAvatar(rs.getString("avatar"));
+			product.setDescription(rs.getString("description"));
+			product.setCategory_id(rs.getInt("category_id"));
+			list.add(product);
+		}
+		return (list.size()) ;
+	}
+	
+	public ArrayList<Product> searchProduct(String str) throws SQLException {
+		Connection connection = DBConnection.getConnection();
+		String sql = "SELECT * FROM `database`.products where pr_name LIKE '%" + str + "%';";
+		PreparedStatement ps = (PreparedStatement) connection.prepareCall(sql);
+		ResultSet rs = ps.executeQuery();
+		ArrayList<Product> list = new ArrayList<>();
+		while (rs.next()) {
+			Product product = new Product();
+			product.setId(rs.getInt("product_id"));
+			product.setName(rs.getString("pr_name"));
+			product.setPrice(rs.getInt("price"));
+			product.setAvatar(rs.getString("avatar"));
+			product.setDescription(rs.getString("description"));
+			product.setCategory_id(rs.getInt("category_id"));
+			list.add(product);
+		}
+		return list;
+	}
+	
+	
+	
+	public static void main(String[] args) throws SQLException {
+		ProductDAO productDAO = new ProductDAO();
+		ArrayList<Product> listProducSearch = new ArrayList<Product>();
+		listProducSearch = productDAO.searchProduct("áo nỉ");
+		for(Product p : listProducSearch) {
+			System.out.println(p.getName());
+		}
+
+	}
+	
+	
+	
 	
 	
 }

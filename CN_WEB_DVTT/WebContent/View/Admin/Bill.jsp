@@ -75,7 +75,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<h2 class="page-header">
-							<i class="fa fa-globe"></i> ABC Shop <small class="pull-right">Time:
+							<i class="fa fa-globe"></i> Fashion Shop <small class="pull-right">Thời gian đặt hàng:
 								${bill.create_at }</small>
 						</h2>
 					</div>

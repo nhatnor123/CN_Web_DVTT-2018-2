@@ -26,7 +26,7 @@ public class OrderDao {
 			ps.setInt(1, order.getUser().getId());
 			ps.setString(2, order.getAddress());
 			ps.setString(3, order.getPhone());
-			ps.setLong(4, order.total()+30000);
+			ps.setLong(4, order.total());
 			ps.setTimestamp(5, new Timestamp(now.getTime()));
 			ps.setTimestamp(6, new Timestamp(now.getTime()));
 			ps.setString(7, order.getUser().getEmail());
@@ -143,6 +143,7 @@ public class OrderDao {
 		
 		return false;
 	}
+	
 	
 	
 }

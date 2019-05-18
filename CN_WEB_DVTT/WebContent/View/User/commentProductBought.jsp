@@ -31,18 +31,18 @@
 										<div class="flip-container">
 											<div class="flipper">
 												<div class="front">
-													<a href="productController?product_id=${item.getValue().id}"><img src="img/${item.getValue().avatar }"
+													<a href="productController?product_id=${item.getValue().id}"><img src="././template/user/img/${item.getValue().avatar }"
 														alt="" class="img-fluid"></a>
 												</div>
 												<div class="back">
-													<a href="productController?product_id=${item.getValue().id}"><img src="img/${item.getValue().avatar }"
+													<a href="productController?product_id=${item.getValue().id}"><img src="././template/user/img/${item.getValue().avatar }"
 														alt="" class="img-fluid"></a>
 												</div>
 											</div>
 										</div>
 										<a
 											href="productController?product_id=${item.getValue().id}"
-											class="invisible"><img src="img/${item.getValue().avatar }" alt=""
+											class="invisible"><img src="././template/user/img/${item.getValue().avatar }" alt=""
 											class="img-fluid"></a>
 										<div class="text">
 											<h3>${item.getValue().name }</h3>

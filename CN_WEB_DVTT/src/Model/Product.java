@@ -13,14 +13,14 @@ public class Product {
 	private int category_id;
 	private String size;
 	private int quantity;
+	private List<Size> sizes;
 	private Timestamp created_at;
 	private Timestamp updated_at;
 
 	public Product() {
 	}
 
-	public Product(int id, String name, int price, String avatar, String description, int category_id, String size,
-			String color) {
+	public Product(int id, String name, int price, String avatar, String description, int category_id, String size,int quantity) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -29,6 +29,7 @@ public class Product {
 		this.description = description;
 		this.category_id = category_id;
 		this.size = size;
+		this.quantity = quantity;
 	}
 
 	public int getId() {
@@ -87,6 +88,7 @@ public class Product {
 		this.size = size;
 	}
 
+
 	public int getQuantity() {
 		return quantity;
 	}
@@ -109,6 +111,14 @@ public class Product {
 
 	public void setUpdate_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	public List<Size> getSizes() {
+		return sizes;
+	}
+
+	public void setSizes(List<Size> sizes) {
+		this.sizes = sizes;
 	}
 
 }

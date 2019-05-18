@@ -1,7 +1,7 @@
+
 <%@page import="Model.Category"%>
 <%@page import="DAO.CategoryDAO"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -9,29 +9,29 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Fashion Shop</title>
-<meta
-	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-	name='viewport'>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="all,follow">
 <!-- Bootstrap CSS-->
 <link rel="stylesheet" href="././template/user/vendor/bootstrap/css/bootstrap.min.css">
 <!-- Font Awesome CSS-->
 <link rel="stylesheet"
 	href="././template/user/vendor/font-awesome/css/font-awesome.min.css">
 <!-- Google fonts - Roboto -->
-<link rel="stylesheet" type="text/css"
+<link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700">
 <!-- owl carousel-->
-<link rel="stylesheet" type="text/css"
+<link rel="stylesheet"
 	href="././template/user/vendor/owl.carousel/assets/owl.carousel.css">
-<link rel="stylesheet" type="text/css"
-	href="././template/user/vendor/owl.carousel/assets/owl.theme.default.css">
+<link rel="stylesheet"
+	href="vendor/owl.carousel/assets/owl.theme.default.css">
 <!-- theme stylesheet-->
-<link rel="stylesheet" type="text/css" href="././template/user/css/style.default.css" 
+<link rel="stylesheet" href="././template/user/css/style.default.css"
 	id="theme-stylesheet">
 <!-- Custom stylesheet - for your changes-->
 <link rel="stylesheet" href="././template/user/css/custom.css">
 <!-- Favicon-->
-<link rel="shortcut icon" href="././template/user/favicon.png">
+<link rel="shortcut icon" href="favicon.png">
 <!-- Tweaks for older IEs-->
 <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -53,21 +53,32 @@
 				<div class="row">
 					<div class="col-lg-6 offer mb-3 mb-lg-0">
 						<c:if test="${user ne null }">
-							<a href="#" class="ml-1"><img src="././template/user/img/${user.avatar }" alt="${user.avatar }" style="width: 20px; height: 20px;" class="rounded-circle img-fluid"> Chào mừng ${user.name }</a>
+							<a href="#" class="ml-1"><img src="././template/user/img/${user.avatar }"
+								alt="${user.avatar }" style="width: 20px; height: 20px;"
+								class="rounded-circle img-fluid"> Chào mừng ${user.name }</a>
 						</c:if>
 					</div>
 					<div class="col-lg-6 text-center text-lg-right">
 						<ul class="menu list-inline mb-0">
-							
+						
 							<c:choose>
 								<c:when test="${user ne null }">
-									<li class="list-inline-item"><a href="Login?logout=yes">Đăng xuất</a></li>
-									<li class="list-inline-item"><a href="CustomerAccount?action=viewInfo">Tài khoản của bạn</a></li>
+									<c:if test="${user.level == 3 }">
+										<li class="list-inline-item"><a
+										href="usermanage">Đến trang Admin</a></li>
+									</c:if>
+									<li class="list-inline-item"><a
+										href="Login?logout=yes">Đăng xuất</a></li>
+									<li class="list-inline-item"><a
+										href="CustomerAccount?action=viewInfo">Tài khoản của bạn</a></li>
 								</c:when>
-								
+
 								<c:otherwise>
-								<li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#login-modal">Đăng nhập</a></li>
-									<li class="list-inline-item"><a href="Register?register=yes">Đăng ký</a></li>
+									
+									<li class="list-inline-item"><a href="#"
+										data-toggle="modal" data-target="#login-modal">Đăng nhập</a></li>
+									<li class="list-inline-item"><a href="Register?register=yes">Đăng
+											ký</a></li>
 								</c:otherwise>
 							</c:choose>
 						</ul>
@@ -89,10 +100,10 @@
 							<form action="Login" method="post">
 								<p style="color: red">${email_login__err }</p>
 								<div class="form-group">
-									<input id="email-modal" type="text" placeholder="email" name="email"
-										class="form-control">
+									<input id="email-modal" type="text" placeholder="email"
+										name="email" class="form-control">
 								</div>
-								
+
 								<p style="color: red">${password_login_err }</p>
 								<div class="form-group">
 									<input id="password-modal" type="password"
@@ -120,11 +131,7 @@
 		</div>
 		<nav class="navbar navbar-expand-lg">
 			<div class="container">
-				<a href="index" class="navbar-brand home"><img
-					src="././template/user/img/logo.png" alt="Obaju logo"
-					class="d-none d-md-inline-block"><img
-					src="././template/user/img/logo-small.png" alt="Obaju logo"
-					class="d-inline-block d-md-none"><span class="sr-only">Fashion
+				<a href="index" class="navbar-brand home"><span class="sr-only">Fashion
 						Shop</span></a>
 				<div class="navbar-buttons">
 					<button type="button" data-toggle="collapse"
@@ -143,7 +150,7 @@
 				</div>
 				<div id="navigation" class="collapse navbar-collapse">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item"><a href="index.jsp"
+						<li class="nav-item"><a href="index"
 							class="nav-link active">Home</a></li>
 						<li class="nav-item dropdown menu-large"><a href="#"
 							data-toggle="dropdown" data-hover="dropdown" data-delay="200"
@@ -163,7 +170,7 @@
 
 
 												<li class="nav-item"><a
-													href="CategoryController?category_id=<%=c.getId()%>&sex=<%=c.getSex()%>"
+													href="CategoryController?category_id=<%=c.getId()%>&sex=<%=c.getSex()%>&page=1&maxInEachPage=5&sortMode=1"
 													class="nav-link"><%=c.getName()%></a></li>
 
 												<%
@@ -187,7 +194,7 @@
 
 
 												<li class="nav-item"><a
-													href="CategoryController?category_id=<%=c.getId()%>&sex=<%=c.getSex()%>"
+													href="CategoryController?category_id=<%=c.getId()%>&sex=<%=c.getSex()%>&page=1&maxInEachPage=5&sortMode=1"
 													class="nav-link"><%=c.getName()%></a></li>
 
 												<%
@@ -197,6 +204,29 @@
 											<%
 												}
 											%>
+										</div>
+
+									</div>
+								</li>
+							</ul></li>
+						<li class="nav-item dropdown menu-large"><a href="#"
+							data-toggle="dropdown" data-hover="dropdown" data-delay="200"
+							class="dropdown-toggle nav-link">Mục khác<b class="caret"></b></a>
+							<ul class="dropdown-menu megamenu">
+								<li>
+									<div class="row">
+										<div class="col-md-6 col-lg-3">
+											<h5>Clothing</h5>
+											<ul class="list-unstyled mb-3">
+												<li class="nav-item"><a href="category.html"
+													class="nav-link">T-shirts</a></li>
+												<li class="nav-item"><a href="category.html"
+													class="nav-link">Shirts</a></li>
+												<li class="nav-item"><a href="category.html"
+													class="nav-link">Pants</a></li>
+												<li class="nav-item"><a href="category.html"
+													class="nav-link">Accessories</a></li>
+											</ul>
 										</div>
 
 									</div>
@@ -213,7 +243,8 @@
 							class="navbar-collapse collapse d-none d-lg-block">
 							<a href="Cart"
 								class="btn btn-primary navbar-btn"><i
-								class="fa fa-shopping-cart"></i><span>${order.countItem() } mặt hàng</span></a>
+								class="fa fa-shopping-cart"></i><span>${order.countItem() }
+									mặt hàng</span></a>
 						</div>
 					</div>
 				</div>
@@ -221,18 +252,45 @@
 		</nav>
 		<div id="search" class="collapse">
 			<div class="container">
-				<form role="search" class="ml-auto">
+				<form  role="search" class="ml-auto" >
 					<div class="input-group">
-						<input type="text" placeholder="Search" class="form-control">
+						<input type="text" placeholder="Search" class="form-control"
+							id="search123" onkeyup="showResult()" >
 						<div class="input-group-append">
-							<button type="button" class="btn btn-primary">
+							<button type="button" class="btn btn-primary"  onclick="searchButton()" >
 								<i class="fa fa-search"></i>
 							</button>
 						</div>
 					</div>
+					<div class="list-group" id="divShowResult"></div>
+
 				</form>
 			</div>
 		</div>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+			function showResult() {
+				var str = $("#search123").val();
+				if (str.length > 0) {
+					$.get("ajax/search?str=" + str, function(data) {
+						$("#divShowResult").html(data);
+					});
+				} else {
+					$("#divShowResult").html("");
+				}
+			}
+		</script>
+		<script >
+			function searchButton(){
+				var str = $("#search123").val();
+				if (str.length > 0 ){
+					//alert("SearchCategoryController?str="+str+"&page=1&maxInEachPage=20&sortMode=1");
+					window.location = "SearchCategoryController?str="+str+"&page=1&maxInEachPage=20&sortMode=1";
+				}
+			}
+		</script>
+		
 	</header>
 </body>
 </html>

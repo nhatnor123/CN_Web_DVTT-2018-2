@@ -59,7 +59,7 @@ label.star:before {
 		<div id="productMain" class="row box">
 			<div class="col-md-6">
 
-				<form action="/CN_WEB_DVTT/User/CommentProduct" method="post">
+				<form action="CommentController" method="post">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">

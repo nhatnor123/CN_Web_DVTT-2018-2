@@ -115,7 +115,7 @@
 		</div>
 		<!-- *** MENUS AND FILTERS END ***-->
 		<div class="banner">
-			<a href="#"><img src="img/banner.jpg" alt="sales 2014"
+			<a href="#"><img src="././template/user/img/banner.jpg" alt="sales 2014"
 				class="img-fluid"></a>
 		</div>
 	</div>

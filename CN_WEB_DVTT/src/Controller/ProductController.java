@@ -73,9 +73,9 @@ public class ProductController extends HttpServlet {
 					User u = userDAO.getUserbyId(c.getUser_id());
 					hashMapComment.put(u, c);
 				}
-				if(hashMapComment.size() > 0) {
+				if(listCommentOfProduct.size() > 0) {
 					numf.setRoundingMode(RoundingMode.UP);
-					avg = Double.parseDouble(numf.format(totalStar/hashMapComment.size()));
+					avg = Double.parseDouble(numf.format(totalStar/listCommentOfProduct.size()));
 				}
 				countStar = oneStar + twoStar + threeStar + fourStar + fiveStar;
 				request.setAttribute("oneStar", numEN.format(oneStar/countStar));
@@ -84,7 +84,7 @@ public class ProductController extends HttpServlet {
 				request.setAttribute("fourStar", numEN.format(fourStar/countStar));
 				request.setAttribute("fiveStar", numEN.format(fiveStar/countStar));
 				request.setAttribute("avgStar", avg);
-				request.setAttribute("hashMapComment", hashMapComment);
+				request.setAttribute("listCommentOfProduct", listCommentOfProduct);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/productDetail.jsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {

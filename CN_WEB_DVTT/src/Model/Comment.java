@@ -9,10 +9,16 @@ public class Comment {
 	private String content;
 	private int star;
 	private int user_id;
+	private User userComment;
 	private int product_id;
 	private Timestamp create_at;
 	private Timestamp update_at;
-
+	
+	public Comment() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Comment(int id, String title, String content, int star, int user_id, int product_id, Timestamp create_at,
 			Timestamp update_at) {
 		super();
@@ -26,10 +32,21 @@ public class Comment {
 		this.update_at = update_at;
 	}
 
-	public Comment() {
-		super();
-		// TODO Auto-generated constructor stub
+	
+	
+	public User getUserComment() {
+		return userComment;
 	}
+
+
+
+	public void setUserComment(User userComment) {
+		this.userComment = userComment;
+	}
+
+
+
+
 
 	public int getId() {
 		return id;
