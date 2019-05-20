@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DAO.BannnerDAO;
 import DAO.CategoryDAO;
 import DAO.ProductDAO;
 import Model.Category;
@@ -54,6 +55,7 @@ public class HomeController extends HttpServlet {
 			servCon.setAttribute("listProductMale", listProductMale);
 			servCon.setAttribute("listProductFeMale", listProductFeMale);
 			servCon.setAttribute("listCategory", listCategory);
+			servCon.setAttribute("listBanner",new BannnerDAO().getListBanner());
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -36,7 +36,7 @@ public class AdminProductController extends HttpServlet {
 	private static final String UPDATE_INSERT = "View/Admin/Product.jsp";
 	private static final String LIST = "View/Admin/ListProduct.jsp";
 	private static final String SIZE = "View/Admin/Size.jsp";
-	public static final String SAVE_DIRECTORY = "img";
+	public static final String SAVE_DIRECTORY = "template/user/img";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -112,7 +112,19 @@ public class AdminProductController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		String id = request.getParameter("id");
 		Product pr = new Product();
+		if (id == null || id.isEmpty()) {
+		} else {
+			try {
+				pr = new ProductDAO().getProductById(Integer.parseInt(id));
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
 
 			// Đường dẫn tuyệt đối tới thư mục gốc của web app.
@@ -140,7 +152,7 @@ public class AdminProductController extends HttpServlet {
 				if (fileName != null && fileName.length() > 0) {
 					String filePath = fullSavePath + File.separator + fileName;
 					System.out.println("Write attachment to file: " + filePath);
-
+					if(fileName != null)
 					pr.setAvatar(fileName);
 					part.write(filePath);
 				}
@@ -148,6 +160,7 @@ public class AdminProductController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 
 		String mes = "";
 		pr.setName(request.getParameter("name"));
@@ -163,15 +176,21 @@ public class AdminProductController extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		String id = request.getParameter("id");
+
 		if (id == null || id.isEmpty()) {
-			new ProductDAO().addProduct(pr);
-			mes = "Thêm sản phẩm thành công";
+			if (new ProductDAO().addProduct(pr)) {
+				mes = "Thêm sản phẩm thành công";
+			} else
+				mes = "Thêm sản phẩm thất bại";
+
 			request.setAttribute("mes", mes);
 		} else {
-			mes = "Cập nhật sản phẩm thành công";
+
 			pr.setId(Integer.parseInt(id));
-			new ProductDAO().update(pr);
+			if (new ProductDAO().update(pr)) {
+				mes = "Cập nhật sản phẩm thành công";
+			} else
+				mes = "Cập nhật sản phẩm thất bại";
 			request.setAttribute("mes", mes);
 		}
 		request.setAttribute("list", new ProductDAO().getListProduct());

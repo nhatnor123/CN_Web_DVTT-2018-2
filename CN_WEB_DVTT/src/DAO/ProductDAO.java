@@ -4,6 +4,7 @@ import java.util.Date;
 
 import Model.Category;
 import Model.Product;
+import Model.Size;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -59,14 +60,15 @@ public class ProductDAO {
 	}
 	
 	public boolean update(Product pr) {
-		String sql = "UPDATE products SET pr_name = ?,price = ?,description = ? WHERE product_id = ?;";
+		String sql = "UPDATE products SET pr_name = ?,price = ?,description = ?,avatar = ? WHERE product_id = ?;";
 		Connection conn = DBConnection.getConnection();
 		try {
 			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 			ps.setString(1,pr.getName() );
 			ps.setInt(2, pr.getPrice());
 			ps.setString(3, pr.getDescription());
-			ps.setInt(4, pr.getId());
+			ps.setString(4,pr.getAvatar());
+			ps.setInt(5, pr.getId());
 			ps.executeUpdate();
 			conn.close();
 			return true;
@@ -154,6 +156,8 @@ public class ProductDAO {
 				pr.setDescription(rs.getString("description"));
 				pr.setCategory_id(rs.getInt("category_id"));
 				pr.setUpdate_at(rs.getTimestamp("updated_at"));
+				List<Size> listSize = new SizeDAO().getSizeByPrId(rs.getInt("product_id"));
+	            pr.setSizes(listSize);
 				list.add(pr);				
 			}
 		} catch (SQLException e) {

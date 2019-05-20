@@ -66,8 +66,8 @@ public class AdminLoginController extends HttpServlet {
 		} else {
 			UserDAO userDAO = new UserDAO();
 			try {
-				userDAO.isAdmin(email, MD5.encryption(password));
-				if (true) {
+				
+				if (userDAO.isAdmin(email, MD5.encryption(password))) {
 					User user = userDAO.getUserbyEmail(email);
 					HttpSession session = request.getSession();
 					session.setAttribute("user", user);

@@ -60,9 +60,9 @@ public class AdminSizeController extends HttpServlet {
 				request.setAttribute("mes", mes);
 			} else {
 				if (new SizeDAO().update(size)) {
-					mes = "Cập nhật thành công size";
+					mes = "Cập nhật Size thành công";
 				} else
-					mes = "Cập nhật size thất bại";
+					mes = "Cập nhật Size thất bại";
 			}
 			request.setAttribute("list", new ProductDAO().getListProduct());
 			RequestDispatcher rd = request.getRequestDispatcher("View/Admin/ListProduct.jsp");

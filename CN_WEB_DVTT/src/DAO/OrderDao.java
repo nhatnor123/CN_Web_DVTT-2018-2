@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.mysql.jdbc.PreparedStatement;
+//import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
 
 import DBConnection.DBConnection;
+import Model.Item;
 import Model.Order;
 
 public class OrderDao {
@@ -26,7 +28,7 @@ public class OrderDao {
 			ps.setInt(1, order.getUser().getId());
 			ps.setString(2, order.getAddress());
 			ps.setString(3, order.getPhone());
-			ps.setLong(4, order.total());
+			ps.setLong(4, order.total()+30000);
 			ps.setTimestamp(5, new Timestamp(now.getTime()));
 			ps.setTimestamp(6, new Timestamp(now.getTime()));
 			ps.setString(7, order.getUser().getEmail());
@@ -78,19 +80,23 @@ public class OrderDao {
 			order.setStatus(rs.getString("status"));
 			order.setCreate_at(rs.getTimestamp("created_at"));
 			order.setUpdate_at(rs.getTimestamp("updated_at"));
+			ArrayList<Item> items = new OrderDetailDao().getOrderDetail(rs.getInt("order_id"));
+			order.setItems(items);
+			order.setUser(new UserDAO().getUserbyId(rs.getInt("user_id")));
 		}
 		return order;
 
 	}
-	
 	public List<Order> getListOrder(){
 		ArrayList<Order> list = new ArrayList<Order>();
 		Connection conn = DBConnection.getConnection();
 		String sql = "SELECT * FROM orders";
 		PreparedStatement ps;
 		try {
-			ps = (PreparedStatement) conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
+			
+			
 			while (rs.next()) {
 				Order order = new Order();
 				order.setId(rs.getInt("order_id"));
@@ -108,14 +114,31 @@ public class OrderDao {
 			e.printStackTrace();
 		}
 		
+		
 		return list;
+		
+		
 	}
-	
+	public boolean deleteOrderById(int orderId) {
+		new OrderDetailDao().deleteByOrderId(orderId);
+		String sql = "DELETE FROM orders WHERE order_id = ?";
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, orderId);
+			ps.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 	public boolean changeStatus(Order order) {
 		String sql = "UPDATE orders SET status = ? WHERE order_id = ?";
 		Connection conn = DBConnection.getConnection();
 		try {
-			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, order.getStatus());
 			ps.setInt(2, order.getId());
 			ps.executeUpdate();
@@ -127,23 +150,4 @@ public class OrderDao {
 		}	
 		return false;
 	}
-	
-	public boolean deleteOrderById(int orderId) {
-		new OrderDetailDao().deleteByOrderId(orderId);
-		String sql = "DELETE FROM orders WHERE order_id = ?";
-		Connection conn = DBConnection.getConnection();
-		try {
-			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
-			ps.setInt(1, orderId);
-			ps.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return false;
-	}
-	
-	
-	
 }

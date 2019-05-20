@@ -105,12 +105,12 @@
 															<c:forEach items="${pr.sizes }" var="x">
 																<li><a
 																	href="productmanage?action=editsize&sizeId=<c:out value="${x.id}"/>">${x.size}
-																		- ${x.quantity } </a></li>
+																		- Tồn kho: ${x.quantity } </a></li>
 															</c:forEach>
 														</ul>
 													</div></td>
 												<td><c:out value="${pr.price }" /></td>
-												<td><img alt="" src="img/${pr.avatar }"
+												<td><img alt="" src="template/user/img/${pr.avatar }"
 													style="height: 100px; width: 80px"></td>
 												<td><c:out value="${pr.created_at}" /></td>
 												<td>

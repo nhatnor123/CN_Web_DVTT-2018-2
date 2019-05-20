@@ -95,7 +95,7 @@
 
 					<div class="row">
 						<div class="col-md-12">
-							<h1>Sản phẩm của Nữ</h1>
+							<h1>Sản phẩm của nữ</h1>
 						</div>
 					</div>
 
@@ -152,21 +152,13 @@
 						<p class="lead">Get the inspiration from our world class
 							designers</p>
 						<div id="get-inspired" class="owl-carousel owl-theme">
-							<div class="item">
-								<a href="#"><img
-									src="././template/user/img/getinspired1.jpg" alt="Get inspired"
-									class="img-fluid"></a>
-							</div>
-							<div class="item">
-								<a href="#"><img
-									src="././template/user/img/getinspired2.jpg" alt="Get inspired"
-									class="img-fluid"></a>
-							</div>
-							<div class="item">
-								<a href="#"><img
-									src="././template/user/img/getinspired3.jpg" alt="Get inspired"
-									class="img-fluid"></a>
-							</div>
+							<c:forEach items="${listBanner }" var="banner">
+								<div class="item">
+									<a href="#"><img
+										src="././template/user/img/${banner.image }"
+										alt="Get inspired" class="img-fluid"></a>
+								</div>
+							</c:forEach>
 						</div>
 					</div>
 				</div>

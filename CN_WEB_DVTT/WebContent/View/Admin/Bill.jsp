@@ -87,8 +87,8 @@
 						From
 						<address>
 							<strong>ABC Shop</strong><br> Số 1 Đại Cồ Việt<br> quận
-							Đống Đa, Hà Nội<br> Phone: (804) 123-5432<br /> Email:
-							info@almasaeedstudio.com
+							Hai Bà Trưng, Hà Nội<br> Phone: (804) 123-5432<br /> Email:
+							abcshop@gmail.com
 						</address>
 					</div>
 					<!-- /.col -->

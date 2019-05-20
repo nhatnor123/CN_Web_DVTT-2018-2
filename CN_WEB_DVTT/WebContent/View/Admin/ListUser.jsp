@@ -98,7 +98,7 @@
 											</td>
 											<td>
 												<div class="btn-group">
-													<button type="button" class="btn btn-default">Action</button>
+													<button type="button" class="btn btn-default">Thay đổi quyền</button>
 													<button type="button"
 														class="btn btn-default dropdown-toggle"
 														data-toggle="dropdown">
@@ -106,7 +106,9 @@
 															Dropdown</span>
 													</button>
 													<ul class="dropdown-menu" role="menu">
-														<li><a href="usermanage?action=edit&id=${user.id }">Thay đổi quyền</a></li>
+														<li><a href="usermanage?action=edit&id=${user.id }&level=1">Thành viên</a></li>
+														<li><a href="usermanage?action=edit&id=${user.id }&level=2">Nhân viên</a></li>
+														<li><a href="usermanage?action=edit&id=${user.id }&level=3">Admin</a></li>
 													</ul>
 												</div>
 											</td>

@@ -27,7 +27,7 @@ import Model.User;
 @WebServlet("/bannermanage")
 public class AdminBannerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String SAVE_DIRECTORY = "img";
+	public static final String SAVE_DIRECTORY = "template/user/img";
 
 	/**
 	 * @see HttpServlet#HttpServlet()

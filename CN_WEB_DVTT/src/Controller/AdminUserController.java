@@ -51,14 +51,26 @@ public class AdminUserController extends HttpServlet {
 			action = request.getParameter("action");
 		}
 		if (action.equalsIgnoreCase("edit")) {
-			path = UPDATE;
+			path = LIST;
 			int id = Integer.parseInt(request.getParameter("id"));
-
+			int level = Integer.parseInt(request.getParameter("level"));
+			User u = new User();
+			u.setId(id);
+			u.setLevel(level);
+			String mes = "";
+			if (new UserDAO().updateLevel(u)) {
+				mes = "Thay đổi thành công!";
+			} else {
+				mes = "Thay đổi thất bại!";
+			}
+			request.setAttribute("mes", mes);
 			try {
-				request.setAttribute("user", new UserDAO().getUserbyId(id));
+				request.setAttribute("list", new UserDAO().getListUser());
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		} else {
 			path = LIST;
 			List<User> list = new ArrayList<User>();
@@ -90,10 +102,10 @@ public class AdminUserController extends HttpServlet {
 		
 		String level = request.getParameter("level");
 		int lev = 1;
-		if(level.equalsIgnoreCase("ThÃ nh viÃªn")) {
+		if(level.equalsIgnoreCase("Thành viên")) {
 			lev = 1;
 		}
-		else if(level.equalsIgnoreCase("NhÃ¢n viÃªn")) {
+		else if(level.equalsIgnoreCase("Nhân viên")) {
 			lev = 2;
 		}
 		else if(level.equalsIgnoreCase("Admin")) {
@@ -103,9 +115,9 @@ public class AdminUserController extends HttpServlet {
 		user.setLevel(lev);
 		String mes = "";
 		if (new UserDAO().updateLevel(user)) {
-			mes = "Thay đổi thông tin thành công!";
+			mes = "Thay đổi thành công!";
 		} else {
-			mes = "Thay đổi thông tin thất bại !";
+			mes = "Thay đổi thất bại!";
 		}
 		request.setAttribute("mes", mes);
 

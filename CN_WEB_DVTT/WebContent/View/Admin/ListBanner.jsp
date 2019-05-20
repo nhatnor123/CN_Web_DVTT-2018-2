@@ -87,7 +87,7 @@
 
 										<c:forEach items="${list}" var="ban">
 											<tr>
-												<td><img src="img/${ban.image}" style="height:200px;width:500px;"/></td>		
+												<td><img src="template/user/img/${ban.image}" style="height:200px;width:500px;"/></td>		
 												<td>	
 												
 													<div class="btn-group">
