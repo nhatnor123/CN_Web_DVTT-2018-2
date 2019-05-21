@@ -9,7 +9,7 @@ public class DBConnection {
 
 	private static final String USERNAME = "root";
     private static final String PASSWORD = "";
-    private static final String URL = "jdbc:mysql://localhost:3306/database";
+    private static final String URL = "jdbc:mysql://localhost:3306/database?characterEncoding=UTF-8";
     
     public static Connection getConnection() {
         Connection conn = null;

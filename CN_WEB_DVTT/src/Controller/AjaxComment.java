@@ -53,6 +53,9 @@ public class AjaxComment extends HttpServlet{
 		int star = Integer.parseInt(request.getParameter("countStar"));
 		String title = (String) request.getParameter("title");
 		String content = (String) request.getParameter("content");
+		
+		System.out.println(title+" : "+ content);
+		
 		Comment comment = new Comment(0, title, content, star, user_id, productId, null, null);
 		comment.setUserComment(u);
 		
@@ -295,7 +298,7 @@ public class AjaxComment extends HttpServlet{
 							"								<hr>");
 					
 					
-					System.out.println(cmt.getUserComment().getName());
+					//System.out.println(cmt.getUserComment().getName());
 					
 				}
 				
