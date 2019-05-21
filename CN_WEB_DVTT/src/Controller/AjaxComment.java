@@ -280,7 +280,7 @@ public class AjaxComment extends HttpServlet{
 					out.print("<div class=\"row\">\r\n" + 
 							"									<div class=\"col-md-3 text-center\">\r\n" + 
 							"										<p>\r\n" + 
-							"											<img src=\"img/"+cmt.getUserComment().getAvatar()+"\"\r\n" + 
+							"												<img src=\"././template/user/img/"+cmt.getUserComment().getAvatar()+"\"" + 
 							"												alt=\"ảnh đại diện\" style=\"width: 80px; height: 80px;\"\r\n" + 
 							"												class=\"rounded-circle img-fluid\">\r\n" + 
 							"										</p>\r\n" + 
