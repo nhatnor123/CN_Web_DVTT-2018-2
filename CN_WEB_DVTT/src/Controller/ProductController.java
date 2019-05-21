@@ -6,6 +6,7 @@ import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -71,12 +72,15 @@ public class ProductController extends HttpServlet {
 					
 					totalStar += c.getStar();
 					User u = userDAO.getUserbyId(c.getUser_id());
-					hashMapComment.put(u, c);
+					c.setUserComment(u);
 				}
 				if(listCommentOfProduct.size() > 0) {
 					numf.setRoundingMode(RoundingMode.UP);
 					avg = Double.parseDouble(numf.format(totalStar/listCommentOfProduct.size()));
 				}
+				
+				Collections.reverse(listCommentOfProduct);
+				
 				countStar = oneStar + twoStar + threeStar + fourStar + fiveStar;
 				request.setAttribute("oneStar", numEN.format(oneStar/countStar));
 				request.setAttribute("twoStar", numEN.format(twoStar/countStar));

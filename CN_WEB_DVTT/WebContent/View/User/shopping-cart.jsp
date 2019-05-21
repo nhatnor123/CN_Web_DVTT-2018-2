@@ -45,7 +45,7 @@
 												<td><a href="productController?product_id=${item.product.id}"">${item.product.name }</a></td>
 												<td>${item.product.size }</td>
 												<td><input type="number" value="${item.quantity }"
-													class="form-control quantityProduct" name="quantityProduct" id="quantity${item.product.id }" min  = "0"  onchange="change(this.id)" style="width:70px;"></td>
+													class="form-control quantityProduct" name="quantityProduct" id="quantity${item.product.id }" min  = "1"  onchange="change(this.id)" style="width:70px;"></td>
 												<td ><span id="price${item.product.id }">${item.product.price }</span> VND</td>
 												<td id="total${item.product.id }">${item.quantity*item.product.price } VND</td>
 												<td><a href="RemoveItemCart?product_id=${item.product.id }"><i class="fa fa-trash-o"></i></a></td>
