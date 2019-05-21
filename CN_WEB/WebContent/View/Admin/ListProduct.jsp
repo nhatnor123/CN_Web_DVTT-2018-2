@@ -134,6 +134,7 @@
 											</tr>
 										</c:forEach>
 									</tbody>
+<<<<<<< HEAD
 									<tfoot>
 										<tr>
 											<th>ID</th>
@@ -145,6 +146,8 @@
 											<th>Action</th>
 										</tr>
 									</tfoot>
+=======
+>>>>>>> 76f587503deffc90f5b930b902364da17138921d
 								</table>
 							</div>
 							<!-- /.box-body -->

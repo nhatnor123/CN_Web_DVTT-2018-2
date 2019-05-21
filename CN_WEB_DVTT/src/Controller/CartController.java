@@ -8,9 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import Model.Item;
+import Model.Order;
 
 
-@WebServlet("/User/Cart")
+@WebServlet("/Cart")
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -22,7 +26,7 @@ public class CartController extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("shopping-cart.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/shopping-cart.jsp");
 		dispatcher.forward(request, response);
 	}
 

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -67,11 +69,16 @@ public class ProductController extends HttpServlet {
 					}
 					totalStar += c.getStar();
 					User u = userDAO.getUserbyId(c.getUser_id());
-					hashMapComment.put(u, c);
+					
+					c.setUserComment(u); 
 				}
-				if(hashMapComment.size() > 0) {
-					avg = totalStar/hashMapComment.size();
+				if(listCommentOfProduct.size() > 0) {
+					avg = totalStar/listCommentOfProduct.size();
 				}
+				
+				Collections.reverse(listCommentOfProduct);
+				
+				System.out.println(listCommentOfProduct);
 				
 				request.setAttribute("oneStar", oneStar);
 				request.setAttribute("twoStar", twoStar);
@@ -79,7 +86,10 @@ public class ProductController extends HttpServlet {
 				request.setAttribute("fourStar", fourStar);
 				request.setAttribute("fiveStar", fiveStar);
 				request.setAttribute("avgStar", avg);
-				request.setAttribute("hashMapComment", hashMapComment);
+				request.setAttribute("hashMapComment", listCommentOfProduct);
+				
+				
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("productDetail.jsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {

@@ -17,7 +17,7 @@ import Model.Order;
 import Model.OrderDetail;
 import Model.User;
 
-@WebServlet("/User/Checkout")
+@WebServlet("/Checkout")
 public class CheckoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,12 +46,12 @@ public class CheckoutController extends HttpServlet {
 
 		if (order == null || user == null) {
 			if (user == null) {
-				url = "register.jsp";
+				url = "View/User/register.jsp";
 				session.setAttribute("login_err", "Bạn phải đăng nhập trước khi thanh toán");
 			} else if(order == null){
 				String checkout_err = "Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán";
 				session.setAttribute("checkout_err", checkout_err);
-				url = "shopping-cart.jsp";
+				url = "View/User/shopping-cart.jsp";
 			}
 
 		} else {
@@ -60,7 +60,6 @@ public class CheckoutController extends HttpServlet {
 			order.setUser(user);
 			order.setAddress(address);
 			order.setPhone(phone);
-			
 			int order_id = orderDAO.insertOrder(order);
 			for(Item item : order.getItems()) {
 				OrderDetail orderDetail = new OrderDetail();
@@ -73,7 +72,7 @@ public class CheckoutController extends HttpServlet {
 			}
 			session.removeAttribute("order");
 			session.setAttribute("messageCheckout", "Đơn hàng đang được xử lý!");
-			url = "index.jsp";
+			url = "View/User/index.jsp";
 
 		}
 

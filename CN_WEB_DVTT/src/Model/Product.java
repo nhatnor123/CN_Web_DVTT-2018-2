@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +12,15 @@ public class Product {
 	private String description;
 	private int category_id;
 	private String size;
-	private String color;
+	private int quantity;
+	private List<Size> sizes;
+	private Timestamp created_at;
+	private Timestamp updated_at;
 
 	public Product() {
 	}
 
-	public Product(int id, String name, int price, String avatar, String description, int category_id, String size,
-			String color) {
+	public Product(int id, String name, int price, String avatar, String description, int category_id, String size,int quantity) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -26,7 +29,7 @@ public class Product {
 		this.description = description;
 		this.category_id = category_id;
 		this.size = size;
-		this.color = color;
+		this.quantity = quantity;
 	}
 
 	public int getId() {
@@ -85,12 +88,37 @@ public class Product {
 		this.size = size;
 	}
 
-	public String getColor() {
-		return color;
+
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public Timestamp getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Timestamp create_at) {
+		this.created_at = create_at;
+	}
+
+	public Timestamp getUpdated_at() {
+		return updated_at;
+	}
+
+	public void setUpdate_at(Timestamp updated_at) {
+		this.updated_at = updated_at;
+	}
+
+	public List<Size> getSizes() {
+		return sizes;
+	}
+
+	public void setSizes(List<Size> sizes) {
+		this.sizes = sizes;
 	}
 
 }

@@ -2,7 +2,9 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.RoundingMode;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,9 +23,11 @@ import Model.Product;
 import Model.User;
 
 
-@WebServlet("/User/ProductController")
+@WebServlet("/productController")
 public class ProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private NumberFormat numEN = NumberFormat.getPercentInstance();
+	private NumberFormat numf = NumberFormat.getNumberInstance();
        
 
     public ProductController() {
@@ -37,7 +41,6 @@ public class ProductController extends HttpServlet {
 		CommentDAO commentDAO = new CommentDAO();
 		UserDAO userDAO = new UserDAO();
 		HashMap<User, Comment> hashMapComment = new HashMap<User, Comment>();
-		
 		ArrayList<Comment> listCommentOfProduct = new ArrayList<Comment>();
 		Product product = new Product();
 		int productId;
@@ -47,8 +50,8 @@ public class ProductController extends HttpServlet {
 				product = productDAO.getProductById(productId);
 				request.setAttribute("product", product);
 				listCommentOfProduct = commentDAO.getListCommentProduct(productId);
-				int oneStar=0, twoStar=0, threeStar=0, fourStar=0, fiveStar=0, totalStar=0;
-				float avg = 0;
+				double oneStar=0, twoStar=0, threeStar=0, fourStar=0, fiveStar=0, totalStar=0, countStar = 0;
+				double avg = 0;
 				for(Comment c : listCommentOfProduct) {
 					if(c.getStar()==1) {
 						oneStar +=1;
@@ -65,30 +68,32 @@ public class ProductController extends HttpServlet {
 					if(c.getStar()==5) {
 						fiveStar +=1;
 					}
+					
 					totalStar += c.getStar();
 					User u = userDAO.getUserbyId(c.getUser_id());
 					hashMapComment.put(u, c);
 				}
-				if(hashMapComment.size() > 0) {
-					avg = totalStar/hashMapComment.size();
+				if(listCommentOfProduct.size() > 0) {
+					numf.setRoundingMode(RoundingMode.UP);
+					avg = Double.parseDouble(numf.format(totalStar/listCommentOfProduct.size()));
 				}
-				
-				request.setAttribute("oneStar", oneStar);
-				request.setAttribute("twoStar", twoStar);
-				request.setAttribute("threeStar", threeStar);
-				request.setAttribute("fourStar", fourStar);
-				request.setAttribute("fiveStar", fiveStar);
+				countStar = oneStar + twoStar + threeStar + fourStar + fiveStar;
+				request.setAttribute("oneStar", numEN.format(oneStar/countStar));
+				request.setAttribute("twoStar", numEN.format(twoStar/countStar));
+				request.setAttribute("threeStar", numEN.format(threeStar/countStar));
+				request.setAttribute("fourStar", numEN.format(fourStar/countStar));
+				request.setAttribute("fiveStar", numEN.format(fiveStar/countStar));
 				request.setAttribute("avgStar", avg);
-				request.setAttribute("hashMapComment", hashMapComment);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("productDetail.jsp");
+				request.setAttribute("listCommentOfProduct", listCommentOfProduct);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/productDetail.jsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {
-				response.sendRedirect("/CN_WEB_DVTT/User/404.jsp");
+				response.sendRedirect(request.getContextPath()+"/View/User/404.jsp");
 				e.printStackTrace();
 			}
 			
 		}else {
-			response.sendRedirect("/CN_WEB_DVTT/User/404.jsp");
+			response.sendRedirect(request.getContextPath()+"/View/User/404.jsp");
 		}
 	}
 

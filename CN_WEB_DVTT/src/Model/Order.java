@@ -81,9 +81,15 @@ public class Order {
 	public long total() {
 		int count = 0;
 		for (Item item : items) {
-			count += item.getQuantity() * item.getPrice();
+			count += item.getQuantity() * item.getProduct().getPrice();
 		}
 		return count;
+	}
+	
+	public long totalPay() {
+		int totalPay = 0;
+		totalPay = (int) (total()) + 30000;
+		return totalPay;
 	}
 
 	public String getPhone() {

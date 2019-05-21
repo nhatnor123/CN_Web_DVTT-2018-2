@@ -6,12 +6,15 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.mysql.jdbc.PreparedStatement;
+//import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
 
 import DBConnection.DBConnection;
+import Model.Item;
 import Model.Order;
 
 public class OrderDao {
@@ -77,10 +80,74 @@ public class OrderDao {
 			order.setStatus(rs.getString("status"));
 			order.setCreate_at(rs.getTimestamp("created_at"));
 			order.setUpdate_at(rs.getTimestamp("updated_at"));
+			ArrayList<Item> items = new OrderDetailDao().getOrderDetail(rs.getInt("order_id"));
+			order.setItems(items);
+			order.setUser(new UserDAO().getUserbyId(rs.getInt("user_id")));
 		}
 		return order;
 
 	}
-	
-	
+	public List<Order> getListOrder(){
+		ArrayList<Order> list = new ArrayList<Order>();
+		Connection conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM orders";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			
+			while (rs.next()) {
+				Order order = new Order();
+				order.setId(rs.getInt("order_id"));
+				order.setAddress(rs.getString("address"));
+				order.setPhone(rs.getString("phone"));
+				order.setPay(rs.getInt("pay"));
+				order.setStatus(rs.getString("status"));
+				order.setCreate_at(rs.getTimestamp("created_at"));
+				order.setUpdate_at(rs.getTimestamp("updated_at"));
+				
+				list.add(order);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
+		
+		return list;
+		
+		
+	}
+	public boolean deleteOrderById(int orderId) {
+		new OrderDetailDao().deleteByOrderId(orderId);
+		String sql = "DELETE FROM orders WHERE order_id = ?";
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, orderId);
+			ps.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	public boolean changeStatus(Order order) {
+		String sql = "UPDATE orders SET status = ? WHERE order_id = ?";
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, order.getStatus());
+			ps.setInt(2, order.getId());
+			ps.executeUpdate();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return false;
+	}
 }

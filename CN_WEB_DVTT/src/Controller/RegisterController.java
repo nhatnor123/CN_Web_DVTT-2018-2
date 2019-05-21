@@ -15,7 +15,7 @@ import DAO.UserDAO;
 import Model.User;
 import Tools.MD5;
 
-@WebServlet("/User/Register")
+@WebServlet("/Register")
 public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,8 +25,12 @@ public class RegisterController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String register = request.getParameter("register");
+		if(register.equals("yes")){
+//			response.sendRedirect("View/User/register.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/register.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 
@@ -87,7 +91,7 @@ public class RegisterController extends HttpServlet {
 				if(userDAO.checkEmail(email)) {
 					email_err = "Email đã tồn tại, vui lòng nhập email khác!";
 					request.setAttribute("email_err", email_err);
-					url = "register.jsp";
+					url = "View/User/register.jsp";
 				}else {
 					User user = new User(0, name, email, MD5.encryption(password), 1,address, "", phone);
 					userDAO.insertUser(user);
@@ -95,10 +99,10 @@ public class RegisterController extends HttpServlet {
 					if(session.getAttribute("user") == null) {
 						session.setAttribute("user", user);
 					}
-					url = "index.jsp";
+					url = "View/User/index.jsp";
 				}
 			} catch (SQLException e) {
-				response.sendRedirect("/CN_WEB_DVTT/User/404.jsp");
+				response.sendRedirect("/CN_WEB_DVTT/View/User/404.jsp");
 				e.printStackTrace();
 			}
 		}

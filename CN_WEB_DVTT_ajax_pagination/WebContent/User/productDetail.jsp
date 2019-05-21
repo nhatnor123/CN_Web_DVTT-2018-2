@@ -150,7 +150,9 @@ label.star:before {
 
 						</div>
 						<h3>Nhận xét khách hàng</h3>
-						<div id="details" class="box">
+						<div id="details123" class="box">
+						
+						<div id="detailAjax">
 							<div class="row">
 								<div class="col-md-4 text-center">
 									<p>Đánh giá trung bình </p>
@@ -179,7 +181,7 @@ label.star:before {
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="stars">1.Đánh giá sản phẩm</label>
-												<div class="stars" id="stars" class="form-control">
+												<div class="stars" id="starszzz" class="form-control">
 													<input class="star star-5" id="star-5" type="radio"
 														name="star" value="5" /> <label class="star star-5"
 														for="star-5"></label> <input class="star star-4"
@@ -205,7 +207,7 @@ label.star:before {
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="content">3.Nội dung nhận xét sản phẩm</label>
-												<textarea rows="5" cols="" id="content" name="content"
+												<textarea rows="5" cols="" id="contentzz" name="content"
 													class="form-control"></textarea>
 
 											</div>
@@ -215,39 +217,64 @@ label.star:before {
 
 									<div class="row">
 										<div class="col-md-12 text-center">
-											<button type="submit" class="btn btn-primary"
-												name="productId" value="${product.id }">
+											<button type="button" class="btn btn-primary"
+												name="productId" value="${product.id }" id="postComment" onclick="myFunction()">
 												<i class="fa fa-save"></i> Gửi nhận xét
 											</button>
 										</div>
 									</div>
 								</form>
+								
+								<script>
+									function myFunction(){
+										var prdID = $("#postComment").val();
+										//var countStar = $("starszzz").val();
+										var countStar = 4;
+										var title = $("#title").val();
+										var content = $("#contentzz").val();
+										
+										console.log(prdID);
+										console.log(countStar);
+										console.log(title);
+										console.log(content);
+										
+										$.get("ajax/listComment?prdID="+prdID+"&countStar="+countStar+"&title="+title+"&content="+content, function(data){
+											$("#details123").html(data);
+										});
+									}
+									
+								
+								</script>
 							</div>
 							<hr>
-
+							
+							<div id="DivListComment">
 							<c:forEach items="${hashMapComment }" var="commentByUser">
 								<div class="row">
 									<div class="col-md-3 text-center">
 										<p>
-											<img src="img/${commentByUser.getKey().avatar }"
+											<img src="img/${commentByUser.getUserComment().avatar }"
 												alt="ảnh đại diện" style="width: 80px; height: 80px;"
 												class="rounded-circle img-fluid">
 										</p>
 										<p>
-											<strong>${commentByUser.getKey().name }</strong>
+											<strong>${commentByUser.getUserComment().name }</strong>
 										</p>
-										<p>${commentByUser.getValue().update_at }</p>
+										<p>${commentByUser.update_at }</p>
 									</div>
 									<div class="col-md-9">
-										<p>số sao : ${commentByUser.getValue().star }</p>
-										<p>Tiêu đề : ${commentByUser.getValue().title }</p>
-										<p>Nội dung nhận xét: ${commentByUser.getValue().content }</p>
+										<p>số sao : ${commentByUser.star }</p>
+										<p>Tiêu đề : ${commentByUser.title }</p>
+										<p>Nội dung nhận xét: ${commentByUser.content }</p>
 									</div>
 								</div>
 								<hr>
 							</c:forEach>
+							</div>
+						
+						
 						</div>
-
+						
 						<div class="row same-height-row">
 							<div class="col-md-12">
 								<h2>Bạn có thể thích những sản phẩm sau</h2>
