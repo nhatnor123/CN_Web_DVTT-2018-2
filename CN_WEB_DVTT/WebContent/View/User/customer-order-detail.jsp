@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Chi tiết đơn hàng</title>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 					<jsp:include page="customer-menu.jsp"></jsp:include>
 
 					<div id="customer-order" class="col-lg-8">
-						<div class="box">
+						<div class="box" style="min-height: 473px;">
 							<h1>Đơn hàng #${orderHistory.id }</h1>
 							<p class="lead">
 								đơn hàng #${orderHistory.id } đã đặt vào ngày <strong>${orderHistory.create_at }</strong>

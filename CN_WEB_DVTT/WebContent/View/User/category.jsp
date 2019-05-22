@@ -50,19 +50,19 @@
 							<div class="box info-bar">
 								<div class="row">
 									<div class="col-md-12 col-lg-4 products-showing">
-										Showing <strong> <%
+									hiển thị <strong> <%
 												out.print(request.getAttribute("showing"));
 											%>
-										</strong> of <strong> <%
+										</strong> trong tổng số <strong> <%
 												out.print(request.getAttribute("total"));
 											%>
-										</strong> products
+										</strong> sản phẩm
 									</div>
 									<div class="col-md-12 col-lg-7 products-number-sort">
 										<form
 											class="form-inline d-block d-lg-flex justify-content-between flex-column flex-md-row">
 											<div class="products-number">
-												<strong>Show</strong><a id="5"
+												<strong>Hiển thị</strong><a id="5"
 													href="CategoryController?category_id=<%=request.getParameter("category_id")%>&sex=<%=request.getParameter("sex")%>&page=1&maxInEachPage=5&sortMode=<%=sortMode%>"
 													class="btn btn-sm <%if (maxInEachPage == 5)
 				out.print("btn-primary");
@@ -77,10 +77,10 @@
 													class="btn btn-sm <%if (maxInEachPage == 1000)
 				out.print("btn-primary");
 			else
-				out.print("btn-outline-secondary");%> ">All</a><span>products</span>
+				out.print("btn-outline-secondary");%> ">All</a><span>sản phẩm</span>
 											</div>
 											<div class="products-sort-by mt-2 mt-lg-0">
-												<strong>Sort by</strong> <select name="sort-by"
+												<strong>Sắp xếp theo</strong> <select name="sort-by"
 													class="form-control" id="sortMode">
 													<option
 														value="CategoryController?category_id=<%=request.getParameter("category_id")%>&sex=<%=request.getParameter("sex")%>&page=1&maxInEachPage=<%=request.getParameter("maxInEachPage")%>&sortMode=1"
@@ -163,7 +163,7 @@
 												</p>
 												<p class="buttons">
 													<a href="productController?product_id=${product.id}"
-														class="btn btn-outline-secondary">View detail</a>
+														class="btn btn-outline-secondary">Xem chi tiết</a>
 												</p>
 											</div>
 											<!-- /.text-->

@@ -116,9 +116,12 @@
 									
 									<div class="form-group">
 										<label for="exampleInputFile">Ảnh</label> 
-										<c:if test = "${product.avatar != null}">
-											<img src = "template/user/img/${product.avatar }" style = "height:200px;width: 160px"/>
-										</c:if>
+										<div>
+											<c:if test = "${product.avatar != null}">
+												<img src = "template/user/img/${product.avatar }" style = "height:200px;width: 160px"/>
+											</c:if>
+										</div>
+										<br>
 										<input type="file" name="file" multiple ="multiple" />
 								
 								</div>

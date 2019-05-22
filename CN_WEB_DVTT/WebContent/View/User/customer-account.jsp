@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Thông tin tài khoản</title>
 </head>
 <body>
 
@@ -20,7 +20,7 @@
 					<jsp:include page="customer-menu.jsp"></jsp:include>
 
 					<div class="col-lg-8">
-						<div class="box">
+						<div class="box" style="min-height: 473px;">
 							<h1>My account</h1>
 							<p class="lead">Thay đổi chi tiết cá nhân hoặc mật khẩu của
 								bạn ở đây.</p>
@@ -64,10 +64,11 @@
 									</button>
 								</div>
 							</form>
-							<h3 class="mt-5">Thông tin cá nhân</h3>
+							<h3 class="mt-5">Thông tin cá nhân </h3>
+							<p>Email đăng nhập là : <b>${user.email }</b></p>
 							<p style="color: green">${messageInfo }</p>
 							<p style="color: red">${checkUpdateOtherInfo_err }</p>
-							<form action="CustomerAccount2" method="post" enctype="multipart/form-data">
+							<form role="form" action="CustomerAccount" method="POST" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
@@ -77,21 +78,14 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="avatar">Email</label> <input id="email"
-												type="text" name="avatar" value="${user.email }"
-												class="form-control" readonly="readonly">
-										</div>
-									</div>
-								</div>
-								<!-- /.row-->
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
 											<label for="phone">Số điện thoại</label> <input id="phone"
 												type="text" name="phone" value="${user.phone }"
 												class="form-control">
 										</div>
 									</div>
+								</div>
+								<!-- /.row-->
+								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="address">Địa chỉ</label> <input id="address"
@@ -101,7 +95,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="address">Avatar</label> <input type="file"
+											<label for="address">Avatar</label> <input type="file" name="avatar"
 												class="form-control" multiple ="multiple">
 										</div>
 									</div>
@@ -109,8 +103,7 @@
 								<!-- /.row-->
 								<div class="row">
 									<div class="col-md-12 text-center">
-										<button type="submit" class="btn btn-primary"
-											name="change_account" value="change_ortherInfo">
+										<button type="submit" class="btn btn-primary" name="change_account" value="change_ortherInfo">
 											<i class="fa fa-save"></i> Lưu thay đổi
 										</button>
 									</div>

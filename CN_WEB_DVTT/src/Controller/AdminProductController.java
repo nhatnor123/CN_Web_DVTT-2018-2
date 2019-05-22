@@ -120,6 +120,7 @@ public class AdminProductController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		String id = request.getParameter("id");
 		Product pr = new Product();
 		if (id == null || id.isEmpty()) {

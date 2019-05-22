@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Lịch sử đặt hàng</title>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 					<jsp:include page="customer-menu.jsp"></jsp:include>
 
 					<div id="customer-orders" class="col-lg-8">
-						<div class="box">
+						<div class="box" style="min-height: 473px;">
 							<h1>Đơn hàng của tôi</h1>
 							<div class="table-responsive">
 								<table class="table table-hover">

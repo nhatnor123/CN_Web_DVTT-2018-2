@@ -92,13 +92,14 @@ label.star:before {
 
 							</div>
 							<div class="col-md-6">
-								<div class="box">
+								<div class="box" style="height: 600px;">
 									<h1 class="text-center">${product.name }</h1>
 									<p class="goToDescription">
 										<a href="#details" class="scroll-to">Xem mô tả sản phẩm</a>
 									</p>
 									<p class="price" style="margin-top: 0px;">Giá :
 										${product.price }</p>
+										<br>
 									<form action="AddToCart">
 
 										<div class="radio-toolbar" style="margin-bottom: 20px;">
@@ -111,13 +112,13 @@ label.star:before {
 											<label for="radioL">L</label> <input type="radio"
 												id="radioXL" name="size" value="XL"> <label
 												for="radioXL">XL</label>
-										</div>
+										</div><br>
 
 										<div>
 											<span style="font-size: 18px;">Chọn số lượng </span> <input
 												type="number" name="quantity" min="1" max="5" value="1"
 												style="border-radius: 4px; margin-bottom: 20px;">
-										</div>
+										</div><br>
 
 										<p class="text-center buttons">
 											<button type="submit" name="product_id" value="${product.id}"
@@ -127,17 +128,7 @@ label.star:before {
 										</p>
 									</form>
 								</div>
-								<div data-slider-id="1" class="owl-thumbs">
-									<button class="owl-thumb-item">
-										<img src="././template/user/img/detailsquare.jpg" alt="" class="img-fluid">
-									</button>
-									<button class="owl-thumb-item">
-										<img src="././template/user/img/detailsquare2.jpg" alt="" class="img-fluid">
-									</button>
-									<button class="owl-thumb-item">
-										<img src="././template/user/img/detailsquare3.jpg" alt="" class="img-fluid">
-									</button>
-								</div>
+								
 							</div>
 						</div>
 						<h3>Chi tiết sản phẩm</h3>

@@ -58,7 +58,6 @@ label.star:before {
 	<div class="col-lg-12 order-1 order-lg-2">
 		<div id="productMain" class="row box">
 			<div class="col-md-6">
-
 				<form action="CommentController" method="post">
 					<div class="row">
 						<div class="col-md-12">
@@ -118,7 +117,7 @@ label.star:before {
 					<div class="row">
 						<div class="col-md-4">
 
-							<a href=""><img alt="" src="img/product2.jpg"
+							<a href=""><img alt="img" src="././template/user/img/${product.avatar }"
 								style="width: 100%; height: 100%"> </a>
 
 						</div>

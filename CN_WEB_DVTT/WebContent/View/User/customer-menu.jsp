@@ -14,12 +14,12 @@
 			</div>
 			<div class="card-body">
 				<ul class="nav nav-pills flex-column">
-					 <p class="text-center"><img src="././template/user/img/${user.avatar }" alt="${user.avatar }" style="width: 150px; height: 150px;" class="rounded-circle img-fluid"></p>
+					 <p class="text-center"><img src="././template/user/img/${user.avatar }" alt="image" style="width: 150px; height: 150px;" class="rounded-circle img-fluid"></p>
 					 <p><center><h4>${user.name }</h4></center> </p>
 					<a href="CustomerAccount?action=viewInfo" class="nav-link"><i
 						class="fa fa-user"></i> Thông tin tài khoản</a>
 					<a href="OrderHistory?user_id=${user.id }" class="nav-link" ><i 
-						class="fa fa-list"></i> Danh sách đơn hàng</a>
+						class="fa fa-list"></i>Lịch sử đặt hàng</a>
 					<a href="CommentProductBought" class="nav-link"><i
 						class="fa fa-comment"></i> Nhận xét sản phẩm đã mua</a>
 					<a href="Login?logout=yes" class="nav-link"><i
