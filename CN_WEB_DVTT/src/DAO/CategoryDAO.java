@@ -33,5 +33,12 @@ public class CategoryDAO {
 		return list;
 	}
 	
+	public static void main(String[] args) throws SQLException {
+		ArrayList<Category> listCategory = new CategoryDAO().getListCategory();
+		for(Category c : listCategory) {
+			System.out.println(c.getName());
+		}
+	}
+	
 }
 

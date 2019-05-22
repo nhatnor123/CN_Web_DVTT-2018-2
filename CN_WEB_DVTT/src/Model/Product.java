@@ -20,7 +20,7 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(int id, String name, int price, String avatar, String description, int category_id, String size,int quantity) {
+	public Product(int id, String name, int price, String avatar, String description, int category_id,String size, int quantity) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -80,14 +80,6 @@ public class Product {
 		this.category_id = category_id;
 	}
 
-	public String getSize() {
-		return size;
-	}
-
-	public void setSize(String size) {
-		this.size = size;
-	}
-
 
 	public int getQuantity() {
 		return quantity;
@@ -120,5 +112,19 @@ public class Product {
 	public void setSizes(List<Size> sizes) {
 		this.sizes = sizes;
 	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public void setUpdated_at(Timestamp updated_at) {
+		this.updated_at = updated_at;
+	}
+	
+	
 
 }

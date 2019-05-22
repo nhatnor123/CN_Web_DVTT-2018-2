@@ -82,7 +82,7 @@
 											<th>Số lượng</th>
 											<th>Giá</th>
 											<th>Ảnh</th>
-											<th>Ngày tạo</th>
+											<th>Cập nhật ngày</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -109,10 +109,10 @@
 															</c:forEach>
 														</ul>
 													</div></td>
-												<td><c:out value="${pr.price }" /></td>
+												<td><c:out value="${pr.price }" /> VNĐ</td>
 												<td><img alt="" src="template/user/img/${pr.avatar }"
 													style="height: 100px; width: 80px"></td>
-												<td><c:out value="${pr.created_at}" /></td>
+												<td><c:out value="${pr.updated_at}" /></td>
 												<td>
 													<div class="btn-group">
 														<button type="button" class="btn btn-default">Action</button>

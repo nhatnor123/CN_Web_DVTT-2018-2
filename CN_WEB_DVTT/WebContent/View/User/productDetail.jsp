@@ -146,7 +146,7 @@ label.star:before {
 
 						</div>
 						<h3>Nhận xét khách hàng</h3>
-						<div id="details" class="box">
+						<div id="details123" class="box">
 							<div class="row">
 								<div class="col-md-3 text-center">
 									<p>Đánh giá trung bình</p>
@@ -225,7 +225,7 @@ label.star:before {
 									<c:choose>
 										<c:when test="${user ne null }">
 											<button type="button" class="btn btn-info"
-												data-toggle="collapse" data-target="#comment">Việt
+												data-toggle="collapse" data-target="#comment">Viết
 												nhận xét</button>
 										</c:when>
 										<c:otherwise>
@@ -244,7 +244,7 @@ label.star:before {
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="stars">1.Đánh giá sản phẩm</label>
-												<div class="stars" id="stars" class="form-control">
+												<div class="stars" id="starszzz" class="form-control">
 													<input class="star star-5" id="star-5" type="radio"
 														name="star" value="5" /> <label class="star star-5"
 														for="star-5"></label> <input class="star star-4"
@@ -270,7 +270,7 @@ label.star:before {
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="content">3.Nội dung nhận xét sản phẩm</label>
-												<textarea rows="5" cols="" id="content" name="content"
+												<textarea rows="5" cols="" id="contentzz" name="content"
 													class="form-control"></textarea>
 
 											</div>
@@ -280,13 +280,34 @@ label.star:before {
 
 									<div class="row">
 										<div class="col-md-12 text-center">
-											<button type="submit" class="btn btn-primary"
-												name="productId" value="${product.id }">
+											<button type="button" class="btn btn-primary"
+												name="productId" value="${product.id }" id="postComment" onclick="myFunction()">
 												<i class="fa fa-save"></i> Gửi nhận xét
 											</button>
 										</div>
 									</div>
 								</form>
+								
+								
+								<script >
+								function myFunction(){
+									var prdID = $("#postComment").val();
+									var countStar = $("input[name='star']:checked").val();
+									var title = $("#title").val();
+									var content = $("#contentzz").val();
+									
+									console.log(prdID);
+									console.log(countStar);
+									console.log(title);
+									console.log(content);
+									
+									$.get("Ajax/listComment?prdID="+prdID+"&countStar="+countStar+"&title="+title+"&content="+content, function(data){
+										$("#details123").html(data);
+									});
+								}
+								</script>
+								
+								
 							</div>
 							<hr>
 

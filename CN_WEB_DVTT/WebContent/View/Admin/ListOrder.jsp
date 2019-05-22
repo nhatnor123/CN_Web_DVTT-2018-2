@@ -80,9 +80,9 @@
 										<c:forEach items="${list}" var="order">
 											<tr>
 												<td><c:out value="${order.id }" /></td>
-												<td><c:out value="${order.pay }" /></td>
+												<td><c:out value="${order.pay }" /> VNĐ</td>
 												<td><c:out value="${order.status }" /></td>
-												<td><c:out value="${order.create_at }" /></td>
+												<td><c:out value="${order.update_at }" /></td>
 												<td>
 													<div class="btn-group">
 														<button type="button" class="btn btn-default">Action</button>

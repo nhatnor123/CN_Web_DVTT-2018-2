@@ -95,30 +95,30 @@ public class CustomerAccountController extends HttpServlet {
 			}
 
 			// thay đổi thông tin khác
-			if (change_account.equals("change_ortherInfo")) {
-
-				String name = request.getParameter("name");
-				String avatar = request.getParameter("avatar");
-				String phone = request.getParameter("phone");
-				String address = request.getParameter("address");
-				System.out.println(u.getEmail());
-
-				u.setName(name);
-				u.setAvatar(avatar);
-				u.setPhone(phone);
-				u.setAddress(address);
-
-				System.out.println(u.getEmail());
-
-				String checkUpdateOtherInfo_err = "";
-				if (userDAO.updateOtherInfo(u) == true) {
-					session.setAttribute("user", u);
-					request.setAttribute("messageInfo", "thay đổi thông tin thành công!");
-				} else {
-					checkUpdateOtherInfo_err = "đã có lỗi";
-					request.setAttribute("checkUpdateOtherInfo_err", checkUpdateOtherInfo_err);
-				}
-			}
+//			if (change_account.equals("change_ortherInfo")) {
+//
+//				String name = request.getParameter("name");
+//				String avatar = request.getParameter("avatar");
+//				String phone = request.getParameter("phone");
+//				String address = request.getParameter("address");
+//				System.out.println(u.getEmail());
+//
+//				u.setName(name);
+//				u.setAvatar(avatar);
+//				u.setPhone(phone);
+//				u.setAddress(address);
+//
+//				System.out.println(u.getEmail());
+//
+//				String checkUpdateOtherInfo_err = "";
+//				if (userDAO.updateOtherInfo(u) == true) {
+//					session.setAttribute("user", u);
+//					request.setAttribute("messageInfo", "thay đổi thông tin thành công!");
+//				} else {
+//					checkUpdateOtherInfo_err = "đã có lỗi";
+//					request.setAttribute("checkUpdateOtherInfo_err", checkUpdateOtherInfo_err);
+//				}
+//			}
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/User/customer-account.jsp");

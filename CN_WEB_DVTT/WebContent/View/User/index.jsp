@@ -63,19 +63,19 @@
 									<div class="flip-container">
 										<div class="flipper">
 											<div class="front">
-												<a href="productController?product_id=${product.id }"><img
+												<a href="productController?product_id=${product.id }"><img style="height: 280px;"
 													src="././template/user/img/${product.avatar }" alt=""
 													class="img-fluid"></a>
 											</div>
 											<div class="back">
-												<a href="productController?product_id=${product.id }"><img
+												<a href="productController?product_id=${product.id }"><img style="height: 280px;"
 													src="././template/user/img/${product.avatar }" alt="image"
 													alt="" class="img-fluid"></a>
 											</div>
 										</div>
 									</div>
 									<a href="productController?product_id=${product.id }"
-										class="invisible"><img
+										class="invisible"><img style="height: 280px;"
 										src="././template/user/img/${product.avatar }" alt=""
 										class="img-fluid"></a>
 									<div class="text">
@@ -106,19 +106,19 @@
 									<div class="flip-container">
 										<div class="flipper">
 											<div class="front">
-												<a href="productController?product_id=${product.id }"><img
+												<a href="productController?product_id=${product.id }"><img style="height: 280px;"
 													src="././template/user/img/${product.avatar }" alt=""
 													class="img-fluid"></a>
 											</div>
 											<div class="back">
-												<a href="productController?product_id=${product.id }"><img
+												<a href="productController?product_id=${product.id }"><img style="height: 280px;"
 													src="././template/user/img/${product.avatar }" alt="image"
 													alt="" class="img-fluid"></a>
 											</div>
 										</div>
 									</div>
 									<a href="productController?product_id=${product.id }"
-										class="invisible"><img
+										class="invisible"><img style="height: 280px;"
 										src="././template/user/img/${product.avatar }" alt=""
 										class="img-fluid"></a>
 									<div class="text">
@@ -185,19 +185,19 @@
 									<div class="flip-container">
 										<div class="flipper">
 											<div class="front">
-												<a href="productController?product_id=${product.id }"><img
+												<a href="productController?product_id=${product.id }"><img style="height: 280px;"
 													src="././template/user/img/${product.avatar }" alt=""
 													class="img-fluid"></a>
 											</div>
 											<div class="back">
-												<a href="productController?product_id=${product.id }"><img
+												<a href="productController?product_id=${product.id }"><img style="height: 280px;"
 													src="././template/user/img/${product.avatar }" alt="image"
 													alt="" class="img-fluid"></a>
 											</div>
 										</div>
 									</div>
 									<a href="productController?product_id=${product.id }"
-										class="invisible"><img
+										class="invisible"><img style="height: 280px;"
 										src="././template/user/img/${product.avatar }" alt=""
 										class="img-fluid"></a>
 									<div class="text">

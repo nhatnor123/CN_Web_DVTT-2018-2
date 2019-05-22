@@ -2,7 +2,9 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.RoundingMode;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,14 +27,19 @@ import Model.User;
 
 @WebServlet("/Ajax/listComment")
 public class AjaxComment extends HttpServlet{
+	
+	private NumberFormat numEN = NumberFormat.getPercentInstance();
+	private NumberFormat numf = NumberFormat.getNumberInstance();
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
 		System.out.println("dang vao ajax comment");
 		
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		CommentDAO commentDAO = new CommentDAO();
@@ -46,6 +53,9 @@ public class AjaxComment extends HttpServlet{
 		int star = Integer.parseInt(request.getParameter("countStar"));
 		String title = (String) request.getParameter("title");
 		String content = (String) request.getParameter("content");
+		
+		System.out.println(title+" : "+ content);
+		
 		Comment comment = new Comment(0, title, content, star, user_id, productId, null, null);
 		comment.setUserComment(u);
 		
@@ -66,65 +76,136 @@ public class AjaxComment extends HttpServlet{
 				product = productDAO.getProductById(productId);
 				request.setAttribute("product", product);
 				listCommentOfProduct = commentDAO.getListCommentProduct(productId);
-				int oneStar = 0, twoStar = 0, threeStar = 0, fourStar = 0, fiveStar = 0, totalStar = 0;
-				float avg = 0;
-				for (Comment c : listCommentOfProduct) {
-					if (c.getStar() == 1) {
-						oneStar += 1;
+				
+				double oneStar=0, twoStar=0, threeStar=0, fourStar=0, fiveStar=0, totalStar=0, countStar = 0;
+				double avg = 0;
+				for(Comment c : listCommentOfProduct) {
+					if(c.getStar()==1) {
+						oneStar +=1;
 					}
-					if (c.getStar() == 2) {
-						twoStar += 1;
+					if(c.getStar()==2) {
+						twoStar +=1;
 					}
-					if (c.getStar() == 3) {
-						threeStar += 1;
+					if(c.getStar()==3) {
+						threeStar +=1;
 					}
-					if (c.getStar() == 4) {
-						fourStar += 1;
+					if(c.getStar()==4) {
+						fourStar +=1;
 					}
-					if (c.getStar() == 5) {
-						fiveStar += 1;
+					if(c.getStar()==5) {
+						fiveStar +=1;
 					}
 					totalStar += c.getStar();
 					
 					User user11 = userDAO.getUserbyId(c.getUser_id());
 					c.setUserComment(user11); 
-					System.out.println("for 1 :"+user11.getName());
+					//System.out.println("for 1 :"+user11.getName());
 				}
 				if (listCommentOfProduct.size() > 0) {
-					avg = totalStar / listCommentOfProduct.size();
+					numf.setRoundingMode(RoundingMode.UP);
+					avg = Double.parseDouble(numf.format(totalStar/listCommentOfProduct.size()));
 				}
-
+				countStar = oneStar + twoStar + threeStar + fourStar + fiveStar;
+				String String1Star = numEN.format(oneStar/countStar);
+				String String2Star = numEN.format(twoStar/countStar);
+				String String3Star = numEN.format(threeStar/countStar);
+				String String4Star = numEN.format(fourStar/countStar);
+				String String5Star = numEN.format(fiveStar/countStar);
+				
+				System.out.println(String4Star);
+				System.out.println(String1Star);
 					
-				out.print("<div id=\"detailAjax\">"+
-						"<div class=\"row\">\r\n" + 
-						"								<div class=\"col-md-4 text-center\">\r\n" + 
-						"									<p>Đánh giá trung bình </p>\r\n" + 
+				out.print("<div class=\"row\">\r\n" + 
+						"								<div class=\"col-md-3 text-center\">\r\n" + 
+						"									<p>Đánh giá trung bình</p>\r\n" + 
 						"									<h1>"+avg+"</h1>\r\n" + 
 						"									<p>("+listCommentOfProduct.size()+" nhận xét)</p>\r\n" + 
 						"								</div>\r\n" + 
-						"								<div class=\"col-md-4 \">\r\n" + 
-						"									<p>5 sao : "+fiveStar+"</p>\r\n" + 
-						"									<p>4 sao : "+fourStar+"</p>\r\n" + 
-						"									<p>3 sao : "+threeStar+"</p>\r\n" + 
-						"									<p>2 sao : "+twoStar+"</p>\r\n" + 
-						"									<p>1 sao : "+oneStar+"</p>\r\n" + 
+						"								<div class=\"col-md-6 \">\r\n" + 
+						"									<div class=\"row\">\r\n" + 
+						"										<div class=\"col-md-2\">\r\n" + 
+						"											<span class=\"5star\">5 sao</span>\r\n" + 
+						"										</div>\r\n" + 
+						"										<div class=\"col-md-10\">\r\n" + 
+						"											<div class=\"progress\">\r\n" + 
+						"												<div class=\"progress-bar progress-bar-success\"\r\n" + 
+						"													role=\"progressbar\" aria-valuenow=\"40\" aria-valuemin=\"0\"\r\n" + 
+						"													aria-valuemax=\"100\" style=\"width: "+String5Star+"\">"+String5Star+"</div>\r\n" + 
+						"											</div>\r\n" + 
+						"										</div>\r\n" + 
+						"									</div>\r\n" + 
+						"\r\n" + 
+						"\r\n" + 
+						"									<div class=\"row\">\r\n" + 
+						"										<div class=\"col-md-2\">\r\n" + 
+						"											<span class=\"5star\">4 sao</span>\r\n" + 
+						"										</div>\r\n" + 
+						"										<div class=\"col-md-10\">\r\n" + 
+						"											<div class=\"progress\">\r\n" + 
+						"												<div class=\"progress-bar progress-bar-success\"\r\n" + 
+						"													role=\"progressbar\" aria-valuenow=\"40\" aria-valuemin=\"0\"\r\n" + 
+						"													aria-valuemax=\"100\" style=\"width: "+String4Star+"\">"+String4Star+"</div>\r\n" + 
+						"											</div>\r\n" + 
+						"										</div>\r\n" + 
+						"									</div>\r\n" + 
+						"\r\n" + 
+						"									<div class=\"row\">\r\n" + 
+						"										<div class=\"col-md-2\">\r\n" + 
+						"											<span class=\"5star\">3 sao</span>\r\n" + 
+						"										</div>\r\n" + 
+						"										<div class=\"col-md-10\">\r\n" + 
+						"											<div class=\"progress\">\r\n" + 
+						"												<div class=\"progress-bar progress-bar-success\"\r\n" + 
+						"													role=\"progressbar\" aria-valuenow=\"40\" aria-valuemin=\"0\"\r\n" + 
+						"													aria-valuemax=\"100\" style=\"width: "+String3Star+"\">"+String3Star+"</div>\r\n" + 
+						"											</div>\r\n" + 
+						"										</div>\r\n" + 
+						"									</div>\r\n" + 
+						"\r\n" + 
+						"									<div class=\"row\">\r\n" + 
+						"										<div class=\"col-md-2\">\r\n" + 
+						"											<span class=\"5star\">2 sao</span>\r\n" + 
+						"										</div>\r\n" + 
+						"										<div class=\"col-md-10\">\r\n" + 
+						"											<div class=\"progress\">\r\n" + 
+						"												<div class=\"progress-bar progress-bar-success\"\r\n" + 
+						"													role=\"progressbar\" aria-valuenow=\"40\" aria-valuemin=\"0\"\r\n" + 
+						"													aria-valuemax=\"100\" style=\"width: "+String2Star+"\">"+String2Star+"</div>\r\n" + 
+						"											</div>\r\n" + 
+						"										</div>\r\n" + 
+						"									</div>\r\n" + 
+						"\r\n" + 
+						"									<div class=\"row\">\r\n" + 
+						"										<div class=\"col-md-2\">\r\n" + 
+						"											<span class=\"5star\">1 sao</span>\r\n" + 
+						"										</div>\r\n" + 
+						"										<div class=\"col-md-10\">\r\n" + 
+						"											<div class=\"progress\">\r\n" + 
+						"												<div class=\"progress-bar progress-bar-success\"\r\n" + 
+						"													role=\"progressbar\" aria-valuenow=\"40\" aria-valuemin=\"0\"\r\n" + 
+						"													aria-valuemax=\"100\" style=\"width: "+String1Star+"\">"+String1Star+"</div>\r\n" + 
+						"											</div>\r\n" + 
+						"										</div>\r\n" + 
+						"									</div>\r\n" + 
 						"								</div>\r\n" + 
-						"								<div class=\"col-md-4 text-center\">\r\n" + 
+						"								<div class=\"col-md-3 text-center\">\r\n" + 
 						"									<p>Viết nhận xét của bạn</p>\r\n" + 
-						"									<button type=\"button\" class=\"btn btn-info\"\r\n" + 
-						"										data-toggle=\"collapse\" data-target=\"#comment\">Việt\r\n" + 
-						"										nhận xét</button>\r\n" + 
+
+						"											<button type=\"button\" class=\"btn btn-info\"\r\n" + 
+						"												data-toggle=\"collapse\" data-target=\"#comment\">Viết\r\n" + 
+						"												nhận xét</button>\r\n" + 
+
+						"\r\n" + 
 						"								</div>\r\n" + 
 						"							</div>\r\n" + 
+						"							<p id=\"demo\" style=\"color: red;\"></p>\r\n" + 
 						"							<div id=\"comment\" class=\"collapse\">\r\n" + 
-						"								<form\r\n" + 
-						"									action=\"CommentWithoutBuy\"\r\n" + 
-						"									method=\"post\">\r\n" + 
+						"								<form action=\"CommentWithoutBuy\" method=\"post\">\r\n" + 
 						"									<div class=\"row\">\r\n" + 
 						"										<div class=\"col-md-12\">\r\n" + 
 						"											<div class=\"form-group\">\r\n" + 
 						"												<label for=\"stars\">1.Đánh giá sản phẩm</label>\r\n" + 
-						"												<div class=\"stars\" id=\"starszzz\" class=\"form-control\">\r\n" + 
+						"												<div class=\"stars\" id=\"stars\" class=\"form-control\">\r\n" + 
 						"													<input class=\"star star-5\" id=\"star-5\" type=\"radio\"\r\n" + 
 						"														name=\"star\" value=\"5\" /> <label class=\"star star-5\"\r\n" + 
 						"														for=\"star-5\"></label> <input class=\"star star-4\"\r\n" + 
@@ -168,29 +249,29 @@ public class AjaxComment extends HttpServlet{
 						"									</div>\r\n" + 
 						"								</form>\r\n" + 
 						"								\r\n" + 
-						"								<script>\r\n" + 
-						"									function myFunction(){\r\n" + 
-						"										var prdID = $(\"#postComment\").val();\r\n" + 
-						"										//var countStar = $(\"starszzz\").val();\r\n" + 
-						"										var countStar = 4;\r\n" + 
-						"										var title = $(\"#title\").val();\r\n" + 
-						"										var content = $(\"#contentzz\").val();\r\n" + 
-						"										\r\n" + 
-						"										console.log(prdID);\r\n" + 
-						"										console.log(countStar);\r\n" + 
-						"										console.log(title);\r\n" + 
-						"										console.log(content);\r\n" + 
-						"										\r\n" + 
-						"										$.get(\"Ajax/listComment?prdID=\"+prdID+\"&countStar=\"+countStar+\"&title=\"+title+\"&content=\"+content, function(data){\r\n" + 
-						"											$(\"#details123\").html(data);\r\n" + 
-						"										});\r\n" + 
-						"									}\r\n" + 
-						"									\r\n" + 
 						"								\r\n" + 
-						"								</script>\r\n" + 
+						"<script >\r\n" + 
+						"								function myFunction(){\r\n" + 
+						"									var prdID = $(\"#postComment\").val();\r\n" + 
+						"									var countStar = $(\"input[name='star']:checked\").val();\r\n" + 
+						"									var title = $(\"#title\").val();\r\n" + 
+						"									var content = $(\"#contentzz\").val();\r\n" + 
+						"									\r\n" + 
+						"									console.log(prdID);\r\n" + 
+						"									console.log(countStar);\r\n" + 
+						"									console.log(title);\r\n" + 
+						"									console.log(content);\r\n" + 
+						"									\r\n" + 
+						"									$.get(\"Ajax/listComment?prdID=\"+prdID+\"&countStar=\"+countStar+\"&title=\"+title+\"&content=\"+content, function(data){\r\n" + 
+						"										$(\"#details123\").html(data);\r\n" + 
+						"									});\r\n" + 
+						"								}\r\n" + 
+						"								</script>"+
+						"								\r\n" + 
+						"								\r\n" + 
 						"							</div>\r\n" + 
 						"							<hr>\r\n" + 
-						"							\r\n" + 
+						"\r\n" + 
 						"							<div id=\"DivListComment\">");
 				
 				Collections.reverse(listCommentOfProduct);
@@ -199,7 +280,7 @@ public class AjaxComment extends HttpServlet{
 					out.print("<div class=\"row\">\r\n" + 
 							"									<div class=\"col-md-3 text-center\">\r\n" + 
 							"										<p>\r\n" + 
-							"											<img src=\"img/"+cmt.getUserComment().getAvatar()+"\"\r\n" + 
+							"												<img src=\"././template/user/img/"+cmt.getUserComment().getAvatar()+"\"" + 
 							"												alt=\"ảnh đại diện\" style=\"width: 80px; height: 80px;\"\r\n" + 
 							"												class=\"rounded-circle img-fluid\">\r\n" + 
 							"										</p>\r\n" + 
@@ -217,109 +298,12 @@ public class AjaxComment extends HttpServlet{
 							"								<hr>");
 					
 					
-					System.out.println(cmt.getUserComment().getName());
+					//System.out.println(cmt.getUserComment().getName());
 					
 				}
 				
 				
 				out.print("</div>");
-				
-				out.print("<div class=\"row same-height-row\">\r\n" + 
-						"							<div class=\"col-md-12\">\r\n" + 
-						"								<h2>Bạn có thể thích những sản phẩm sau</h2>\r\n" + 
-						"							</div>\r\n" + 
-						"							<div class=\"col-md-3 col-sm-6\">\r\n" + 
-						"								<div class=\"product same-height\">\r\n" + 
-						"									<div class=\"flip-container\">\r\n" + 
-						"										<div class=\"flipper\">\r\n" + 
-						"											<div class=\"front\">\r\n" + 
-						"												<a href=\"detail.html\"><img src=\"img/product2.jpg\" alt=\"\"\r\n" + 
-						"													class=\"img-fluid\"></a>\r\n" + 
-						"											</div>\r\n" + 
-						"											<div class=\"back\">\r\n" + 
-						"												<a href=\"detail.html\"><img src=\"img/product2_2.jpg\"\r\n" + 
-						"													alt=\"\" class=\"img-fluid\"></a>\r\n" + 
-						"											</div>\r\n" + 
-						"										</div>\r\n" + 
-						"									</div>\r\n" + 
-						"									<a href=\"detail.html\" class=\"invisible\"><img\r\n" + 
-						"										src=\"img/product2.jpg\" alt=\"\" class=\"img-fluid\"></a>\r\n" + 
-						"									<div class=\"text\">\r\n" + 
-						"										<h3>Fur coat</h3>\r\n" + 
-						"										<p class=\"price\">$143</p>\r\n" + 
-						"									</div>\r\n" + 
-						"								</div>\r\n" + 
-						"								<!-- /.product-->\r\n" + 
-						"							</div>\r\n" + 
-						"							<div class=\"col-md-3 col-sm-6\">\r\n" + 
-						"								<div class=\"product same-height\">\r\n" + 
-						"									<div class=\"flip-container\">\r\n" + 
-						"										<div class=\"flipper\">\r\n" + 
-						"											<div class=\"front\">\r\n" + 
-						"												<a href=\"detail.html\"><img src=\"img/product2.jpg\" alt=\"\"\r\n" + 
-						"													class=\"img-fluid\"></a>\r\n" + 
-						"											</div>\r\n" + 
-						"											<div class=\"back\">\r\n" + 
-						"												<a href=\"detail.html\"><img src=\"img/product2_2.jpg\"\r\n" + 
-						"													alt=\"\" class=\"img-fluid\"></a>\r\n" + 
-						"											</div>\r\n" + 
-						"										</div>\r\n" + 
-						"									</div>\r\n" + 
-						"									<a href=\"detail.html\" class=\"invisible\"><img\r\n" + 
-						"										src=\"img/product2.jpg\" alt=\"\" class=\"img-fluid\"></a>\r\n" + 
-						"									<div class=\"text\">\r\n" + 
-						"										<h3>Fur coat</h3>\r\n" + 
-						"										<p class=\"price\">$143</p>\r\n" + 
-						"									</div>\r\n" + 
-						"								</div>\r\n" + 
-						"								<!-- /.product-->\r\n" + 
-						"							</div>\r\n" + 
-						"							<div class=\"col-md-3 col-sm-6\">\r\n" + 
-						"								<div class=\"product same-height\">\r\n" + 
-						"									<div class=\"flip-container\">\r\n" + 
-						"										<div class=\"flipper\">\r\n" + 
-						"											<div class=\"front\">\r\n" + 
-						"												<a href=\"detail.html\"><img src=\"img/product1.jpg\" alt=\"\"\r\n" + 
-						"													class=\"img-fluid\"></a>\r\n" + 
-						"											</div>\r\n" + 
-						"											<div class=\"back\">\r\n" + 
-						"												<a href=\"detail.html\"><img src=\"img/product1_2.jpg\"\r\n" + 
-						"													alt=\"\" class=\"img-fluid\"></a>\r\n" + 
-						"											</div>\r\n" + 
-						"										</div>\r\n" + 
-						"									</div>\r\n" + 
-						"									<a href=\"detail.html\" class=\"invisible\"><img\r\n" + 
-						"										src=\"img/product1.jpg\" alt=\"\" class=\"img-fluid\"></a>\r\n" + 
-						"									<div class=\"text\">\r\n" + 
-						"										<h3>Fur coat</h3>\r\n" + 
-						"										<p class=\"price\">$143</p>\r\n" + 
-						"									</div>\r\n" + 
-						"								</div>\r\n" + 
-						"								<!-- /.product-->\r\n" + 
-						"							</div>\r\n" + 
-						"							<div class=\"col-md-3 col-sm-6\">\r\n" + 
-						"								<div class=\"product same-height\">\r\n" + 
-						"									<div class=\"flip-container\">\r\n" + 
-						"										<div class=\"flipper\">\r\n" + 
-						"											<div class=\"front\">\r\n" + 
-						"												<a href=\"detail.html\"><img src=\"img/product3.jpg\" alt=\"\"\r\n" + 
-						"													class=\"img-fluid\"></a>\r\n" + 
-						"											</div>\r\n" + 
-						"											<div class=\"back\">\r\n" + 
-						"												<a href=\"detail.html\"><img src=\"img/product3_2.jpg\"\r\n" + 
-						"													alt=\"\" class=\"img-fluid\"></a>\r\n" + 
-						"											</div>\r\n" + 
-						"										</div>\r\n" + 
-						"									</div>\r\n" + 
-						"									<a href=\"detail.html\" class=\"invisible\"><img\r\n" + 
-						"										src=\"img/product3.jpg\" alt=\"\" class=\"img-fluid\"></a>\r\n" + 
-						"									<div class=\"text\">\r\n" + 
-						"										<h3>Fur coat</h3>\r\n" + 
-						"										<p class=\"price\">$143</p>\r\n" + 
-						"									</div>\r\n" + 
-						"								</div>\r\n" + 
-						"								<!-- /.product-->\r\n" + 
-						"							</div>");
 				
 				
 				

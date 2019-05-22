@@ -85,35 +85,24 @@
 							<form role="form" action="sizemanage" method="POST" >
 								<div class="box-body">
 									<div class="form-group">
-										<label for="exampleInputEmail1">ID</label> <input type="text"
-											class="form-control" id="" name="id" readonly="readonly" value = "${size.id}">
+										<label for="exampleInputEmail1">ID Product</label> <input type="text"
+											class="form-control" id="" name="prID" readonly="readonly" value="${product.id}">
 									</div>
 									<div class="form-group">
-										<label for="exampleInputEmail1">ID Product</label> <input type="text"
-											class="form-control" id="" name="prID" readonly="readonly" value="${size.productId}">
+										<label>Size</label> 
+										
+										<select class="form-control" name="sizeName">
+											<option value="S">S</option>
+											<option value="M">M</option>
+											<option value="L">L</option>
+											<option value="XL">XL</option>
+										</select>
+										
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1">Số lượng</label> <input type="text"
-											class="form-control" id="" name="quantity" value ="${size.quantity }">
+											class="form-control" id="" name="quantity" value ="">
 									</div>
-									<div class="form-group">
-										<label>Size</label> <select class="form-control" name="size">
-											<option>${size.size }</option>
-											<option>28</option>
-											<option>29</option>
-											<option>30</option>
-											<option>31</option>
-											<option>32</option>
-											<option>S</option>
-											<option>M</option>
-											<option>L</option>
-											<option>XL</option>
-											<option>2XL</option>
-											<option>3XL</option>
-											<option>Free</option>
-										</select>
-									</div>
-
 							
 								<!-- /.box-body -->
 

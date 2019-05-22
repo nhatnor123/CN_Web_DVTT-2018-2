@@ -45,13 +45,12 @@
 												<td><a href="productController?product_id=${item.product.id}"">${item.product.name }</a></td>
 												<td>${item.product.size }</td>
 												<td><input type="number" value="${item.quantity }"
-													class="form-control quantityProduct" name="quantityProduct" id="quantity${item.product.id }" min  = "0"  onchange="change(this.id)" style="width:70px;"></td>
+													class="form-control quantityProduct" name="quantityProduct" id="quantity${item.product.id }" min  = "1"  onchange="change(this.id)" style="width:70px;"></td>
 												<td ><span id="price${item.product.id }">${item.product.price }</span> VND</td>
 												<td id="total${item.product.id }">${item.quantity*item.product.price } VND</td>
 												<td><a href="RemoveItemCart?product_id=${item.product.id }"><i class="fa fa-trash-o"></i></a></td>
 											</tr>
 											
-
 										</c:forEach>
 										<script>
 												function change(a){
@@ -98,7 +97,7 @@
 								<div
 									class="box-footer d-flex justify-content-between flex-column flex-lg-row">
 									<div class="left">
-										<a href="index.jsp" class="btn btn-outline-secondary"><i
+										<a href="index" class="btn btn-outline-secondary"><i
 											class="fa fa-chevron-left"></i> Tiếp tục mua sắm</a>
 									</div>
 									<div class="right">
@@ -144,14 +143,12 @@
 								</div>
 								<!-- /.product-->
 							</div>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

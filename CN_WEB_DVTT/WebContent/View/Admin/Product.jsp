@@ -143,23 +143,6 @@
 
 	</div>
 
-	<script>
-		function show() {
-			var list = document.getElementsByName('colors[]');
-			var list1 = document.getElementsByName('sizes[]');
-			var demo = document.getElementById('demo');
-			var str = " ";
-			for (var i = 0; i < list.length; i++) {
-				for (var j = 0; j < list1.length; j++) {
-
-					str += ("<tr><td>" + list[i].value + "</td><td>"
-							+ list1[j].value + "</td><td><input name="+"quantity[]></td></tr>");
-				}
-			}
-
-			demo.innerHTML = str;
-		};
-	</script>
 	<script src="././template/admin/plugins/jQuery/jQuery-2.1.3.min.js"></script>
 	<!-- Bootstrap 3.3.2 JS -->
 	<script src="././template/admin/bootstrap/js/bootstrap.min.js"

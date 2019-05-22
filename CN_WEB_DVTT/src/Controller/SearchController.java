@@ -40,7 +40,7 @@ public class SearchController extends HttpServlet {
 			for (Product product : listPrd) {
 				System.out.println(product.getName());
 				out.print(" <a style='text-align:left;'  href='productController?product_id="+product.getId()+"' class=\"list-group-item list-group-item-action  list-group-item-light\">"+product.getName()+" - "+product.getPrice()+" VND</a>");
-				
+				System.out.println(product.getName());
 				count++;
 				if (count == 6) {
 					break;

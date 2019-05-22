@@ -79,7 +79,8 @@
 										<tr>
 											
 											<th>Banner</th>
-											
+											<th>Tên</th>
+											<th>Đặc tả</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -87,7 +88,9 @@
 
 										<c:forEach items="${list}" var="ban">
 											<tr>
-												<td><img src="template/user/img/${ban.image}" style="height:200px;width:500px;"/></td>		
+												<td style="width: 500px;"><img src="template/user/img/${ban.image}" style="height:200px;width:500px;"/></td>
+												<td>${ban.title}</td>	
+												<td>${ban.descripton}</td>		
 												<td>	
 												
 													<div class="btn-group">
@@ -107,13 +110,6 @@
 											</tr>
 										</c:forEach>
 									</tbody>
-									<tfoot>
-										<tr>
-											
-											<th>Banner</th>
-											<th>Action</th>
-										</tr>
-									</tfoot>
 								</table>
 							</div>
 							<!-- /.box-body -->

@@ -58,7 +58,7 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Hóa đơn <small>${bill.id }</small>
+					Mã đơn hàng : ${bill.id }
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -101,7 +101,7 @@
 					</div>
 					<!-- /.col -->
 					<div class="col-sm-4 invoice-col">
-						<b>Tổng tiền: ${bill.pay }</b>
+						<b>Tổng tiền: ${bill.pay } VNĐ</b>
 
 					</div>
 					<!-- /.col -->
@@ -127,7 +127,7 @@
 										<td>${item.quantity }</td>
 										<td>${item.product.name }</td>
 										<td>${item.product.id }</td>
-										<td>${item.price }</td>
+										<td>${item.price } VNĐ</td>
 									</tr>
 								</c:forEach>
 							</tbody>

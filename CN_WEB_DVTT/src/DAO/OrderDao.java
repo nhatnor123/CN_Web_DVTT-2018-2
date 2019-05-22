@@ -150,4 +150,9 @@ public class OrderDao {
 		}	
 		return false;
 	}
+	
+	public static void main(String[] args) throws SQLException {
+		Order o = new OrderDao().getOrderByOrderIdID(1);
+		System.out.println(o.getId());
+	}
 }

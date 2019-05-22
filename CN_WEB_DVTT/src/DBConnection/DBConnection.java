@@ -8,7 +8,7 @@ import com.mysql.jdbc.Connection;
 public class DBConnection {
 
 	private static final String USERNAME = "root";
-    private static final String PASSWORD = "112233123";
+    private static final String PASSWORD = "11041998bkhn";
     private static final String URL = "jdbc:mysql://localhost:3306/database";
     
     public static Connection getConnection() {

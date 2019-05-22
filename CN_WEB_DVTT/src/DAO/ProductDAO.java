@@ -225,36 +225,6 @@ public class ProductDAO {
 	
 	
 	
-	
-	
-	public int getQuantityBySize(int size_id) throws SQLException {
-		int quantity = 0;
-		Connection conn = DBConnection.getConnection();
-		String sql = "SELECT quantity FROM `database`.productsize where size_id = '"+size_id+"';";
-		PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
-		ResultSet rs = ps.executeQuery();
-		 while (rs.next()) {
-			quantity =  rs.getInt("quantity");
-		 }
-		return quantity;
-		
-	}
-	
-	public boolean importQuantityBySize(int size_id, int quantity) {
-		Connection conn = DBConnection.getConnection();
-		String sql = "UPDATE `database`.`productsize` SET `quantity` = '"+quantity+"' WHERE (`size_id` = '"+size_id+"');";
-		try {
-			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
-			ps.executeUpdate();
-			conn.close();
-			return true;
-		} catch (SQLException e) {
-			System.out.println("Có lỗi thêm số lượng sản phẩm");
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
 	public ArrayList<Product> getListProductByCategoryAndPage(int category_id, int page, int maxInEachPage,
 			int modeSort) throws SQLException {
 		Connection connection = DBConnection.getConnection();

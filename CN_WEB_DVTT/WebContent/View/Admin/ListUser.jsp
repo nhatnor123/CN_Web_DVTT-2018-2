@@ -116,17 +116,6 @@
 									</c:forEach>
 
 									</tbody>
-									<tfoot>
-										<tr>
-											<th>ID</th>
-											<th>Tên User</th>
-											<th>Email</th>
-											<th>Địa chỉ</th>
-											<th>Điện thoại</th>
-											<th>Quyền</th>
-											<th>Action</th>
-										</tr>
-									</tfoot>
 								</table>
 							</div>
 							<!-- /.box-body -->

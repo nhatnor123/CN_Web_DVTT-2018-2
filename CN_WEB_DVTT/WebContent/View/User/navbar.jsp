@@ -1,4 +1,3 @@
-
 <%@page import="Model.Category"%>
 <%@page import="DAO.CategoryDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

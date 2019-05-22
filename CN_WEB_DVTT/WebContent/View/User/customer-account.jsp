@@ -67,7 +67,7 @@
 							<h3 class="mt-5">Thông tin cá nhân</h3>
 							<p style="color: green">${messageInfo }</p>
 							<p style="color: red">${checkUpdateOtherInfo_err }</p>
-							<form action="CustomerAccount" method="post" >
+							<form action="CustomerAccount2" method="post" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">

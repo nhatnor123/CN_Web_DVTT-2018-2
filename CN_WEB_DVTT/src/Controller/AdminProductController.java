@@ -81,10 +81,18 @@ public class AdminProductController extends HttpServlet {
 				path = UPDATE_INSERT;
 			} else if (action.equalsIgnoreCase("addsize")) {
 				path = SIZE;
+				
+				Product product = new Product();
 				int prID = Integer.parseInt(request.getParameter("prId"));
-				Size size = new Size();
-				size.setProductId(prID);
-				request.setAttribute("size", size);
+//				int sizeId = Integer.parseInt(request.getParameter("sizeId"));
+				try {
+					
+					product = new ProductDAO().getProductById(prID);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				System.out.println(product.getName());
+				request.setAttribute("product", product);
 			} else if (action.equalsIgnoreCase("editsize")) {
 				path = SIZE;
 				int sizeId = Integer.parseInt(request.getParameter("sizeId"));

@@ -112,7 +112,7 @@
 												<td><c:out value="${pr.price }" /></td>
 												<td><img alt="" src="img/${pr.avatar }"
 													style="height: 100px; width: 80px"></td>
-												<td><c:out value="${pr.created_at}" /></td>
+												<td><c:out value="${pr.updated_at}" /></td>
 												<td>
 													<div class="btn-group">
 														<button type="button" class="btn btn-default">Action</button>
@@ -127,27 +127,13 @@
 																href="productmanage?action=addsize&prId=<c:out value="${pr.id}"/>">Thêm
 																	size</a></li>
 															<li><a
-																href="productmanage?action=edit&prId=<c:out value="${pr.id}"/>">Edit</a></li>
+																href="productmanage?action=editsize&prId=<c:out value="${pr.id}"/>">Edit</a></li>
 														</ul>
 													</div>
 												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
-<<<<<<< HEAD
-									<tfoot>
-										<tr>
-											<th>ID</th>
-											<th>Tên sản phẩm</th>
-											<th>Size</th>
-											<th>Giá</th>
-											<th>Ảnh</th>
-											<th>Ngày tạo</th>
-											<th>Action</th>
-										</tr>
-									</tfoot>
-=======
->>>>>>> 76f587503deffc90f5b930b902364da17138921d
 								</table>
 							</div>
 							<!-- /.box-body -->
